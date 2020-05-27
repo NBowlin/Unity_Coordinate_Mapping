@@ -133,9 +133,9 @@ GameObject:
   - component: {fileID: 784274119}
   - component: {fileID: 784274118}
   - component: {fileID: 784274117}
-  - component: {fileID: 784274116}
   - component: {fileID: 784274120}
   - component: {fileID: 784274121}
+  - component: {fileID: 784274116}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Earth

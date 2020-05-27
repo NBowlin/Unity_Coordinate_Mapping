@@ -21,8 +21,6 @@ public class DrawGraticule : MonoBehaviour
         lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
         DrawLine();
-        //DrawLongitudeLines();
-        //DrawLatitudeLines();
     }
 
     void DrawLine() {
@@ -44,41 +42,12 @@ public class DrawGraticule : MonoBehaviour
                 if (hit.collider.gameObject.tag == "Earth") {
                     lineRenderer.SetPosition(currSegment, hit.point);
                 }
+            } else {
+                Debug.Log("Raycast missed Earth");
+                Debug.DrawRay(ray.origin, ray.direction * 6.0f, Color.yellow, 1000.0f);
             }
 
             currSegment += 1;
         }
-    }
-
-    void DrawLongitudeLines() {
-            var longitude = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
-
-            int segmentIncrement = 360 / segments;
-            int currentSegment = 0;
-            for (int j = 0; j < 360; j += segmentIncrement) {
-                var point = Quaternion.AngleAxis((float)j, longitude) * Vector3.up;
-                point *= 0.502f;
-                lineRenderer.SetPosition(currentSegment, point);
-                currentSegment += 1;
-            }
-    }
-
-    void DrawLatitudeLines() {
-        var longitude = Vector3.up; //Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
-
-        int segmentIncrement = 360 / segments;
-        int currentSegment = 0;
-        for (int j = 0; j < 360; j += segmentIncrement) {
-            var point = Quaternion.AngleAxis((float)j, longitude) * Vector3.right;
-            point *= 0.502f;
-            lineRenderer.SetPosition(currentSegment, point);
-            currentSegment += 1;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
