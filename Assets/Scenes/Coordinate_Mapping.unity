@@ -212,7 +212,7 @@ Transform:
   m_GameObject: {fileID: 784274115}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784274115}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25cd287a6b9002a46810aaec4b0242e4, type: 3}
   m_Name: 
@@ -232,7 +232,7 @@ MonoBehaviour:
   graticulePrefab: {fileID: 7361751519301403918, guid: 8f6d5ec14d796ae45bb6a4fbc92b0f69,
     type: 3}
   segments: 180
-  angleIncrement: 10
+  degreesBetweenLines: 10
 --- !u!114 &784274121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784274115}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fead9d309e055f418321520cd0e47a7, type: 3}
   m_Name: 
@@ -296,7 +296,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -323,13 +323,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263628672}
-  m_LocalRotation: {x: -0.025462134, y: 0.7000325, z: -0.025009956, w: -0.7132186}
-  m_LocalPosition: {x: 7.0199566, y: 0.5081651, z: -0.22769219}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &1263628676
 MonoBehaviour:
   m_ObjectHideFlags: 0

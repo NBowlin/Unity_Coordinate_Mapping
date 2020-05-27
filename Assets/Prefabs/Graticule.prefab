@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fe4901d7d63d5f4f9c74088b1cae88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  line: {fileID: 7361751519301403904}
+  lineRenderer: {fileID: 7361751519301403904}
   segments: 0
   angle: 0
+  isLatitude: 0
