@@ -135,9 +135,10 @@ GameObject:
   - component: {fileID: 784274117}
   - component: {fileID: 784274116}
   - component: {fileID: 784274120}
+  - component: {fileID: 784274121}
   m_Layer: 0
   m_Name: Earth
-  m_TagString: Untagged
+  m_TagString: Earth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -211,7 +212,7 @@ Transform:
   m_GameObject: {fileID: 784274115}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -223,7 +224,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784274115}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25cd287a6b9002a46810aaec4b0242e4, type: 3}
   m_Name: 
@@ -231,7 +232,20 @@ MonoBehaviour:
   graticulePrefab: {fileID: 7361751519301403918, guid: 8f6d5ec14d796ae45bb6a4fbc92b0f69,
     type: 3}
   segments: 180
-  angleIncrement: 36
+  angleIncrement: 10
+--- !u!114 &784274121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784274115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fead9d309e055f418321520cd0e47a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  test: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149, type: 3}
 --- !u!1 &1263628672
 GameObject:
   m_ObjectHideFlags: 0
