@@ -14,8 +14,8 @@ public class DrawGraticule : MonoBehaviour
     void Start()
     {
         lineRenderer.positionCount = segments;
-        lineRenderer.startWidth = 0.006f;
-        lineRenderer.endWidth = 0.006f;
+        lineRenderer.startWidth = 0.001f;
+        lineRenderer.endWidth = 0.001f;
         lineRenderer.useWorldSpace = true;
         lineRenderer.loop = true;
         lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
