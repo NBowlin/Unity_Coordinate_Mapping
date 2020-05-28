@@ -262,8 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
     type: 3}
-  latitude: 0
-  longitude: 0
+  locations: []
 --- !u!114 &784274123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,8 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
     type: 3}
-  latitude: 40.7128
-  longitude: -74.006
+  locations: []
 --- !u!1 &1263628672
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +459,146 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[0].name
+      value: NYC
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[0].latitude
+      value: 40.7128
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[0].longitude
+      value: -74.006
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[1].name
+      value: Sag Harbor
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[1].latitude
+      value: 40.994205
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[1].longitude
+      value: -72.29074
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[2].name
+      value: Origin
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[3].name
+      value: Falkland Islands
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[3].latitude
+      value: -51.862926
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[3].longitude
+      value: -60.125656
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[4].name
+      value: Madagascar
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[4].latitude
+      value: -18.57961
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[4].longitude
+      value: 46.79973
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[5].name
+      value: Greenwich
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[5].latitude
+      value: 51.48258
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[6].name
+      value: Alaska Western Tip
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[6].latitude
+      value: 65.58572
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[6].longitude
+      value: -165.63657
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[7].name
+      value: Russia Eastern Tip
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[7].latitude
+      value: 67.02973
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[7].longitude
+      value: 171.3798
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[8].name
+      value: Papau New Guinea
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[8].latitude
+      value: -5.090944
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[8].longitude
+      value: 141.41673
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[9].name
+      value: Tokyo
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[9].latitude
+      value: 35.6762
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: locations.Array.data[9].longitude
+      value: 139.6503
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0f13e28d6fe3d34391b8590f20e35f3, type: 3}

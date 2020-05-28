@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PointOnEarth : MonoBehaviour
+public class CoordinatesMapper : MonoBehaviour
 {
     [SerializeField] private GameObject pointPrefab;
+    [SerializeField] private List<Location> locations;
 
-    [SerializeField] private float latitude;
-    [SerializeField] private float longitude;
+    private void Start() {
+        foreach(Location loc in locations) {
+            MapLocation(loc);
+        }
+    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        var point = Quaternion.Euler(0.0f, -longitude, latitude) * Vector3.right;
+    private void MapLocation(Location loc) {
+        var point = Quaternion.Euler(0.0f, -loc.longitude, loc.latitude) * Vector3.right;
 
         var ray = new Ray(Vector3.zero, point * 6.0f);
         ray.origin = ray.GetPoint(6.0f);
@@ -22,7 +24,8 @@ public class PointOnEarth : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit)) {
             if (hit.collider.gameObject.tag == "Earth") {
-                Instantiate(pointPrefab, hit.point, Quaternion.identity, transform);
+                var go = Instantiate(pointPrefab, hit.point, Quaternion.identity, transform);
+                go.name = loc.name;
             }
         }
         else {

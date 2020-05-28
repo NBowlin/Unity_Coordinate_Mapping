@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 694074693411668023}
   - component: {fileID: 694074693411668027}
   - component: {fileID: 694074693411668024}
-  - component: {fileID: 694074693411668025}
   - component: {fileID: 694074693411668022}
   m_Layer: 0
   m_Name: Earth
@@ -65,24 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
     type: 3}
-  latitude: 0
-  longitude: 0
---- !u!114 &694074693411668025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 694074693411668020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fbdaaa866cf2f9469a5f9b29b6f739b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-    type: 3}
-  latitude: 40.7128
-  longitude: -74.006
+  locations: []
 --- !u!135 &694074693411668022
 SphereCollider:
   m_ObjectHideFlags: 0
