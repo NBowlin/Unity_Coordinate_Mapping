@@ -9,7 +9,8 @@ public class CoordinatesMapper : MonoBehaviour
 
     private void Start() {
 
-        var locationsContainer = Instantiate(new GameObject("Locations"), transform);
+        var locationsContainer = new GameObject("Locations");
+        locationsContainer.transform.SetParent(transform, false);
 
         foreach (Location loc in locations) {
             MapLocation(loc, locationsContainer.transform);
@@ -19,7 +20,7 @@ public class CoordinatesMapper : MonoBehaviour
     private void MapLocation(Location loc, Transform parentContainer) {
         var point = Quaternion.Euler(0.0f, -loc.longitude, loc.latitude) * Vector3.right;
 
-        var ray = new Ray(Vector3.zero, point * 6.0f);
+        var ray = new Ray(transform.position, point * 6.0f);
         ray.origin = ray.GetPoint(6.0f);
         ray.direction = -ray.direction;
 

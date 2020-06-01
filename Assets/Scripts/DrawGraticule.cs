@@ -32,7 +32,7 @@ public class DrawGraticule : MonoBehaviour
 
             //Need to reverse the ray direction because collisions don't work from the inside of a collider
             //So take a point some distance along the line as origin, then reverse the direction
-            var ray = new Ray(Vector3.zero, line * 6.0f);
+            var ray = new Ray(transform.position, line * 6.0f);
             ray.origin = ray.GetPoint(6.0f);
             ray.direction = -ray.direction;
 

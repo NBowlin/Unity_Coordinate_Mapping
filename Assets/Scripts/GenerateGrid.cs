@@ -19,9 +19,14 @@ public class GenerateGrid : MonoBehaviour
 
     void DrawLines() {
 
-        var graticuleContainer = Instantiate(new GameObject("Graticule"), transform);
-        var parallelsContainer = Instantiate(new GameObject("Parallels"), graticuleContainer.transform);
-        var meridiansContainer = Instantiate(new GameObject("Meridians"), graticuleContainer.transform);
+        var graticuleContainer = new GameObject("Graticule");
+        graticuleContainer.transform.SetParent(transform, false);
+
+        var parallelsContainer = new GameObject("Parallels");
+        parallelsContainer.transform.SetParent(graticuleContainer.transform, false);
+
+        var meridiansContainer = new GameObject("Meridians");
+        meridiansContainer.transform.SetParent(graticuleContainer.transform, false);
 
         for (int i = -90; i <= 90; i += degreesBetweenLines) {
             if (drawParallels) {
