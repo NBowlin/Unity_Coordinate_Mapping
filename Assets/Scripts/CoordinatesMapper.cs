@@ -8,12 +8,15 @@ public class CoordinatesMapper : MonoBehaviour
     [SerializeField] private List<Location> locations;
 
     private void Start() {
-        foreach(Location loc in locations) {
-            MapLocation(loc);
+
+        var locationsContainer = Instantiate(new GameObject("Locations"), transform);
+
+        foreach (Location loc in locations) {
+            MapLocation(loc, locationsContainer.transform);
         }
     }
 
-    private void MapLocation(Location loc) {
+    private void MapLocation(Location loc, Transform parentContainer) {
         var point = Quaternion.Euler(0.0f, -loc.longitude, loc.latitude) * Vector3.right;
 
         var ray = new Ray(Vector3.zero, point * 6.0f);
@@ -24,7 +27,7 @@ public class CoordinatesMapper : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit)) {
             if (hit.collider.gameObject.tag == "Earth") {
-                var go = Instantiate(pointPrefab, hit.point, Quaternion.identity, transform);
+                var go = Instantiate(pointPrefab, hit.point, Quaternion.identity, parentContainer);
                 go.name = loc.name;
             }
         }

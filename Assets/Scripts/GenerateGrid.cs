@@ -9,24 +9,36 @@ public class GenerateGrid : MonoBehaviour
     [SerializeField] private int segments;
     [SerializeField] private int degreesBetweenLines;
 
+    [SerializeField] private bool drawParallels = true;
+    [SerializeField] private bool drawMeridians = true;
+
     // Start is called before the first frame update
     void Start() {
         DrawLines();
     }
 
     void DrawLines() {
-        for (int i = -90; i <= 90; i += degreesBetweenLines) {
-            var latGraticuleGO = Instantiate(graticulePrefab, transform);
-            var latGraticule = latGraticuleGO.GetComponent<DrawGraticule>();
-            latGraticule.segments = segments;
-            latGraticule.angle = i;
-            latGraticule.isLatitude = true;
 
-            var lngGraticuleGO = Instantiate(graticulePrefab, transform);
-            var lngGraticule = lngGraticuleGO.GetComponent<DrawGraticule>();
-            lngGraticule.segments = segments;
-            lngGraticule.angle = i;
-            lngGraticule.isLatitude = false;
+        var graticuleContainer = Instantiate(new GameObject("Graticule"), transform);
+        var parallelsContainer = Instantiate(new GameObject("Parallels"), graticuleContainer.transform);
+        var meridiansContainer = Instantiate(new GameObject("Meridians"), graticuleContainer.transform);
+
+        for (int i = -90; i <= 90; i += degreesBetweenLines) {
+            if (drawParallels) {
+                var latGraticuleGO = Instantiate(graticulePrefab, parallelsContainer.transform);
+                var latGraticule = latGraticuleGO.GetComponent<DrawGraticule>();
+                latGraticule.segments = segments;
+                latGraticule.angle = i;
+                latGraticule.isLatitude = true;
+            }
+
+            if (drawMeridians) {
+                var lngGraticuleGO = Instantiate(graticulePrefab, meridiansContainer.transform);
+                var lngGraticule = lngGraticuleGO.GetComponent<DrawGraticule>();
+                lngGraticule.segments = segments;
+                lngGraticule.angle = i;
+                lngGraticule.isLatitude = false;
+            }
         }
     }
 }
