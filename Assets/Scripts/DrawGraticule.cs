@@ -32,8 +32,8 @@ public class DrawGraticule : MonoBehaviour
 
             //Need to reverse the ray direction because collisions don't work from the inside of a collider
             //So take a point some distance along the line as origin, then reverse the direction
-            var ray = new Ray(transform.position, line * 6.0f);
-            ray.origin = ray.GetPoint(6.0f);
+            var ray = new Ray(transform.position, line * 200.0f);
+            ray.origin = ray.GetPoint(200.0f);
             ray.direction = -ray.direction;
 
             RaycastHit hit;
@@ -44,7 +44,7 @@ public class DrawGraticule : MonoBehaviour
                 }
             } else {
                 Debug.Log("Raycast missed Earth");
-                Debug.DrawRay(ray.origin, ray.direction * 6.0f, Color.yellow, 1000.0f);
+                Debug.DrawRay(ray.origin, ray.direction * 200.0f, Color.yellow, 1000.0f);
             }
 
             currSegment += 1;

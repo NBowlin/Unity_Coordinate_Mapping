@@ -20,8 +20,8 @@ public class CoordinatesMapper : MonoBehaviour
     private void MapLocation(Location loc, Transform parentContainer) {
         var point = Quaternion.Euler(0.0f, -loc.longitude, loc.latitude) * Vector3.right;
 
-        var ray = new Ray(transform.position, point * 6.0f);
-        ray.origin = ray.GetPoint(6.0f);
+        var ray = new Ray(transform.position, point * 200.0f);
+        ray.origin = ray.GetPoint(200.0f);
         ray.direction = -ray.direction;
 
         RaycastHit hit;
@@ -34,7 +34,7 @@ public class CoordinatesMapper : MonoBehaviour
         }
         else {
             Debug.Log("Raycast missed Earth");
-            Debug.DrawRay(ray.origin, ray.direction * 6.0f, Color.yellow, 1000.0f);
+            Debug.DrawRay(ray.origin, ray.direction * 200.0f, Color.yellow, 1000.0f);
         }
     }
 }
