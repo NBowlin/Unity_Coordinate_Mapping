@@ -30,21 +30,9 @@ public class DrawGraticule : MonoBehaviour
 
             var line = (isLatitude ? Quaternion.Euler(0.0f, j, angle) : Quaternion.Euler(0.0f, angle, j)) * Vector3.right;
 
-            //Need to reverse the ray direction because collisions don't work from the inside of a collider
-            //So take a point some distance along the line as origin, then reverse the direction
-            var ray = new Ray(transform.position, line * 200.0f);
-            ray.origin = ray.GetPoint(200.0f);
-            ray.direction = -ray.direction;
-
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit)) {
-                if (hit.collider.gameObject.tag == "Earth") {
-                    lineRenderer.SetPosition(currSegment, hit.point);
-                }
-            } else {
-                Debug.Log("Raycast missed Earth");
-                Debug.DrawRay(ray.origin, ray.direction * 200.0f, Color.yellow, 1000.0f);
+            var hitInfo = EarthUtility.CheckRayAgainstEarth(transform.position, line);
+            if(hitInfo.HasValue) {
+                lineRenderer.SetPosition(currSegment, hitInfo.Value.point);
             }
 
             currSegment += 1;

@@ -20,21 +20,10 @@ public class CoordinatesMapper : MonoBehaviour
     private void MapLocation(Location loc, Transform parentContainer) {
         var point = Quaternion.Euler(0.0f, -loc.longitude, loc.latitude) * Vector3.right;
 
-        var ray = new Ray(transform.position, point * 200.0f);
-        ray.origin = ray.GetPoint(200.0f);
-        ray.direction = -ray.direction;
-
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit)) {
-            if (hit.collider.gameObject.tag == "Earth") {
-                var go = Instantiate(pointPrefab, hit.point, Quaternion.identity, parentContainer);
-                go.name = loc.name;
-            }
-        }
-        else {
-            Debug.Log("Raycast missed Earth");
-            Debug.DrawRay(ray.origin, ray.direction * 200.0f, Color.yellow, 1000.0f);
+        var hitInfo = EarthUtility.CheckRayAgainstEarth(transform.position, point);
+        if(hitInfo.HasValue) {
+            var go = Instantiate(pointPrefab, hitInfo.Value.point, Quaternion.identity, parentContainer);
+            go.name = loc.name;
         }
     }
 }
