@@ -233,8 +233,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   graticulePrefab: {fileID: 7361751519301403918, guid: 8f6d5ec14d796ae45bb6a4fbc92b0f69,
     type: 3}
+  lineMat: {fileID: 0}
   segments: 180
   degreesBetweenLines: 10
+  drawType: 0
   drawParallels: 1
   drawMeridians: 1
 --- !u!114 &784274121
@@ -557,17 +559,17 @@ PrefabInstance:
     - target: {fileID: 694074693411668023, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 694074693411668023, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 694074693411668023, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
@@ -724,6 +726,32 @@ PrefabInstance:
       propertyPath: drawMeridians
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668027, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: drawType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668027, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: segments
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668027, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: degreesBetweenLines
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668027, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: blah
+      value: 
+      objectReference: {fileID: 4300756565747447302, guid: d057d8098c6072c44ad3b3a91869bc8c,
+        type: 3}
+    - target: {fileID: 694074693411668027, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: lineMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 638ab0df601f03447972246721dfabd4, type: 2}
     - target: {fileID: 694074694012455689, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
       propertyPath: m_LocalPosition.z
