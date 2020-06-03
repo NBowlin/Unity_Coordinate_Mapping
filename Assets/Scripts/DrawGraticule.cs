@@ -30,7 +30,7 @@ public class DrawGraticule : MonoBehaviour
 
             var line = (isLatitude ? Quaternion.Euler(0.0f, j, angle) : Quaternion.Euler(0.0f, angle, j)) * Vector3.right;
 
-            var hitInfo = EarthUtility.CheckRayAgainstEarth(transform.position, line);
+            var hitInfo = PlanetUtility.LineFromOriginToSurface(transform, line);
             if(hitInfo.HasValue) {
                 lineRenderer.SetPosition(currSegment, hitInfo.Value.point);
             }

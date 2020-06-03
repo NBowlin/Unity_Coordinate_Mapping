@@ -100,7 +100,7 @@ public class GenerateGrid : MonoBehaviour {
                 var lineEuler = plottingParallels ? new Vector3(0.0f, j, i) : new Vector3(0.0f, i, j);
                 var line = Quaternion.Euler(lineEuler) * Vector3.right;
 
-                var hitInfo = EarthUtility.CheckRayAgainstEarth(transform.position, line);
+                var hitInfo = PlanetUtility.LineFromOriginToSurface(transform, line);
                 if(hitInfo.HasValue) { currPoints.Add(hitInfo.Value.point); }
             }
 

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class EarthUtility
+public static class PlanetUtility
 {
-    public static RaycastHit? CheckRayAgainstEarth(Vector3 origin, Vector3 line) {
+    public static RaycastHit? LineFromOriginToSurface(Transform planet, Vector3 line) {
         //Need to reverse the ray direction because collisions don't work from the inside of a collider
         //So take a point some distance along the line as origin, then reverse the direction
         //Also, planet can't be larger than 200 units
-        var ray = new Ray(origin, line * 200.0f);
+        var ray = new Ray(planet.position, line * 200.0f);
         ray.origin = ray.GetPoint(200.0f);
         ray.direction = -ray.direction;
 

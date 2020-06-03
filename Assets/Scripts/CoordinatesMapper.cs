@@ -20,7 +20,7 @@ public class CoordinatesMapper : MonoBehaviour
     private void MapLocation(Location loc, Transform parentContainer) {
         var point = Quaternion.Euler(0.0f, -loc.longitude, loc.latitude) * Vector3.right;
 
-        var hitInfo = EarthUtility.CheckRayAgainstEarth(transform.position, point);
+        var hitInfo = PlanetUtility.LineFromOriginToSurface(transform, point);
         if(hitInfo.HasValue) {
             var go = Instantiate(pointPrefab, hitInfo.Value.point, Quaternion.identity, parentContainer);
             go.name = loc.name;

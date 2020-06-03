@@ -54,7 +54,7 @@ public class OrbitingCamera : MonoBehaviour
 
     private void ZoomCamera(bool zoomingIn) {
         var dist = CheckCameraDistance();
-        Debug.DrawLine(cam.transform.position, cam.transform.position + cam.transform.forward * (zoomingIn ? minCameraDistance : maxCameraDistance), Color.red, 0.1f);
+        Debug.DrawLine(cam.transform.position, cam.transform.position + cam.transform.forward * (zoomingIn ? minCameraDistance : maxCameraDistance), Color.red);
 
         if ((zoomingIn && dist <= minCameraDistance) || (!zoomingIn && dist >= maxCameraDistance)) { return; }
 
@@ -67,7 +67,7 @@ public class OrbitingCamera : MonoBehaviour
     }
 
     private float CheckCameraDistance() {
-        var distance = EarthUtility.LineToSurface(lookAt.transform, cam.transform, maxCameraDistance);
+        var distance = PlanetUtility.LineToSurface(lookAt.transform, cam.transform, maxCameraDistance);
 
         if(distance.HasValue) { return (distance.Value.point - cam.transform.position).magnitude; }
         return maxCameraDistance;
