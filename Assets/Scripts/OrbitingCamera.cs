@@ -7,17 +7,24 @@ public class OrbitingCamera : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private Transform lookAt;
 
-    [SerializeField] private float speed;
-    [SerializeField] private float minRange;
-    [SerializeField] private float maxRange;
+    //Pan speed is the degrees we would rotate around the object if we swiped across the entire screen
+    [SerializeField] private float minPanSpeed = 20f;
+    [SerializeField] private float maxPanSpeed = 180f;
+
+    [SerializeField] private float minCameraDistance = 0.1f;
+    [SerializeField] private float maxCameraDistance = 4f;
+
+    [SerializeField] private float zoomSpeed = 1f;
 
     private Vector3 previousPos;
     private float cameraDistance;
+    private float currentPanSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         StoreCameraDistance();
+        CalculatePanSpeed();
     }
 
     // Update is called once per frame
@@ -38,25 +45,32 @@ public class OrbitingCamera : MonoBehaviour
         cameraDistance = (lookAt.transform.position - cam.transform.position).magnitude;
     }
 
+    private void CalculatePanSpeed() {
+        var dist = CheckCameraDistance();
+
+        var rangePercent = (dist - minCameraDistance) / (maxCameraDistance - minCameraDistance);
+        currentPanSpeed = Mathf.Lerp(minPanSpeed, maxPanSpeed, rangePercent);
+    }
+
     private void ZoomCamera(bool zoomingIn) {
-        if(!CheckCameraDistance(zoomingIn)) { return; }
+        var dist = CheckCameraDistance();
+        Debug.DrawLine(cam.transform.position, cam.transform.position + cam.transform.forward * (zoomingIn ? minCameraDistance : maxCameraDistance), Color.red, 0.1f);
+
+        if ((zoomingIn && dist <= minCameraDistance) || (!zoomingIn && dist >= maxCameraDistance)) { return; }
+
+        CalculatePanSpeed();
+
         var dir = (lookAt.position - cam.transform.position);
-        cam.transform.position += (dir * (zoomingIn ? 1f : -1f)) * speed * Time.deltaTime;
+        cam.transform.position += (dir * (zoomingIn ? 1f : -1f)) * zoomSpeed * Time.deltaTime;
+
         StoreCameraDistance();
     }
 
-    private bool CheckCameraDistance(bool zoomingIn) {
-        RaycastHit hit;
-        var lookAtDir = (lookAt.transform.position - cam.transform.position).normalized;
+    private float CheckCameraDistance() {
+        var distance = EarthUtility.LineToSurface(lookAt.transform, cam.transform, maxCameraDistance);
 
-        Debug.DrawLine(cam.transform.position + cam.transform.up * 0.1f, (cam.transform.position + cam.transform.up * 0.1f) + cam.transform.forward, Color.blue, 0.1f);
-        Debug.DrawLine(cam.transform.position - cam.transform.up * 0.1f, (cam.transform.position - cam.transform.up * 0.1f) + cam.transform.forward * 8f, Color.red, 0.1f);
-
-        if (Physics.Raycast(cam.transform.position, lookAtDir, out hit, zoomingIn ? minRange : maxRange)) {
-            if (hit.collider.gameObject.tag == "Earth") { return zoomingIn ? false : true; }
-        } else if(!zoomingIn) { return false; }
-        
-        return true;
+        if(distance.HasValue) { return (distance.Value.point - cam.transform.position).magnitude; }
+        return maxCameraDistance;
     }
 
     private void PanCamera() {
@@ -65,8 +79,8 @@ public class OrbitingCamera : MonoBehaviour
 
         //Jump camera to the object we are rotating around and do rotation
         cam.transform.position = lookAt.position; 
-        cam.transform.Rotate(Vector3.right, dir.y * 180);
-        cam.transform.Rotate(Vector3.up, -dir.x * 180, Space.World);
+        cam.transform.Rotate(Vector3.right, dir.y * currentPanSpeed);
+        cam.transform.Rotate(Vector3.up, -dir.x * currentPanSpeed, Space.World);
 
         //Snap camera back to proper distance
         var distAngle = -cam.transform.forward * cameraDistance;

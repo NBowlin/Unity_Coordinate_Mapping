@@ -418,9 +418,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 1263628674}
   lookAt: {fileID: 63407449}
-  speed: 0.8
-  minRange: 0.25
-  maxRange: 2
+  minPanSpeed: 20
+  maxPanSpeed: 180
+  minCameraDistance: 0.2
+  maxCameraDistance: 1.8
+  zoomSpeed: 0.7
 --- !u!1 &1753368120
 GameObject:
   m_ObjectHideFlags: 0
