@@ -74,16 +74,19 @@ public class GenerateGrid : MonoBehaviour {
         graticuleContainer.transform.SetParent(transform, false);
         graticuleContainer.transform.localScale = new Vector3(1f / transform.localScale.x, 1f / transform.localScale.y, 1f / transform.localScale.z);
 
-        var parallelsPoints = DeterminePoints(true);
-        var meridiansPoints = DeterminePoints(false);
+        if (drawParallels) {
+            var parallelsPoints = DeterminePoints(true);
+            var parallels = DrawMeshLines(parallelsPoints);
+            parallels.name = "Parallels";
+            parallels.transform.SetParent(graticuleContainer.transform, false);
+        }
 
-        var parallels = DrawMeshLines(parallelsPoints);
-        parallels.name = "Parallels";
-        parallels.transform.SetParent(graticuleContainer.transform, false);
-
-        var meridians = DrawMeshLines(meridiansPoints);
-        meridians.name = "Meridians";
-        meridians.transform.SetParent(graticuleContainer.transform, false);
+        if (drawMeridians) {
+            var meridiansPoints = DeterminePoints(false);
+            var meridians = DrawMeshLines(meridiansPoints);
+            meridians.name = "Meridians";
+            meridians.transform.SetParent(graticuleContainer.transform, false);
+        }
     }
 
     List<List<Vector3>> DeterminePoints(bool plottingParallels) {

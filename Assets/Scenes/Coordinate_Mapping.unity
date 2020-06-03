@@ -122,6 +122,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &63407449 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 694074693411668023, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 694074694279042369}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &784274115
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +300,7 @@ GameObject:
   - component: {fileID: 1263628674}
   - component: {fileID: 1263628673}
   - component: {fileID: 1263628676}
+  - component: {fileID: 1263628677}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -359,13 +366,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263628672}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1263628676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +404,23 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &1263628677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263628672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c328e366deb8cd4dab941fd50e6f251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 1263628674}
+  lookAt: {fileID: 63407449}
+  speed: 0.8
+  minRange: 0.25
+  maxRange: 2
 --- !u!1 &1753368120
 GameObject:
   m_ObjectHideFlags: 0
