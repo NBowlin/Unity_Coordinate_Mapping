@@ -7,6 +7,8 @@ public class CoordinatesMapper : MonoBehaviour
     [SerializeField] private GameObject pointPrefab;
     [SerializeField] private List<Location> locations;
 
+    [SerializeField] private float placingAdjustment = 0f; //Used to adjust point inward / outward from surface
+
     private void Start() {
 
         var locationsContainer = new GameObject("Locations");
@@ -22,7 +24,7 @@ public class CoordinatesMapper : MonoBehaviour
 
         var hitInfo = PlanetUtility.LineFromOriginToSurface(transform, point);
         if(hitInfo.HasValue) {
-            var go = Instantiate(pointPrefab, hitInfo.Value.point, Quaternion.identity, parentContainer);
+            var go = Instantiate(pointPrefab, hitInfo.Value.point + point * placingAdjustment, Quaternion.LookRotation(-point), parentContainer);
             go.name = loc.name;
         }
     }

@@ -321,6 +321,7 @@ MonoBehaviour:
   pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
     type: 3}
   locations: []
+  placingAdjustment: 0
 --- !u!114 &784274123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,6 +337,7 @@ MonoBehaviour:
   pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
     type: 3}
   locations: []
+  placingAdjustment: 0
 --- !u!1 &1263628672
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,6 +805,11 @@ PrefabInstance:
         type: 3}
       propertyPath: locations.Array.data[9].longitude
       value: 139.6503
+      objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: placingAdjustment
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 694074693411668027, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
