@@ -71,7 +71,7 @@ public class GenerateGrid : MonoBehaviour {
 
     void DrawUsingMeshTopologyLines() {
         var graticuleContainer = new GameObject("Graticule");
-        graticuleContainer.transform.SetParent(transform, false);
+        graticuleContainer.transform.SetParent(transform, true);
         graticuleContainer.transform.localScale = new Vector3(1f / transform.localScale.x, 1f / transform.localScale.y, 1f / transform.localScale.z);
 
         if (drawParallels) {

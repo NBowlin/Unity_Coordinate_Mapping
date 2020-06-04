@@ -23,6 +23,8 @@ public class OrbitingCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Jump camera to inital location
+        //cam.transform.position = new Vector3(lookAt.transform.position.x, lookAt.transform.position.y, lookAt.transform.position.z - lookAt.transform.localScale.z / 2 - maxCameraDistance);
         StoreCameraDistance();
         CalculatePanSpeed();
     }
@@ -83,7 +85,8 @@ public class OrbitingCamera : MonoBehaviour
         cam.transform.Rotate(Vector3.up, -dir.x * currentPanSpeed, Space.World);
 
         //Snap camera back to proper distance
-        var distAngle = -cam.transform.forward * cameraDistance;
+        var distAngle = cam.transform.position + -cam.transform.forward * cameraDistance;
+
         cam.transform.position = distAngle;
 
         previousPos = vp;
