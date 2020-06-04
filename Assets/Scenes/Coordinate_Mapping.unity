@@ -415,7 +415,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263628672}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3}
+  m_LocalPosition: {x: 0, y: 0, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -468,8 +468,8 @@ MonoBehaviour:
   lookAt: {fileID: 63407449}
   minPanSpeed: 20
   maxPanSpeed: 180
-  minCameraDistance: 0.2
-  maxCameraDistance: 1.8
+  minCameraDistance: 1.3
+  maxCameraDistance: 7.5
   zoomSpeed: 0.7
 --- !u!1 &1753368120
 GameObject:
@@ -589,6 +589,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Earth
       objectReference: {fileID: 0}
+    - target: {fileID: 694074693411668022, guid: e0f13e28d6fe3d34391b8590f20e35f3,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.498
+      objectReference: {fileID: 0}
     - target: {fileID: 694074693411668023, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -647,17 +652,17 @@ PrefabInstance:
     - target: {fileID: 694074693411668023, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 694074693411668023, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 694074693411668023, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 3
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
