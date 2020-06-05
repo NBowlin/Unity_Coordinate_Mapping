@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoordinatesMapper : MonoBehaviour
 {
-    [SerializeField] private List<CoordinatePoint> locations;
+    [SerializeField] private List<CoordinatePoint_Basic> locations;
     [SerializeField] private List<CoordinatePoint_Magnitude> magLocations;
 
     private void Start() {

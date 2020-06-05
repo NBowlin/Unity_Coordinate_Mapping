@@ -70,27 +70,6 @@ MonoBehaviour:
   - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
       type: 3}
     location:
-      name: NYC
-      latitude: 40.7128
-      longitude: -74.006
-    placingAdjustment: 0
-  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-      type: 3}
-    location:
-      name: Sag Harbor
-      latitude: 40.99421
-      longitude: -72.29074
-    placingAdjustment: 0
-  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-      type: 3}
-    location:
-      name: Origin
-      latitude: 0
-      longitude: 0
-    placingAdjustment: 0
-  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-      type: 3}
-    location:
       name: Falkland Islands
       latitude: -51.86293
       longitude: -60.12566
@@ -129,13 +108,6 @@ MonoBehaviour:
       name: Papau New Guinea
       latitude: -5.090944
       longitude: 141.4167
-    placingAdjustment: 0
-  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-      type: 3}
-    location:
-      name: Tokyo
-      latitude: 35.6762
-      longitude: 139.6503
     placingAdjustment: 0
   magLocations:
   - pointPrefab: {fileID: 5573824793730711578, guid: 8d7429c5d94f7f84e90fd5719caa7748,
