@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "location": {
+        "name": "NYC",
+        "latitude": 40.7128,
+        "longitude": -74.006
+      },
+      "magnitude": 10
+    },
+    {
+      "location": {
+        "name": "Sag Harbor",
+        "latitude": 40.99421,
+        "longitude": -72.29074
+      },
+      "magnitude": 30
+    },
+    {
+      "location": {
+        "name": "Alaska Western Tip",
+        "latitude": 65.58572,
+        "longitude": -165.6366
+      },
+      "magnitude": 5
+    },
+    {
+      "location": {
+        "name": "Falkland Islands",
+        "latitude": -51.86293,
+        "longitude": -60.12566
+      },
+      "magnitude": 100
+    }
+  ]
+}

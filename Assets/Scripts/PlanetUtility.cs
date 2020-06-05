@@ -15,12 +15,12 @@ public static class PlanetUtility
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit)) {
-            if (hit.collider.gameObject.tag == "Earth") {
+            if (hit.collider.gameObject == planet.gameObject) {
                 return hit;
             }
         }
         else {
-            Debug.Log("Raycast missed Earth");
+            Debug.Log("Raycast missed Planet");
             Debug.DrawRay(ray.origin, ray.direction * 200.0f, Color.yellow, 1000.0f);
         }
 
