@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 694074693411668020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children:
   - {fileID: 694074694012455689}
   m_Father: {fileID: 0}
@@ -48,8 +48,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   graticulePrefab: {fileID: 7361751519301403918, guid: 8f6d5ec14d796ae45bb6a4fbc92b0f69,
     type: 3}
-  segments: 180
+  lineMat: {fileID: 2100000, guid: 638ab0df601f03447972246721dfabd4, type: 2}
+  segments: 60
   degreesBetweenLines: 10
+  drawType: 1
+  drawParallels: 1
+  drawMeridians: 1
 --- !u!114 &694074693411668024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,9 +66,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fbdaaa866cf2f9469a5f9b29b6f739b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-    type: 3}
-  locations: []
+  locations:
+  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
+      type: 3}
+    location:
+      name: NYC
+      latitude: 40.7128
+      longitude: -74.006
+  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
+      type: 3}
+    location:
+      name: Sag Harbor
+      latitude: 40.99421
+      longitude: -72.29074
+  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
+      type: 3}
+    location:
+      name: Origin
+      latitude: 0
+      longitude: 0
+  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
+      type: 3}
+    location:
+      name: Falkland Islands
+      latitude: -51.86293
+      longitude: -60.12566
+  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
+      type: 3}
+    location:
+      name: Madagascar
+      latitude: -18.57961
+      longitude: 46.79973
+  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
+      type: 3}
+    location:
+      name: Greenwich
+      latitude: 51.48258
+      longitude: 0
+  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
+      type: 3}
+    location:
+      name: Alaska Western Tip
+      latitude: 65.58572
+      longitude: -165.6366
+  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
+      type: 3}
+    location:
+      name: Russia Eastern Tip
+      latitude: 67.02973
+      longitude: 171.3798
+  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
+      type: 3}
+    location:
+      name: Papau New Guinea
+      latitude: -5.090944
+      longitude: 141.4167
+  - pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
+      type: 3}
+    location:
+      name: Tokyo
+      latitude: 35.6762
+      longitude: 139.6503
+  placingAdjustment: -0.03
 --- !u!135 &694074693411668022
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -76,7 +139,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.498
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &694074694012455686
 GameObject:
