@@ -319,7 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locations: []
-  placingAdjustment: 0
+  magLocations: []
 --- !u!114 &784274123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locations: []
-  placingAdjustment: 0
+  magLocations: []
 --- !u!1 &1263628672
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,7 +590,7 @@ PrefabInstance:
     - target: {fileID: 694074693411668023, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 25.01
       objectReference: {fileID: 0}
     - target: {fileID: 694074693411668023, guid: e0f13e28d6fe3d34391b8590f20e35f3,
         type: 3}
@@ -641,211 +641,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[0].pointPrefab
-      value: 
-      objectReference: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-        type: 3}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[1].pointPrefab
-      value: 
-      objectReference: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-        type: 3}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[2].pointPrefab
-      value: 
-      objectReference: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-        type: 3}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[0].location.latitude
-      value: 40.7128
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[0].location.longitude
-      value: -74.006
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[0].location.name
-      value: NYC
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[1].location.name
-      value: Sag Harbor
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[2].location.name
-      value: Origin
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[1].location.latitude
-      value: 40.99421
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[1].location.longitude
-      value: -72.29074
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[0].magnitude
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[3].pointPrefab
-      value: 
-      objectReference: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-        type: 3}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[3].location.name
-      value: Falkland Islands
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[4].pointPrefab
-      value: 
-      objectReference: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-        type: 3}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[4].location.name
-      value: Madagascar
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[5].pointPrefab
-      value: 
-      objectReference: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-        type: 3}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[5].location.name
-      value: Greenwich
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[6].pointPrefab
-      value: 
-      objectReference: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-        type: 3}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[6].location.name
-      value: Alaska Western Tip
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[7].pointPrefab
-      value: 
-      objectReference: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-        type: 3}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[7].location.name
-      value: Russia Eastern Tip
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[8].pointPrefab
-      value: 
-      objectReference: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-        type: 3}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[8].location.name
-      value: Papau New Guinea
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[9].pointPrefab
-      value: 
-      objectReference: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
-        type: 3}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[9].location.name
-      value: Tokyo
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[3].location.latitude
-      value: -51.86293
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[3].location.longitude
-      value: -60.12566
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[4].location.latitude
-      value: -18.57961
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[4].location.longitude
-      value: 46.79973
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[5].location.latitude
-      value: 51.48258
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[6].location.latitude
-      value: 65.58572
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[6].location.longitude
-      value: -165.6366
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[7].location.latitude
-      value: 67.02973
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[7].location.longitude
-      value: 171.3798
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[8].location.latitude
-      value: -5.090944
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[8].location.longitude
-      value: 141.4167
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[9].location.latitude
-      value: 35.6762
-      objectReference: {fileID: 0}
-    - target: {fileID: 694074693411668024, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-        type: 3}
-      propertyPath: locations.Array.data[9].location.longitude
-      value: 139.6503
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0f13e28d6fe3d34391b8590f20e35f3, type: 3}

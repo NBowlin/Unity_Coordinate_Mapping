@@ -33,7 +33,10 @@ using UnityEngine;
 
     public override GameObject Plot(Transform planet, Transform container) {
         var go = base.Plot(planet, container);
-        if(go != null) { go.transform.localScale = new Vector3(go.transform.localScale.x, go.transform.localScale.y, go.transform.localScale.z * magnitude); }
+        if(go != null) {
+            go.transform.localScale = new Vector3(go.transform.localScale.x, go.transform.localScale.y, go.transform.localScale.z * magnitude);
+            go.transform.Rotate(180f, 0f, 0f, Space.Self);
+        }
 
         return go;
     }
