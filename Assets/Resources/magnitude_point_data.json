@@ -31,6 +31,142 @@
         "longitude": -60.12566
       },
       "magnitude": 100
+    },
+    {
+      "location": {
+        "name": "Acadia National Park, Maine",
+        "latitude": 44.338554,
+        "longitude": -68.273338
+      },
+      "magnitude": 28
+    },
+    {
+      "location": {
+        "name": "Zion National Park, Utah",
+        "latitude": 37.298203,
+        "longitude": -113.026299
+      },
+      "magnitude": 67
+    },
+    {
+      "location": {
+        "name": "Yellowstone National Park, Wyoming",
+        "latitude": 44.427963,
+        "longitude": -110.588455
+      },
+      "magnitude": 43
+    },
+    {
+      "location": {
+        "name": "Yosemite National Park, California",
+        "latitude": 37.865101,
+        "longitude": -119.538330
+      },
+      "magnitude": 14
+    },
+    {
+      "location": {
+        "name": "Glacier National Park, Montana",
+        "latitude": 48.502281,
+        "longitude": -113.988533
+      },
+      "magnitude": 22
+    },
+    {
+      "location": {
+        "name": "Redwood National Park, California",
+        "latitude": 36.1070,
+        "longitude": -112.1130
+      },
+      "magnitude": 38
+    },
+    {
+      "location": {
+        "name": "Olympic National Park, Washington",
+        "latitude": 47.8021,
+        "longitude": -123.6044
+      },
+      "magnitude": 50
+    },
+    {
+      "location": {
+        "name": "Monty Snakebite's House",
+        "latitude": 42,
+        "longitude": -78
+      },
+      "magnitude": 77
+    },
+    {
+      "location": {
+        "name": "Random Point, Florida",
+        "latitude": 27.356160,
+        "longitude": -81.548576
+      },
+      "magnitude": 92
+    },
+    {
+      "location": {
+        "name": "Austin, Texas",
+        "latitude": 30.183122,
+        "longitude": -97.701887
+      },
+      "magnitude": 18
+    },
+    {
+      "location": {
+        "name": "Atlanta, Georgia",
+        "latitude": 33.702408,
+        "longitude": -84.366191
+      },
+      "magnitude": 46
+    },
+    {
+      "location": {
+        "name": "Random Point, Tennessee",
+        "latitude": 35.931762,
+        "longitude": -87.637906
+      },
+      "magnitude": 2
+    },
+    {
+      "location": {
+        "name": "Milwaukee, Wisconsin",
+        "latitude": 42.953207,
+        "longitude": -87.989703
+      },
+      "magnitude": 28
+    },
+    {
+      "location": {
+        "name": "Random Point, South Dakota",
+        "latitude": 44.483967,
+        "longitude": -101.349204
+      },
+      "magnitude": 68
+    },
+    {
+      "location": {
+        "name": "Random Point, New Mexico",
+        "latitude": 32.997609,
+        "longitude": -107.514450
+      },
+      "magnitude": 23
+    },
+    {
+      "location": {
+        "name": "Las Vegas, Nevada",
+        "latitude": 36.137876,
+        "longitude": -115.157245
+      },
+      "magnitude": 9
+    },
+    {
+      "location": {
+        "name": "Random Point, Colorado",
+        "latitude": 37.753345,
+        "longitude": -108.077325
+      },
+      "magnitude": 38
     }
   ]
 }

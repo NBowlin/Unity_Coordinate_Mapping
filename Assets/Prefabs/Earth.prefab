@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 694074693411668027}
   - component: {fileID: 694074693411668024}
   - component: {fileID: 694074693411668022}
-  - component: {fileID: 473267271}
+  - component: {fileID: 67604594}
+  - component: {fileID: 67604595}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Earth
@@ -148,7 +149,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.498
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &473267271
+--- !u!114 &67604594
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,12 +158,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 694074693411668020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f8eea7bbb55b8249bc099b774bb818e, type: 3}
+  m_Script: {fileID: 11500000, guid: eb2f26517a7a5c84ab393e7fc7c81a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 5573824793730711578, guid: 8d7429c5d94f7f84e90fd5719caa7748,
     type: 3}
   jsonFile: {fileID: 4900000, guid: 3fc848d28af564640b6b971c38f2eb66, type: 3}
+  containerName: Magnitude Locations
+--- !u!114 &67604595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694074693411668020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47479ad4d54e9e943b1d478111901559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointPrefab: {fileID: 5573824793730711578, guid: 16ddd4f4e84208c4aac8356101a41149,
+    type: 3}
+  jsonFile: {fileID: 4900000, guid: 8136a9d133e774b4282eb267e0d341fb, type: 3}
+  containerName: Basic Locations
 --- !u!1 &694074694012455686
 GameObject:
   m_ObjectHideFlags: 0

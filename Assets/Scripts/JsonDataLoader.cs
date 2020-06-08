@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable] public class JsonDataLoader<T>
+[System.Serializable] public class JsonDataLoader<T> where T: CoordinatePoint
 {
     public List<T> data;
 
