@@ -17,7 +17,7 @@ namespace CoordinateMapper.Coordinates {
         }
 
         protected GameObject PlacePoint(Transform planet, Transform container) {
-            var point = Quaternion.Euler(0.0f, -location.longitude, location.latitude) * Vector3.right;
+            var point = PlanetUtility.VectorFromLatLng(location.latitude, location.longitude, Vector3.right);
 
             var hitInfo = PlanetUtility.LineFromOriginToSurface(planet, point);
             if (hitInfo.HasValue) {

@@ -29,7 +29,7 @@ namespace CoordinateMapper.Graticule {
             int currSegment = 0;
             for (int j = 0; j < 360; j += segmentIncrement) {
 
-                var line = (isLatitude ? Quaternion.Euler(0.0f, j, angle) : Quaternion.Euler(0.0f, angle, j)) * Vector3.right;
+                var line = PlanetUtility.VectorFromLatLng(isLatitude ? angle : j, isLatitude ? j : angle, Vector3.right);
 
                 var hitInfo = PlanetUtility.LineFromOriginToSurface(transform, line);
                 if (hitInfo.HasValue) {

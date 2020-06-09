@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace CoordinateMapper.Utility {
     public static class PlanetUtility {
+        public static Vector3 VectorFromLatLng(float latitude, float longitude, Vector3 direction) {
+            return Quaternion.Euler(0.0f, -longitude, latitude) * direction;
+        }
+
+        //TODO: Better name
         public static RaycastHit? LineFromOriginToSurface(Transform planet, Vector3 line) {
             //Need to reverse the ray direction because collisions don't work from the inside of a collider
             //So take a point some distance along the line as origin, then reverse the direction

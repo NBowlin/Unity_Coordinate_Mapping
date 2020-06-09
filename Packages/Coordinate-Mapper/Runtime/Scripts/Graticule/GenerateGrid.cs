@@ -100,8 +100,8 @@ namespace CoordinateMapper.Graticule {
             for (int i = -90; i <= 90; i += degreesBetweenLines) {
                 var currPoints = new List<Vector3>();
                 for (int j = 0; j < 360; j += segmentIncrement) {
-                    var lineEuler = plottingParallels ? new Vector3(0.0f, j, i) : new Vector3(0.0f, i, j);
-                    var line = Quaternion.Euler(lineEuler) * Vector3.right;
+
+                    var line = PlanetUtility.VectorFromLatLng(plottingParallels ? i : j, plottingParallels ? j : i, Vector3.right);
 
                     var hitInfo = PlanetUtility.LineFromOriginToSurface(transform, line);
                     if (hitInfo.HasValue) { currPoints.Add(hitInfo.Value.point); }
