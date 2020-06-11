@@ -9,7 +9,12 @@ namespace CoordinateMapper.Data {
         public List<T> data;
 
         public static List<T> ParseJson(string json) {
-            var allPoints = JsonUtility.FromJson<JsonDataLoader<T>>(json);
+            var properJson = json;
+            //JsonUtility can't parse json with arrays as the root object
+            //So if we find an array, wrap it in an object 'data'
+            if(json[0] == '[') { properJson = "{ \"data\": " + json + "}"; }
+
+            var allPoints = JsonUtility.FromJson<JsonDataLoader<T>>(properJson);
             return allPoints.data;
         }
     }
