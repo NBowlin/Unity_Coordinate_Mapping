@@ -11,10 +11,19 @@ namespace CoordinateMapper.Data {
         [SerializeField] protected TextAsset jsonFile;
         [SerializeField] private string containerName;
 
+        [SerializeField] private Heatmap heatmap;
+
         // Start is called before the first frame update
         void Start() {
             var points = LoadJson();
-            LoadData(points);
+
+            //TODO: Rework this - just for testing
+            if (heatmap != null) {
+                heatmap.DoStuff(points);
+            }
+            else {
+                LoadData(points);
+            }
         }
 
         //We have to return IEnumerable so we get Covariance and can return subclasses of CoordinatePoint
