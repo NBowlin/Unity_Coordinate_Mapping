@@ -6,19 +6,22 @@ using CoordinateMapper.Coordinates;
 
 public class Heatmap : MonoBehaviour
 {
+    [SerializeField] private bool drawGrid;
+
+    [SerializeField] private Gradient colors;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     public void DoStuff(IEnumerable<CoordinatePoint> points) {
-        var p = new CoordinatePoint_Basic();
+        /*var p = new CoordinatePoint_Basic();
         var l = new Location();
         l.latitude = 40.7128f;
         l.longitude = -74.0060f;
         p.location = l;
-        points = new List<CoordinatePoint>() { p };
+        points = new List<CoordinatePoint>() { p };*/
 
         GenerateHeatMapGrid(points);
     }
@@ -45,7 +48,7 @@ public class Heatmap : MonoBehaviour
             xStart = Mathf.Clamp(xStart, 0f, w - 1);
             yStart = Mathf.Clamp(yStart, 0f, h - 1);
 
-            heatmapGrid[(int)xStart, (int)yStart] += 100;
+            heatmapGrid[(int)xStart, (int)yStart] += 50;
             int range = 4;
 
             //Square Pattern
@@ -60,13 +63,15 @@ public class Heatmap : MonoBehaviour
 
             //Diamond Pattern
             for(int x = 0; x < range; x++) {
-                for(int y = 0; y < range - x; y++) {
+                if (x + xStart >= w) { continue; }
+                for (int y = 0; y < range - x; y++) {
+                    if (y + yStart >= h) { continue; }
                     heatmapGrid[(int)xStart + x, (int)yStart + y] += 20;
 
-                    if(x != 0) { heatmapGrid[(int)xStart - x, (int)yStart + y] += 20; }
-                    if(y != 0) {
+                    if(x != 0 && xStart - x > 0) { heatmapGrid[(int)xStart - x, (int)yStart + y] += 20; }
+                    if(y != 0 && yStart - y > 0) {
                         heatmapGrid[(int)xStart + x, (int)yStart - y] += 20;
-                        if (x != 0) { heatmapGrid[(int)xStart - x, (int)yStart - y] += 20; }
+                        if (x != 0 && xStart - x > 0) { heatmapGrid[(int)xStart - x, (int)yStart - y] += 20; }
                     }
                 }
             }
@@ -89,7 +94,7 @@ public class Heatmap : MonoBehaviour
     }
 
     void DrawHeatMapGrid(int[,] heatmapGrid) {
-        TextMesh[,] heatValues = new TextMesh[heatmapGrid.GetLength(0), heatmapGrid.GetLength(1)];
+        if(!drawGrid) { return; }
 
         for(int x = 0; x < heatmapGrid.GetLength(0); x++) {
             for(int y = 0; y < heatmapGrid.GetLength(1); y++) {
@@ -106,47 +111,9 @@ public class Heatmap : MonoBehaviour
 
                 Debug.DrawLine(new Vector3(botLeft.x + ratioX * transform.localScale.x, transform.position.y, botLeft.y + ratioY * transform.localScale.y),
                     new Vector3(botLeft.x + ratioX * transform.localScale.x, transform.position.y, botLeft.y + endRatioY * transform.localScale.y), Color.green, 100f);
-
-
-                /*var t = new GameObject("World Text", typeof(TextMesh));
-                //t.transform.SetParent(gameObject.transform, false);
-                //t.transform.localScale = new Vector3(1 / gameObject.transform.localScale.x, 1 / gameObject.transform.localScale.y, 1 / gameObject.transform.localScale.z);
-                //t.transform.localPosition = new Vector3(botLeft.x, botLeft.y);
-                TextMesh tm = t.GetComponent<TextMesh>();
-                tm.anchor = TextAnchor.MiddleCenter;
-                tm.alignment = TextAlignment.Center;
-                tm.text = "0";
-                tm.fontSize = 2;
-                tm.color = Color.red;
-                tm.GetComponent<MeshRenderer>().sortingOrder = 0;
-
-                heatValues[x, y] = tm;*/
-
             }
         }
     }
-
-    /*public static TextMesh CreateWorldText(string text, Transform parent = null, Vector3 localPosition = default(Vector3), int fontSize = 40, Color? color = null, TextAnchor textAnchor = TextAnchor.UpperLeft, TextAlignment textAlignment = TextAlignment.Left, int sortingOrder = sortingOrderDefault) {
-        if (color == null) color = Color.white;
-        return CreateWorldText(parent, text, localPosition, fontSize, (Color)color, textAnchor, textAlignment, sortingOrder);
-    }
-
-
-    public static TextMesh CreateWorldText(Transform parent, string text, Vector3 localPosition, int fontSize, Color color, TextAnchor textAnchor, TextAlignment textAlignment, int sortingOrder) {
-        GameObject gameObject = new GameObject("World_Text", typeof(TextMesh));
-        Transform transform = gameObject.transform;
-        transform.SetParent(parent, false);
-        transform.localPosition = localPosition;
-        TextMesh textMesh = gameObject.GetComponent<TextMesh>();
-        textMesh.anchor = textAnchor;
-        textMesh.alignment = textAlignment;
-        textMesh.text = text;
-        textMesh.fontSize = fontSize;
-        textMesh.color = color;
-        textMesh.GetComponent<MeshRenderer>().sortingOrder = sortingOrder;
-        return textMesh;
-    }*/
-
 
     void DrawHeatmapTexture(int[,] heatmap) {
         Material mat = GetComponent<Renderer>().material;
@@ -163,6 +130,11 @@ public class Heatmap : MonoBehaviour
         for (int x = 0; x < w; x++) {
             for (int y = 0; y < h; y++) {
                 if (heatmap[x, y] > 0) {
+                    //Color using gradient
+                    /*var c = colors.Evaluate(heatmap[x, y] / 100f);
+                    overlay.SetPixel(x, y, c);*/
+
+                    //Red color using alpha
                     overlay.SetPixel(x, y, new Color(1f, 0f, 0f, heatmap[x, y] / 100f));
                 }
             }
