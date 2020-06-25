@@ -34,8 +34,8 @@ public class Heatmap : MonoBehaviour
     void GenerateHeatMapGrid(IEnumerable<CoordinatePoint> points) {
         Material mat = GetComponent<Renderer>().material;
         Texture2D overlay = new Texture2D(mat.mainTexture.width, mat.mainTexture.height); //mat.GetTexture("_OverlayTex") as Texture2D;
-        int w = 400;
-        int h = 200;
+        int w = 1600;
+        int h = 800;
 
         int[,] heatmapGrid = new int[w, h];
         DrawHeatMapGrid(heatmapGrid);
@@ -53,8 +53,6 @@ public class Heatmap : MonoBehaviour
             xStart = Mathf.Clamp(xStart, 0f, w - 1);
             yStart = Mathf.Clamp(yStart, 0f, h - 1);
 
-            heatmapGrid[(int)xStart, (int)yStart] += startValue;
-
             //Square Pattern
             /*for (int x = (int)xStart - range; x <= xStart + range; x++) {
                 if (x < 0 || x >= w) { continue; }
@@ -71,9 +69,9 @@ public class Heatmap : MonoBehaviour
                 for (int y = 0; y < range - x; y++) {
                     if (y + yStart >= h) { continue; }
                     int fallOff = Mathf.Max(x, y);
-                    int fallOffPercent = fallOff / range;
+                    float fallOffPercent = (float)fallOff / (float)range;
                     int fallOffRange = startValue - endValue;
-                    int fallOffVal = startValue - (fallOffRange * fallOffPercent);
+                    int fallOffVal = (int)(startValue - (fallOffRange * fallOffPercent));
                     heatmapGrid[(int)xStart + x, (int)yStart + y] += fallOffVal;
 
                     if(x != 0 && xStart - x > 0) { heatmapGrid[(int)xStart - x, (int)yStart + y] += fallOffVal; }
@@ -112,11 +110,11 @@ public class Heatmap : MonoBehaviour
             for (int y = 0; y < h; y++) {
                 if (heatmap[x, y] > 0) {
                     //Color using gradient
-                    /*var c = colors.Evaluate(heatmap[x, y] / 100f);
-                    overlay.SetPixel(x, y, c);*/
+                    var c = colors.Evaluate(heatmap[x, y] / 100f);
+                    overlay.SetPixel(x, y, c);
 
                     //Red color using alpha
-                    overlay.SetPixel(x, y, new Color(1f, 0f, 0f, heatmap[x, y] / 100f));
+                    //overlay.SetPixel(x, y, new Color(1f, 0f, 0f, heatmap[x, y] / 100f));
                 }
             }
         }
@@ -143,8 +141,6 @@ public class Heatmap : MonoBehaviour
 
                 Debug.DrawLine(new Vector3(botLeft.x + ratioX * transform.localScale.x, transform.position.y, botLeft.y + ratioY * transform.localScale.y),
                     new Vector3(botLeft.x + ratioX * transform.localScale.x, transform.position.y, botLeft.y + endRatioY * transform.localScale.y), Color.green, 100f);
-
-
             }
         }
     }
