@@ -363,6 +363,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65279903e147d5e4584fd7ef5160fe99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawGrid: 1
+  range: 3
+  startValue: 60
+  endValue: 10
   colors:
     serializedVersion: 2
     key0: {r: 0.25663006, g: 0.8301887, b: 0.254539, a: 0.627451}
