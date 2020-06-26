@@ -397,6 +397,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+  renderer: {fileID: 0}
 --- !u!114 &1251436798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,6 +655,7 @@ GameObject:
   - component: {fileID: 2020255493}
   - component: {fileID: 2020255494}
   - component: {fileID: 2020255496}
+  - component: {fileID: 2020255497}
   m_Layer: 0
   m_Name: Default_Earth
   m_TagString: Untagged
@@ -743,6 +745,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2020255497}
+        m_MethodName: GenerateHeatMapGrid
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2020255495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,6 +790,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 5573824793730711578, guid: 8d7429c5d94f7f84e90fd5719caa7748,
     type: 3}
+--- !u!114 &2020255497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020255490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65279903e147d5e4584fd7ef5160fe99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawGrid: 0
+  range: 6
+  startValue: 60
+  endValue: 0
+  heatmapSize: {x: 1200, y: 600}
+  colors:
+    serializedVersion: 2
+    key0: {r: 0.25663006, g: 0.8301887, b: 0.254539, a: 0.39215687}
+    key1: {r: 0.8966464, g: 0.9433962, b: 0.11124954, a: 0.78431374}
+    key2: {r: 0.9150943, g: 0.5788056, b: 0.09927912, a: 0.47058824}
+    key3: {r: 0.9245283, g: 0.100302614, b: 0.100302614, a: 0}
+    key4: {r: 0.9245283, g: 0.100302614, b: 0.100302614, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 24479
+    ctime2: 47224
+    ctime3: 65535
+    ctime4: 65535
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 65535
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
+  renderer: {fileID: 559591685}
 --- !u!1001 &694074694279042369
 PrefabInstance:
   m_ObjectHideFlags: 0

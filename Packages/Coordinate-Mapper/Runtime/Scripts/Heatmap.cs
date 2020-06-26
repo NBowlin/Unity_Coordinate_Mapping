@@ -14,6 +14,7 @@ public class Heatmap : MonoBehaviour
     [SerializeField] private Vector2 heatmapSize;
 
     [SerializeField] private Gradient colors;
+    [SerializeField] private Renderer renderer;
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +34,8 @@ public class Heatmap : MonoBehaviour
     }
 
     //TODO: Make this more efficient
-    void GenerateHeatMapGrid(IEnumerable<CoordinatePoint> points) {
-        Material mat = GetComponent<Renderer>().material;
+    public void GenerateHeatMapGrid(IEnumerable<CoordinatePoint> points) {
+        Material mat = renderer.material;
         Texture2D overlay = new Texture2D(mat.mainTexture.width, mat.mainTexture.height); //mat.GetTexture("_OverlayTex") as Texture2D;
         int w = (int)heatmapSize.x;
         int h = (int)heatmapSize.y;
@@ -114,7 +115,7 @@ public class Heatmap : MonoBehaviour
     }
 
     void DrawHeatmapTexture(int[,] heatmap) {
-        Material mat = GetComponent<Renderer>().material;
+        Material mat = renderer.material;
         Texture2D overlay = new Texture2D(heatmap.GetLength(0), heatmap.GetLength(1)); //mat.GetTexture("_OverlayTex") as Texture2D;
         int w = heatmap.GetLength(0);
         int h = heatmap.GetLength(1);
