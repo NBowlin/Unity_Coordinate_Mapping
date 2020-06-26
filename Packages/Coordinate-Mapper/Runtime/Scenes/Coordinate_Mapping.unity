@@ -364,9 +364,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawGrid: 0
-  range: 8
+  range: 6
   startValue: 60
   endValue: 0
+  heatmapSize: {x: 1200, y: 600}
   colors:
     serializedVersion: 2
     key0: {r: 0.25663006, g: 0.8301887, b: 0.254539, a: 0.39215687}

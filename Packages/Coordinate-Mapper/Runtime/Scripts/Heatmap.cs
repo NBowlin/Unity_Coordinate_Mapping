@@ -11,6 +11,7 @@ public class Heatmap : MonoBehaviour
     [SerializeField] private int range;
     [SerializeField] [Range(0, 100)] private int startValue;
     [SerializeField] [Range(0, 100)] private int endValue;
+    [SerializeField] private Vector2 heatmapSize;
 
     [SerializeField] private Gradient colors;
 
@@ -31,11 +32,12 @@ public class Heatmap : MonoBehaviour
         GenerateHeatMapGrid(points);
     }
 
+    //TODO: Make this more efficient
     void GenerateHeatMapGrid(IEnumerable<CoordinatePoint> points) {
         Material mat = GetComponent<Renderer>().material;
         Texture2D overlay = new Texture2D(mat.mainTexture.width, mat.mainTexture.height); //mat.GetTexture("_OverlayTex") as Texture2D;
-        int w = 1600;
-        int h = 800;
+        int w = (int)heatmapSize.x;
+        int h = (int)heatmapSize.y;
 
         int[,] heatmapGrid = new int[w, h];
         DrawHeatMapGrid(heatmapGrid);
@@ -53,7 +55,7 @@ public class Heatmap : MonoBehaviour
             xStart = Mathf.Clamp(xStart, 0f, w - 1);
             yStart = Mathf.Clamp(yStart, 0f, h - 1);
 
-            //Square Pattern
+            //Square Pattern - Not fully updated
             /*for (int x = (int)xStart - range; x <= xStart + range; x++) {
                 if (x < 0 || x >= w) { continue; }
                 for (int y = (int)yStart - range; y <= yStart + range; y++) {
@@ -64,7 +66,7 @@ public class Heatmap : MonoBehaviour
 
 
             //Diamond Pattern
-            for(int x = 0; x < range; x++) {
+            /*for(int x = 0; x < range; x++) {
                 if (x + xStart >= w) { continue; }
                 for (int y = 0; y < range - x; y++) {
                     if (y + yStart >= h) { continue; }
@@ -78,6 +80,23 @@ public class Heatmap : MonoBehaviour
                     if(y != 0 && yStart - y > 0) {
                         heatmapGrid[(int)xStart + x, (int)yStart - y] += fallOffVal;
                         if (x != 0 && xStart - x > 0) { heatmapGrid[(int)xStart - x, (int)yStart - y] += fallOffVal; }
+                    }
+                }
+            }*/
+
+            //Circle Pattern
+            float rSquared = range * range;
+            for (int x = 0; x < w; x++) {
+                for (int y = 0; y < h; y++) {
+                    float radVal = (xStart - x) * (xStart - x) + (yStart - y) * (yStart - y);
+                    if (radVal < rSquared) {
+                        int fallOff = Mathf.Max(x, y);
+                        float fallOffPercent = radVal / rSquared;
+                        int fallOffRange = startValue - endValue;
+                        int fallOffVal = (int)(startValue - (fallOffRange * fallOffPercent));
+
+                        heatmapGrid[x, y] += fallOffVal;
+
                     }
                 }
             }
@@ -100,11 +119,9 @@ public class Heatmap : MonoBehaviour
         int w = heatmap.GetLength(0);
         int h = heatmap.GetLength(1);
 
-        for (int x = 0; x < w; x++) {
-            for (int y = 0; y < h; y++) {
-                overlay.SetPixel(x, y, Color.clear);
-            }
-        }
+        Color[] clearColors = new Color[w * h];
+        for(int i = 0; i < clearColors.Length; i++) { clearColors[i] = Color.clear; }
+        overlay.SetPixels(clearColors);
 
         for (int x = 0; x < w; x++) {
             for (int y = 0; y < h; y++) {
