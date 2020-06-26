@@ -5,7 +5,7 @@ using UnityEngine;
 using CoordinateMapper.Utility;
 
 namespace CoordinateMapper.Graticule {
-    public class DrawGraticule : MonoBehaviour {
+    public class DrawGraticuleLine : MonoBehaviour {
         [SerializeField] private LineRenderer lineRenderer;
 
         [HideInInspector] public int segments;

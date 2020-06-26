@@ -168,4 +168,3 @@ public class Heatmap : MonoBehaviour
         Debug.DrawLine(new Vector3(left, transform.position.y, top), new Vector3(right, transform.position.y, top), Color.green, 100f);
     }
 }
-

@@ -6,7 +6,7 @@ using System.Linq;
 using CoordinateMapper.Utility;
 
 namespace CoordinateMapper.Graticule {
-    public class GenerateGrid : MonoBehaviour {
+    public class GenerateGraticule : MonoBehaviour {
         private enum DrawingTechnique {
             LineRenderer,
             MeshTopologyLines,
@@ -55,7 +55,7 @@ namespace CoordinateMapper.Graticule {
                 if (drawParallels) {
                     var latGraticuleGO = Instantiate(graticulePrefab, parallelsContainer.transform);
                     latGraticuleGO.name = "" + i;
-                    var latGraticule = latGraticuleGO.GetComponent<DrawGraticule>();
+                    var latGraticule = latGraticuleGO.GetComponent<DrawGraticuleLine>();
                     latGraticule.segments = segments;
                     latGraticule.angle = i;
                     latGraticule.isLatitude = true;
@@ -64,7 +64,7 @@ namespace CoordinateMapper.Graticule {
                 if (drawMeridians) {
                     var lngGraticuleGO = Instantiate(graticulePrefab, meridiansContainer.transform);
                     lngGraticuleGO.name = "" + i;
-                    var lngGraticule = lngGraticuleGO.GetComponent<DrawGraticule>();
+                    var lngGraticule = lngGraticuleGO.GetComponent<DrawGraticuleLine>();
                     lngGraticule.segments = segments;
                     lngGraticule.angle = i;
                     lngGraticule.isLatitude = false;
