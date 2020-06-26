@@ -88,7 +88,7 @@ public class Heatmap : MonoBehaviour
             for (int y = 0; y < heatmapGrid.GetLength(1); y++) {
                 line = line + heatmapGrid[x, y] + ", ";
             }
-            Debug.Log(line);
+            //Debug.Log(line);
         }
 
         DrawHeatmapTexture(heatmapGrid);
@@ -126,23 +126,29 @@ public class Heatmap : MonoBehaviour
     void DrawHeatMapGrid(int[,] heatmapGrid) {
         if (!drawGrid) { return; }
 
+        float left = transform.position.x - transform.localScale.x / 2f;
+        float right = transform.position.x + transform.localScale.x / 2f;
+        float bot = transform.position.z - transform.localScale.y / 2f;
+        float top = transform.position.z + transform.localScale.y / 2f;
+        float xDist = Mathf.Abs(right - left);
+        float yDist = Mathf.Abs(top - bot);
+
         for (int x = 0; x < heatmapGrid.GetLength(0); x++) {
-            for (int y = 0; y < heatmapGrid.GetLength(1); y++) {
-                float ratioX = (float)x / (float)heatmapGrid.GetLength(0);
-                float endRatioX = (float)(x + 1) / (float)heatmapGrid.GetLength(0);
+            float ratio = (float)x / (float)heatmapGrid.GetLength(0);
+            float lineX = xDist * ratio;
 
-                float ratioY = (float)y / (float)heatmapGrid.GetLength(1);
-                float endRatioY = (float)(y + 1) / (float)heatmapGrid.GetLength(1);
-
-                Vector2 botLeft = new Vector2(transform.position.x - transform.localScale.x / 2f, transform.position.z - transform.localScale.y / 2f);
-
-                Debug.DrawLine(new Vector3(botLeft.x + ratioX * transform.localScale.x, transform.position.y, botLeft.y + ratioY * transform.localScale.y),
-                    new Vector3(botLeft.x + endRatioX * transform.localScale.x, transform.position.y, botLeft.y + ratioY * transform.localScale.y), Color.green, 100f);
-
-                Debug.DrawLine(new Vector3(botLeft.x + ratioX * transform.localScale.x, transform.position.y, botLeft.y + ratioY * transform.localScale.y),
-                    new Vector3(botLeft.x + ratioX * transform.localScale.x, transform.position.y, botLeft.y + endRatioY * transform.localScale.y), Color.green, 100f);
-            }
+            Debug.DrawLine(new Vector3(left + lineX, transform.position.y, bot), new Vector3(left + lineX, transform.position.y, top), Color.green, 100f);
         }
+
+        for (int y = 0; y < heatmapGrid.GetLength(1); y++) {
+            float ratio = (float)y / (float)heatmapGrid.GetLength(1);
+            float lineY = yDist * ratio;
+
+            Debug.DrawLine(new Vector3(left, transform.position.y, bot + lineY), new Vector3(right, transform.position.y, bot + lineY), Color.green, 100f);
+        }
+
+        Debug.DrawLine(new Vector3(right, transform.position.y, bot), new Vector3(right, transform.position.y, top), Color.green, 100f);
+        Debug.DrawLine(new Vector3(left, transform.position.y, top), new Vector3(right, transform.position.y, top), Color.green, 100f);
     }
 }
 
