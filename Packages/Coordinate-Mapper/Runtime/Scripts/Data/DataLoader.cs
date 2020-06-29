@@ -21,14 +21,6 @@ namespace CoordinateMapper.Data {
         void Start() {
             var points = LoadJson();
             if(loadComplete != null) { loadComplete.Invoke(points); }
-
-            //TODO: Rework this - just for testing
-            /*if (heatmap != null) {
-                heatmap.DoStuff(points);
-            }
-            else {
-                //LoadData(points);
-            }*/
         }
 
         //We have to return IEnumerable so we get Covariance and can return subclasses of CoordinatePoint

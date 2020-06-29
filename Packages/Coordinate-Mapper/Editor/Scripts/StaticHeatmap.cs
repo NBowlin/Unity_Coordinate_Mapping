@@ -6,17 +6,32 @@ using UnityEditor;
 using CoordinateMapper.Coordinates;
 using CoordinateMapper.Data;
 
-public class StaticHeatmap
+public class StaticHeatmap : ScriptableWizard
 {
     [MenuItem("HeatMap/Generate Heat Map Texture")]
-    static void Test() {
-        Debug.Log("Test menu item 2!");
+    static void CreateStaticHeatmap() {
 
-        int w = 1600;
-        int h = 800;
-        int range = 4;
-        int startValue = 60;
-        int endValue = 0;
+        DisplayWizard<StaticHeatmap>("Create a heat map");
+    }
+
+    [SerializeField] private int range = 6;
+    [SerializeField] [Range(0, 100)] private int startValue = 60;
+    [SerializeField] [Range(0, 100)] private int endValue = 0;
+    [SerializeField] private Vector2 heatmapSize = new Vector2(2048, 1024);
+
+    [SerializeField] private Gradient colors;
+
+    private void OnWizardCreate() {
+        string path = EditorUtility.SaveFilePanelInProject("Save Heatmap Texture", "Heatmap", "png", "Specify where to save the heatmap.");
+        if (path.Length > 0) {
+            var hm = GenerateStaticHeatMap();
+            System.IO.File.WriteAllBytes(path, hm.EncodeToPNG());
+        }
+    }
+
+    private Texture2D GenerateStaticHeatMap() {
+        int w = (int)heatmapSize.x;
+        int h = (int)heatmapSize.y;
 
         int[,] heatmapGrid = new int[w, h];
 
@@ -84,18 +99,10 @@ public class StaticHeatmap
             }
         }
 
-        for (int x = 0; x < heatmapGrid.GetLength(0); x++) {
-            string line = "";
-            for (int y = 0; y < heatmapGrid.GetLength(1); y++) {
-                line = line + heatmapGrid[x, y] + ", ";
-            }
-            //Debug.Log(line);
-        }
-
-        DrawHeatmapTexture(heatmapGrid);
+        return DrawHeatmapTexture(heatmapGrid);
     }
 
-    static void DrawHeatmapTexture(int[,] heatmap) {
+    private Texture2D DrawHeatmapTexture(int[,] heatmap) {
         int w = heatmap.GetLength(0);
         int h = heatmap.GetLength(1);
 
@@ -109,16 +116,16 @@ public class StaticHeatmap
             for (int y = 0; y < h; y++) {
                 if (heatmap[x, y] > 0) {
                     //Color using gradient
-                    //var c = colors.Evaluate(heatmap[x, y] / 100f);
-                    //overlay.SetPixel(x, y, c);
+                    var c = colors.Evaluate(heatmap[x, y] / 100f);
+                    overlay.SetPixel(x, y, c);
 
                     //Red color using alpha
-                    overlay.SetPixel(x, y, new Color(1f, 0f, 0f, heatmap[x, y] / 100f));
+                    //overlay.SetPixel(x, y, new Color(1f, 0f, 0f, heatmap[x, y] / 100f));
                 }
             }
         }
 
         overlay.Apply();
-        System.IO.File.WriteAllBytes("Assets/test.png", overlay.EncodeToPNG());
+        return overlay;
     }
 }

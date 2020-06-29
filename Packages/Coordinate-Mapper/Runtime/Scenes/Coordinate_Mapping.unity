@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65279903e147d5e4584fd7ef5160fe99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawGrid: 0
+  drawGrid: 1
   range: 6
   startValue: 60
   endValue: 0
@@ -397,7 +397,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  renderer: {fileID: 0}
+  renderer: {fileID: 1251436794}
 --- !u!114 &1251436798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,7 +413,18 @@ MonoBehaviour:
   jsonFile: {fileID: 4900000, guid: 8136a9d133e774b4282eb267e0d341fb, type: 3}
   loadComplete:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1251436797}
+        m_MethodName: GenerateHeatMapGrid
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1263628672
 GameObject:
   m_ObjectHideFlags: 0
