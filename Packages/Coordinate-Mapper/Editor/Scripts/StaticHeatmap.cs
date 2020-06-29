@@ -1,45 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 using CoordinateMapper.Coordinates;
+using CoordinateMapper.Data;
 
-public class Heatmap : MonoBehaviour
+public class StaticHeatmap
 {
-    [SerializeField] private bool drawGrid;
+    [MenuItem("HeatMap/Generate Heat Map Texture")]
+    static void Test() {
+        Debug.Log("Test menu item 2!");
 
-    [SerializeField] private int range;
-    [SerializeField] [Range(0, 100)] private int startValue;
-    [SerializeField] [Range(0, 100)] private int endValue;
-    [SerializeField] private Vector2 heatmapSize;
-
-    [SerializeField] private Gradient colors;
-    [SerializeField] private Renderer renderer;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    public void DoStuff(IEnumerable<CoordinatePoint> points) {
-        /*var p = new CoordinatePoint_Basic();
-        var l = new Location();
-        l.latitude = 40.7128f;
-        l.longitude = -74.0060f;
-        p.location = l;
-        points = new List<CoordinatePoint>() { p };*/
-
-        GenerateHeatMapGrid(points);
-    }
-
-    //TODO: Make this more efficient
-    public void GenerateHeatMapGrid(IEnumerable<CoordinatePoint> points) {
-        int w = (int)heatmapSize.x;
-        int h = (int)heatmapSize.y;
+        int w = 1600;
+        int h = 800;
+        int range = 4;
+        int startValue = 60;
+        int endValue = 0;
 
         int[,] heatmapGrid = new int[w, h];
-        DrawHeatMapGrid(heatmapGrid);
+
+        TextAsset json = (TextAsset)Resources.Load("magnitude_point_data", typeof(TextAsset));
+        Debug.Log(json.text);
+        var points = JsonDataLoader<CoordinatePoint_Basic>.ParseJson(json);
 
         foreach (CoordinatePoint p in points) {
             float texLat = 90f + p.location.latitude;
@@ -112,58 +95,30 @@ public class Heatmap : MonoBehaviour
         DrawHeatmapTexture(heatmapGrid);
     }
 
-    void DrawHeatmapTexture(int[,] heatmap) {
+    static void DrawHeatmapTexture(int[,] heatmap) {
         int w = heatmap.GetLength(0);
         int h = heatmap.GetLength(1);
 
-        Texture2D overlay = new Texture2D(w, h); //mat.GetTexture("_OverlayTex") as Texture2D;
+        Texture2D overlay = new Texture2D(w, h);
 
         Color[] clearColors = new Color[w * h];
-        for(int i = 0; i < clearColors.Length; i++) { clearColors[i] = Color.clear; }
+        for (int i = 0; i < clearColors.Length; i++) { clearColors[i] = Color.clear; }
         overlay.SetPixels(clearColors);
 
         for (int x = 0; x < w; x++) {
             for (int y = 0; y < h; y++) {
                 if (heatmap[x, y] > 0) {
                     //Color using gradient
-                    var c = colors.Evaluate(heatmap[x, y] / 100f);
-                    overlay.SetPixel(x, y, c);
+                    //var c = colors.Evaluate(heatmap[x, y] / 100f);
+                    //overlay.SetPixel(x, y, c);
 
                     //Red color using alpha
-                    //overlay.SetPixel(x, y, new Color(1f, 0f, 0f, heatmap[x, y] / 100f));
+                    overlay.SetPixel(x, y, new Color(1f, 0f, 0f, heatmap[x, y] / 100f));
                 }
             }
         }
 
         overlay.Apply();
-        renderer.material.SetTexture("_OverlayTex", overlay);
-    }
-
-    void DrawHeatMapGrid(int[,] heatmapGrid) {
-        if (!drawGrid) { return; }
-
-        float left = transform.position.x - transform.localScale.x / 2f;
-        float right = transform.position.x + transform.localScale.x / 2f;
-        float bot = transform.position.z - transform.localScale.y / 2f;
-        float top = transform.position.z + transform.localScale.y / 2f;
-        float xDist = Mathf.Abs(right - left);
-        float yDist = Mathf.Abs(top - bot);
-
-        for (int x = 0; x < heatmapGrid.GetLength(0); x++) {
-            float ratio = (float)x / (float)heatmapGrid.GetLength(0);
-            float lineX = xDist * ratio;
-
-            Debug.DrawLine(new Vector3(left + lineX, transform.position.y, bot), new Vector3(left + lineX, transform.position.y, top), Color.green, 100f);
-        }
-
-        for (int y = 0; y < heatmapGrid.GetLength(1); y++) {
-            float ratio = (float)y / (float)heatmapGrid.GetLength(1);
-            float lineY = yDist * ratio;
-
-            Debug.DrawLine(new Vector3(left, transform.position.y, bot + lineY), new Vector3(right, transform.position.y, bot + lineY), Color.green, 100f);
-        }
-
-        Debug.DrawLine(new Vector3(right, transform.position.y, bot), new Vector3(right, transform.position.y, top), Color.green, 100f);
-        Debug.DrawLine(new Vector3(left, transform.position.y, top), new Vector3(right, transform.position.y, top), Color.green, 100f);
+        System.IO.File.WriteAllBytes("Assets/test.png", overlay.EncodeToPNG());
     }
 }
