@@ -14,12 +14,18 @@ public class StaticHeatmap : ScriptableWizard
         DisplayWizard<StaticHeatmap>("Create a heat map");
     }
 
+    [SerializeField] private TextAsset json;
+
     [SerializeField] private int range = 6;
     [SerializeField] [Range(0, 100)] private int startValue = 60;
     [SerializeField] [Range(0, 100)] private int endValue = 0;
     [SerializeField] private Vector2 heatmapSize = new Vector2(2048, 1024);
 
-    [SerializeField] private Gradient colors;
+    [SerializeField] private Gradient colors = new Gradient();
+
+    private void OnEnable() {
+        json = (TextAsset)Resources.Load("magnitude_point_data", typeof(TextAsset));
+    }
 
     private void OnWizardCreate() {
         string path = EditorUtility.SaveFilePanelInProject("Save Heatmap Texture", "Heatmap", "png", "Specify where to save the heatmap.");
@@ -35,7 +41,6 @@ public class StaticHeatmap : ScriptableWizard
 
         int[,] heatmapGrid = new int[w, h];
 
-        TextAsset json = (TextAsset)Resources.Load("magnitude_point_data", typeof(TextAsset));
         Debug.Log(json.text);
         var points = JsonDataLoader<CoordinatePoint_Basic>.ParseJson(json);
 
@@ -102,30 +107,60 @@ public class StaticHeatmap : ScriptableWizard
         return DrawHeatmapTexture(heatmapGrid);
     }
 
+    //private Texture2D DrawHeatmapTexture(int[,] heatmap) {
+    //    int w = heatmap.GetLength(0);
+    //    int h = heatmap.GetLength(1);
+
+    //    Texture2D overlay = new Texture2D(w, h);
+
+    //    Color[] clearColors = new Color[w * h];
+    //    for (int i = 0; i < clearColors.Length; i++) { clearColors[i] = Color.clear; }
+    //    overlay.SetPixels(clearColors);
+
+    //    for (int x = 0; x < w; x++) {
+    //        for (int y = 0; y < h; y++) {
+    //            if (heatmap[x, y] > 0) {
+    //                //Color using gradient
+    //                var c = colors.Evaluate(heatmap[x, y] / 100f);
+    //                overlay.SetPixel(x, y, c);
+
+    //                //Red color using alpha
+    //                //overlay.SetPixel(x, y, new Color(1f, 0f, 0f, heatmap[x, y] / 100f));
+    //            }
+    //        }
+    //    }
+
+    //    overlay.Apply();
+    //    return overlay;
+    //}
+
     private Texture2D DrawHeatmapTexture(int[,] heatmap) {
         int w = heatmap.GetLength(0);
         int h = heatmap.GetLength(1);
 
-        Texture2D overlay = new Texture2D(w, h);
+        Texture2D overlay = new Texture2D(w, h, TextureFormat.RGBA32, false);
 
-        Color[] clearColors = new Color[w * h];
-        for (int i = 0; i < clearColors.Length; i++) { clearColors[i] = Color.clear; }
-        overlay.SetPixels(clearColors);
+        var texColors = new Color32[w * h];
+        for (int i = 0; i < texColors.Length; i++) { texColors[i] = Color.clear; }
 
-        for (int x = 0; x < w; x++) {
-            for (int y = 0; y < h; y++) {
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
                 if (heatmap[x, y] > 0) {
-                    //Color using gradient
-                    var c = colors.Evaluate(heatmap[x, y] / 100f);
-                    overlay.SetPixel(x, y, c);
-
-                    //Red color using alpha
-                    //overlay.SetPixel(x, y, new Color(1f, 0f, 0f, heatmap[x, y] / 100f));
+                    texColors[y * w + x] = colors.Evaluate(heatmap[x, y] / 100f);
                 }
             }
         }
 
-        overlay.Apply();
+        var byteColors = new byte[texColors.Length * 4];
+        for (int i = 0; i < texColors.Length; i++) {
+            Color32 c = texColors[i];
+            byteColors[i * 4] = c.r;
+            byteColors[i * 4 + 1] = c.g;
+            byteColors[i * 4 + 2] = c.b;
+            byteColors[i * 4 + 3] = c.a;
+        }
+
+        overlay.LoadRawTextureData(byteColors);
         return overlay;
     }
 }
