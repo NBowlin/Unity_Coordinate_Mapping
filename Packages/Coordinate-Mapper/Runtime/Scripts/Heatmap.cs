@@ -64,7 +64,14 @@ public class Heatmap : MonoBehaviour
     public static int[,] GenerateValues(int w, int h, int range, int startValue, int endValue, Gradient colors, IEnumerable<CoordinatePoint> points) {
         int[,] heatmapGrid = new int[w, h];
 
+        CoordinatePoint prevPoint = null;
+
         foreach (CoordinatePoint p in points) {
+            if (prevPoint != null) {
+                Debug.Log("Distance from " + prevPoint.location.name + " to " + p.location.name + " is " +  prevPoint.location.kmBetweenLocation(p.location) + " km!");
+            }
+            prevPoint = p;
+
             float texLat = 90f + p.location.latitude;
             float texLng = 180f + p.location.longitude;
 
