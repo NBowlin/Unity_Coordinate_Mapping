@@ -5,6 +5,8 @@ using UnityEditor;
 
 using CoordinateMapper.Coordinates;
 using CoordinateMapper.Data;
+using CoordinateMapper.Extensions;
+using System;
 
 public class StaticHeatmap : ScriptableWizard
 {
@@ -30,84 +32,27 @@ public class StaticHeatmap : ScriptableWizard
     private void OnWizardCreate() {
         string path = EditorUtility.SaveFilePanelInProject("Save Heatmap Texture", "Heatmap", "png", "Specify where to save the heatmap.");
         if (path.Length > 0) {
+            DateTime before = DateTime.Now;
             var hm = GenerateStaticHeatMap();
+            DateTime after = DateTime.Now;
+            TimeSpan duration = after.Subtract(before);
+            Debug.Log("Heatmap generation time in seconds: " + duration.Seconds);
             System.IO.File.WriteAllBytes(path, hm.EncodeToPNG());
         }
     }
 
     private Texture2D GenerateStaticHeatMap() {
-        int w = (int)heatmapSize.x;
-        int h = (int)heatmapSize.y;
-
-        int[,] heatmapGrid = new int[w, h];
-
         Debug.Log(json.text);
         var points = JsonDataLoader<CoordinatePoint_Basic>.ParseJson(json);
 
-        foreach (CoordinatePoint p in points) {
-            float texLat = 90f + p.location.latitude;
-            float texLng = 180f + p.location.longitude;
-
-            float latRatio = texLat / 180f;
-            float lngRatio = texLng / 360f;
-
-            float xStart = Mathf.Round(lngRatio * w);
-            float yStart = Mathf.Round(latRatio * h);
-
-            xStart = Mathf.Clamp(xStart, 0f, w - 1);
-            yStart = Mathf.Clamp(yStart, 0f, h - 1);
-
-            //Square Pattern - Not fully updated
-            /*for (int x = (int)xStart - range; x <= xStart + range; x++) {
-                if (x < 0 || x >= w) { continue; }
-                for (int y = (int)yStart - range; y <= yStart + range; y++) {
-                    if (y < 0 || y >= h) { continue; }
-                    heatmapGrid[x, y] += 20;
-                }
-            }*/
-
-
-            //Diamond Pattern
-            /*for(int x = 0; x < range; x++) {
-                if (x + xStart >= w) { continue; }
-                for (int y = 0; y < range - x; y++) {
-                    if (y + yStart >= h) { continue; }
-                    int fallOff = Mathf.Max(x, y);
-                    float fallOffPercent = (float)fallOff / (float)range;
-                    int fallOffRange = startValue - endValue;
-                    int fallOffVal = (int)(startValue - (fallOffRange * fallOffPercent));
-                    heatmapGrid[(int)xStart + x, (int)yStart + y] += fallOffVal;
-
-                    if(x != 0 && xStart - x > 0) { heatmapGrid[(int)xStart - x, (int)yStart + y] += fallOffVal; }
-                    if(y != 0 && yStart - y > 0) {
-                        heatmapGrid[(int)xStart + x, (int)yStart - y] += fallOffVal;
-                        if (x != 0 && xStart - x > 0) { heatmapGrid[(int)xStart - x, (int)yStart - y] += fallOffVal; }
-                    }
-                }
-            }*/
-
-            //Circle Pattern
-            float rSquared = range * range;
-            for (int x = 0; x < w; x++) {
-                for (int y = 0; y < h; y++) {
-                    float radVal = (xStart - x) * (xStart - x) + (yStart - y) * (yStart - y);
-                    if (radVal < rSquared) {
-                        int fallOff = Mathf.Max(x, y);
-                        float fallOffPercent = radVal / rSquared;
-                        int fallOffRange = startValue - endValue;
-                        int fallOffVal = (int)(startValue - (fallOffRange * fallOffPercent));
-
-                        heatmapGrid[x, y] += fallOffVal;
-
-                    }
-                }
-            }
-        }
-
-        return DrawHeatmapTexture(heatmapGrid);
+        int[,] heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, range, startValue, endValue, colors, points);
+        return Texture2D_Extensions.DrawHeatmap(heatmapGrid, colors);
+        //return DrawHeatmapTexture(heatmapGrid);
     }
 
+    //Draw texture using SetPixel
     //private Texture2D DrawHeatmapTexture(int[,] heatmap) {
+    //    DateTime before = DateTime.Now;
     //    int w = heatmap.GetLength(0);
     //    int h = heatmap.GetLength(1);
 
@@ -131,36 +76,11 @@ public class StaticHeatmap : ScriptableWizard
     //    }
 
     //    overlay.Apply();
+
+    //    DateTime after = DateTime.Now;
+    //    TimeSpan duration = after.Subtract(before);
+    //    Debug.Log("Draw time in seconds: " + duration.Seconds);
+
     //    return overlay;
     //}
-
-    private Texture2D DrawHeatmapTexture(int[,] heatmap) {
-        int w = heatmap.GetLength(0);
-        int h = heatmap.GetLength(1);
-
-        Texture2D overlay = new Texture2D(w, h, TextureFormat.RGBA32, false);
-
-        var texColors = new Color32[w * h];
-        for (int i = 0; i < texColors.Length; i++) { texColors[i] = Color.clear; }
-
-        for (int y = 0; y < h; y++) {
-            for (int x = 0; x < w; x++) {
-                if (heatmap[x, y] > 0) {
-                    texColors[y * w + x] = colors.Evaluate(heatmap[x, y] / 100f);
-                }
-            }
-        }
-
-        var byteColors = new byte[texColors.Length * 4];
-        for (int i = 0; i < texColors.Length; i++) {
-            Color32 c = texColors[i];
-            byteColors[i * 4] = c.r;
-            byteColors[i * 4 + 1] = c.g;
-            byteColors[i * 4 + 2] = c.b;
-            byteColors[i * 4 + 3] = c.a;
-        }
-
-        overlay.LoadRawTextureData(byteColors);
-        return overlay;
-    }
 }
