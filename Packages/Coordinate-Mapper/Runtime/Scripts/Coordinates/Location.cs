@@ -10,12 +10,15 @@ namespace CoordinateMapper.Coordinates {
         public float latitude;
         public float longitude;
 
-        public float kmBetweenLocation(Location loc) {
-            float lat1 = latitude;
-            float lon1 = longitude;
-            float lat2 = loc.latitude;
-            float lon2 = loc.longitude;
+        public float kmBetweenLocations(Location loc) {
+            return kmBetweenLocations(latitude, longitude, loc.latitude, loc.longitude);
+        }
 
+        public float kmBetweenLocations(float lat2, float lon2) {
+            return kmBetweenLocations(latitude, longitude, lat2, lon2);
+        }
+
+        private float kmBetweenLocations(float lat1, float lon1, float lat2, float lon2) {
             float R = 6371000f; //meters
             float φ1 = lat1 * Mathf.Deg2Rad; // φ, λ in radians
             float φ2 = lat2 * Mathf.Deg2Rad;

@@ -18,8 +18,18 @@ public class Heatmap : MonoBehaviour
     [SerializeField] private Renderer renderer;
 
     public void GenerateHeatMapGrid(IEnumerable<CoordinatePoint> points) {
+
+        var p = new CoordinatePoint_Basic();
+        var l = new Location();
+        l.latitude = 40.7128f;
+        l.longitude = -74.0060f;
+        l.name = "NYC";
+        p.location = l;
+        points = new List<CoordinatePoint>() { p };
+
         int[,] heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, range, startValue, endValue, colors, points);
 
+        DrawHeatMapGrid(heatmapGrid);
         for (int x = 0; x < heatmapGrid.GetLength(0); x++) {
             string line = "";
             for (int y = 0; y < heatmapGrid.GetLength(1); y++) {
@@ -64,14 +74,21 @@ public class Heatmap : MonoBehaviour
     public static int[,] GenerateValues(int w, int h, int range, int startValue, int endValue, Gradient colors, IEnumerable<CoordinatePoint> points) {
         int[,] heatmapGrid = new int[w, h];
 
-        CoordinatePoint prevPoint = null;
+        //TODO: Check vs lat/lng of center grid space for x/y (currently bot left of grid space)
+        //Or maybe even find min and max lat/lng and check if distance threshold is inside that?
+        for (int x = 0; x < w; x++) {
+            for (int y = 0; y < h; y++) {
+                float lng = (float)x / (float)w * 360f - 180f;
+                float lat = (float)y / (float)h * 180f - 90f;
+
+                foreach (CoordinatePoint p in points) {
+                    float d = p.location.kmBetweenLocations(lat, lng);
+                    Debug.Log("Distance from: " + x + "/" + y + " is: " + d.ToString("f4"));
+                }
+            }
+        }
 
         foreach (CoordinatePoint p in points) {
-            if (prevPoint != null) {
-                Debug.Log("Distance from " + prevPoint.location.name + " to " + p.location.name + " is " +  prevPoint.location.kmBetweenLocation(p.location) + " km!");
-            }
-            prevPoint = p;
-
             float texLat = 90f + p.location.latitude;
             float texLng = 180f + p.location.longitude;
 
@@ -83,6 +100,8 @@ public class Heatmap : MonoBehaviour
 
             xStart = Mathf.Clamp(xStart, 0f, w - 1);
             yStart = Mathf.Clamp(yStart, 0f, h - 1);
+
+            Debug.Log(p.location.name + " X/Y Value is: " + xStart + "/" + yStart);
 
             //Square Pattern - Not fully updated
             /*for (int x = (int)xStart - range; x <= xStart + range; x++) {
