@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1251436793
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -363,8 +363,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65279903e147d5e4584fd7ef5160fe99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawGrid: 1
-  range: 6
+  drawGrid: 0
+  useOldDrawMethod: 0
+  rangeOld: 5
+  range: 300
   startValue: 60
   endValue: 0
   heatmapSize: {x: 1200, y: 600}
@@ -397,7 +399,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  renderer: {fileID: 1251436794}
+  hmRenderer: {fileID: 1251436794}
 --- !u!114 &1251436798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47479ad4d54e9e943b1d478111901559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 8136a9d133e774b4282eb267e0d341fb, type: 3}
+  jsonFile: {fileID: 4900000, guid: 56cfa9ccb5612434ab252a653c0f38e2, type: 3}
   loadComplete:
     m_PersistentCalls:
       m_Calls:
@@ -673,7 +675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2020255491
 Transform:
   m_ObjectHideFlags: 0
@@ -741,21 +743,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb2f26517a7a5c84ab393e7fc7c81a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 3fc848d28af564640b6b971c38f2eb66, type: 3}
+  jsonFile: {fileID: 4900000, guid: 56cfa9ccb5612434ab252a653c0f38e2, type: 3}
   loadComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2020255496}
-        m_MethodName: MapPoints
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2020255497}
         m_MethodName: GenerateHeatMapGrid
         m_Mode: 0
@@ -814,7 +805,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawGrid: 0
-  range: 6
+  useOldDrawMethod: 0
+  rangeOld: 5
+  range: 300
   startValue: 60
   endValue: 0
   heatmapSize: {x: 1200, y: 600}
@@ -847,7 +840,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  renderer: {fileID: 559591685}
+  hmRenderer: {fileID: 559591685}
 --- !u!1001 &694074694279042369
 PrefabInstance:
   m_ObjectHideFlags: 0

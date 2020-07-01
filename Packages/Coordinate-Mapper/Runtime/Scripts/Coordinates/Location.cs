@@ -18,7 +18,9 @@ namespace CoordinateMapper.Coordinates {
             return kmBetweenLocations(latitude, longitude, lat2, lon2);
         }
 
-        private float kmBetweenLocations(float lat1, float lon1, float lat2, float lon2) {
+        //TODO: This is actually fairly expensive: https://latkin.org/blog/2014/11/09/a-simple-benchmark-of-various-math-operations/
+        public static float kmBetweenLocations(float lat1, float lon1, float lat2, float lon2) {
+            //Haversine Formula
             float R = 6371000f; //meters
             float φ1 = lat1 * Mathf.Deg2Rad; // φ, λ in radians
             float φ2 = lat2 * Mathf.Deg2Rad;
@@ -32,6 +34,16 @@ namespace CoordinateMapper.Coordinates {
 
             float d = (R * c) / 1000f; //kilometers
             return d;
+
+            //TODO: Compare this Equirectangular approximation formula for speed / accuracy
+            /*Formula: 
+            x = Δλ ⋅ cos φm
+            y = Δφ
+            d = R ⋅ √x² +y²
+            JavaScript:
+            const x = (λ2 - λ1) * Math.cos((φ1 + φ2) / 2);
+            const y = (φ2 - φ1);
+            const d = Math.sqrt(x * x + y * y) * R;*/
         }
     }
 }
