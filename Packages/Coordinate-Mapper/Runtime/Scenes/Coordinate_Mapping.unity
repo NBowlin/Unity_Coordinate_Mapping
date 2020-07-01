@@ -417,7 +417,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1251436797}
-        m_MethodName: GenerateHeatMapGrid
+        m_MethodName: GenerateHeatmapGrid
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -665,7 +665,6 @@ GameObject:
   - component: {fileID: 2020255491}
   - component: {fileID: 2020255492}
   - component: {fileID: 2020255495}
-  - component: {fileID: 2020255493}
   - component: {fileID: 2020255494}
   - component: {fileID: 2020255496}
   - component: {fileID: 2020255497}
@@ -704,33 +703,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2020255493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020255490}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47479ad4d54e9e943b1d478111901559, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 8136a9d133e774b4282eb267e0d341fb, type: 3}
-  loadComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2020255496}
-        m_MethodName: Test
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &2020255494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,7 +720,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2020255497}
-        m_MethodName: GenerateHeatMapGrid
+        m_MethodName: GenerateHeatmapGrid
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

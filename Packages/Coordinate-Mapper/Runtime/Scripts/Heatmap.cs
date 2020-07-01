@@ -23,7 +23,7 @@ public class Heatmap : MonoBehaviour
     [SerializeField] private Gradient colors;
     [SerializeField] private Renderer hmRenderer;
 
-    public void GenerateHeatMapGrid(IEnumerable<CoordinatePoint> points) {
+    public void GenerateHeatmapGrid(IEnumerable<CoordinatePoint> points) {
 
         /*var p = new CoordinatePoint_Basic();
         var l = new Location();
@@ -47,13 +47,13 @@ public class Heatmap : MonoBehaviour
             Debug.Log("New generate time: " + (float)sw2.Elapsed.Milliseconds / 1000f);
         }
 
-        DrawHeatMapGrid(heatmapGrid);
+        DrawHeatmapGrid(heatmapGrid);
 
         Texture2D overlay = Texture2D_Extensions.DrawHeatmap(heatmapGrid, colors);
         hmRenderer.material.SetTexture("_OverlayTex", overlay);
     }
 
-    void DrawHeatMapGrid(int[,] heatmapGrid) {
+    void DrawHeatmapGrid(int[,] heatmapGrid) {
         if (!drawGrid) { return; }
 
         float left = transform.position.x - transform.localScale.x / 2f;
@@ -91,6 +91,8 @@ public class Heatmap : MonoBehaviour
         //float cellWidthKm = kmPerLng * degPerLng;
         //int widthCells = Mathf.RoundToInt(range / cellWidthKm);
 
+        //Latitude lines are constant distance - so pre-calculate the km between latitudes and use that to restrict
+        //the y coords as we check location distance below
         float pC = 39940.653f;
         float kmPerLat = pC / 180f;
         float degPerLat = 180f / h;

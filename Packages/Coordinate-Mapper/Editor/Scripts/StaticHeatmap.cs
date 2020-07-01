@@ -10,7 +10,7 @@ using System;
 
 public class StaticHeatmap : ScriptableWizard
 {
-    [MenuItem("HeatMap/Generate Heat Map Texture")]
+    [MenuItem("Heatmap/Generate Heatmap Texture")]
     static void CreateStaticHeatmap() {
 
         DisplayWizard<StaticHeatmap>("Create a heat map");
@@ -33,7 +33,7 @@ public class StaticHeatmap : ScriptableWizard
         string path = EditorUtility.SaveFilePanelInProject("Save Heatmap Texture", "Heatmap", "png", "Specify where to save the heatmap.");
         if (path.Length > 0) {
             DateTime before = DateTime.Now;
-            var hm = GenerateStaticHeatMap();
+            var hm = GenerateStaticHeatmap();
             DateTime after = DateTime.Now;
             TimeSpan duration = after.Subtract(before);
             Debug.Log("Heatmap generation time in seconds: " + duration.Seconds);
@@ -41,7 +41,7 @@ public class StaticHeatmap : ScriptableWizard
         }
     }
 
-    private Texture2D GenerateStaticHeatMap() {
+    private Texture2D GenerateStaticHeatmap() {
         Debug.Log(json.text);
         var points = JsonDataLoader<CoordinatePoint_Basic>.ParseJson(json);
 
