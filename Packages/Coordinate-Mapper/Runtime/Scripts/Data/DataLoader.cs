@@ -20,7 +20,7 @@ namespace CoordinateMapper.Data {
         // Start is called before the first frame update
         void Start() {
             var points = LoadJson();
-            if(loadComplete != null) { loadComplete.Invoke(points); }
+            if (loadComplete != null) { loadComplete.Invoke(points); }
         }
 
         //We have to return IEnumerable so we get Covariance and can return subclasses of CoordinatePoint

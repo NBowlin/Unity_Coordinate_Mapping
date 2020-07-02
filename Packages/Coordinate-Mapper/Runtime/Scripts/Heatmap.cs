@@ -11,6 +11,7 @@ public class Heatmap : MonoBehaviour
 
 
     //TODO: Remove old drawing method once done comparing
+    [SerializeField] private bool useSlowNewMethod;
     [SerializeField] private bool useOldDrawMethod;
     [SerializeField] private int rangeOld;
 
@@ -35,22 +36,29 @@ public class Heatmap : MonoBehaviour
 
         int[,] heatmapGrid;
 
+        var before = System.DateTime.UtcNow;
+
         if (useOldDrawMethod) {
-            System.Diagnostics.Stopwatch sw1 = System.Diagnostics.Stopwatch.StartNew();
             heatmapGrid = Heatmap.GenerateValuesOld((int)heatmapSize.x, (int)heatmapSize.y, rangeOld, startValue, endValue, colors, points);
-            sw1.Stop();
-            Debug.Log("Old generate time: " + (float)sw1.Elapsed.Milliseconds / 1000f);
-        } else {
-            System.Diagnostics.Stopwatch sw2 = System.Diagnostics.Stopwatch.StartNew();
-            heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, range, startValue, endValue, colors, points);
-            sw2.Stop();
-            Debug.Log("New generate time: " + (float)sw2.Elapsed.Milliseconds / 1000f);
+            var after = System.DateTime.UtcNow;
+            Debug.Log("Old generate heatmap time: " + (after - before).TotalMilliseconds / 1000f);
+        }
+        else {
+            before = System.DateTime.UtcNow;
+            heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, range, startValue, endValue, colors, points, useSlowNewMethod);
+            var after = System.DateTime.UtcNow;
+            Debug.Log("New generate heatmap time: " + (after - before).TotalMilliseconds / 1000f);
         }
 
+        before = System.DateTime.UtcNow;
         DrawHeatmapGrid(heatmapGrid);
 
         Texture2D overlay = Texture2D_Extensions.DrawHeatmap(heatmapGrid, colors);
+        //Debug.Log("DrawHeatmap time: " + (float)sw3.Elapsed.Milliseconds / 1000f);
         hmRenderer.material.SetTexture("_OverlayTex", overlay);
+
+        var afterDraw = System.DateTime.UtcNow;
+        Debug.Log("Draw heatmap Time: " + (afterDraw - before).TotalMilliseconds / 1000f);
     }
 
     void DrawHeatmapGrid(int[,] heatmapGrid) {
@@ -82,7 +90,7 @@ public class Heatmap : MonoBehaviour
     }
 
     //TODO: Make this more efficient
-    public static int[,] GenerateValues(int w, int h, int range, int startValue, int endValue, Gradient colors, IEnumerable<CoordinatePoint> points) {
+    public static int[,] GenerateValues(int w, int h, int range, int startValue, int endValue, Gradient colors, IEnumerable<CoordinatePoint> points, bool slowMethod) {
         int[,] heatmapGrid = new int[w, h];
 
         //float eC = 40075.017f;
@@ -91,63 +99,77 @@ public class Heatmap : MonoBehaviour
         //float cellWidthKm = kmPerLng * degPerLng;
         //int widthCells = Mathf.RoundToInt(range / cellWidthKm);
 
-        //Latitude lines are constant distance - so pre-calculate the km between latitudes and use that to restrict
-        //the y coords as we check location distance below
-        float pC = 39940.653f;
-        float kmPerLat = pC / 180f;
-        float degPerLat = 180f / h;
-        float cellHeightKm = kmPerLat * degPerLat;
-        int cellRangeY = Mathf.RoundToInt(range / cellHeightKm) + 4;
+        if(!slowMethod) {
+            //Latitude lines are constant distance - so pre-calculate the km between latitudes and use that to restrict
+            //the y coords as we check location distance below
+            float pC = 39940.653f;
+            float kmPerLat = pC / 180f;
+            float degPerLat = 180f / h;
+            float cellHeightKm = kmPerLat * degPerLat;
+            int cellRangeY = Mathf.RoundToInt(range / cellHeightKm) + 4; //TODO: Determine why I need +n here
 
-        foreach (CoordinatePoint p in points) {
-            float texLat = 90f + p.location.latitude;
-            float texLng = 180f + p.location.longitude;
+            float totalDistanceTime = 0f;
 
-            float latRatio = texLat / 180f;
-            float lngRatio = texLng / 360f;
+            foreach (CoordinatePoint p in points) {
+                float texLat = 90f + p.location.latitude;
+                float texLng = 180f + p.location.longitude;
 
-            float xStart = Mathf.Round(lngRatio * w);
-            float yStart = Mathf.Round(latRatio * h);
+                float latRatio = texLat / 180f;
+                float lngRatio = texLng / 360f;
 
-            xStart = Mathf.Clamp(xStart, 0f, w - 1);
-            yStart = Mathf.Clamp(yStart, 0f, h - 1);
+                float xStart = Mathf.Round(lngRatio * w);
+                float yStart = Mathf.Round(latRatio * h);
 
-            for(int x = 0; x < w; x++) {
-                if (x < 0 || x >= w) { continue; }
-                for (int y = (int)yStart - cellRangeY; y <= yStart + cellRangeY; y++) {
-                    if (y < 0 || y >= h) { continue; }
+                xStart = Mathf.Clamp(xStart, 0f, w - 1);
+                yStart = Mathf.Clamp(yStart, 0f, h - 1);
 
+                for (int x = 0; x < w; x++) {
+                    if (x < 0 || x >= w) { continue; }
+                    for (int y = (int)yStart - cellRangeY; y <= yStart + cellRangeY; y++) {
+                        if (y < 0 || y >= h) { continue; }
+
+                        float lng = (float)x / (float)w * 360f - 180f;
+                        float lat = (float)y / (float)h * 180f - 90f;
+
+
+                        var before = System.DateTime.UtcNow;
+                        float d = p.location.kmBetweenLocations(lat, lng);
+                        var after = System.DateTime.UtcNow;
+                        float elapsed = (float)(after - before).TotalMilliseconds / 1000f;
+                        totalDistanceTime += elapsed;
+
+                        if (d < range) {
+                            float dRatio = d / (float)range;
+                            int fallOffRange = startValue - endValue;
+                            int fallOffVal = (int)(startValue - (fallOffRange * dRatio));
+                            heatmapGrid[x, y] += fallOffVal;
+                        }
+                    }
+                }
+            }
+
+            Debug.Log("Total distance calc time: " + totalDistanceTime);
+        }
+        else {
+            //TODO: Check vs lat/lng of center grid space for x/y (currently bot left of grid space)
+            //Or maybe even find min and max lat/lng and check if distance threshold is inside that?
+            for (int x = 0; x < w; x++) {
+                for (int y = 0; y < h; y++) {
                     float lng = (float)x / (float)w * 360f - 180f;
                     float lat = (float)y / (float)h * 180f - 90f;
-                    float d = p.location.kmBetweenLocations(lat, lng);
-                    if (d < range) {
-                        float dRatio = d / (float)range;
-                        int fallOffRange = startValue - endValue;
-                        int fallOffVal = (int)(startValue - (fallOffRange * dRatio));
-                        heatmapGrid[x, y] += fallOffVal;
+
+                    foreach (CoordinatePoint p in points) {
+                        float d = p.location.kmBetweenLocations(lat, lng);
+                        if (d < range) {
+                            float dRatio = d / (float)range;
+                            int fallOffRange = startValue - endValue;
+                            int fallOffVal = (int)(startValue - (fallOffRange * dRatio));
+                            heatmapGrid[x, y] += fallOffVal;
+                        }
                     }
                 }
             }
         }
-
-        //TODO: Check vs lat/lng of center grid space for x/y (currently bot left of grid space)
-        //Or maybe even find min and max lat/lng and check if distance threshold is inside that?
-        /*for (int x = 0; x < w; x++) {
-            for (int y = 0; y < h; y++) {
-                float lng = (float)x / (float)w * 360f - 180f;
-                float lat = (float)y / (float)h * 180f - 90f;
-
-                foreach (CoordinatePoint p in points) {
-                    float d = p.location.kmBetweenLocations(lat, lng);
-                    if (d < range) {
-                        float dRatio = d / (float)range;
-                        int fallOffRange = startValue - endValue;
-                        int fallOffVal = (int)(startValue - (fallOffRange * dRatio));
-                        heatmapGrid[x, y] += fallOffVal;
-                    }
-                }
-            }
-        }*/
 
         return heatmapGrid;
     }

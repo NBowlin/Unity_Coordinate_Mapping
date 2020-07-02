@@ -364,6 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawGrid: 0
+  useSlowNewMethod: 0
   useOldDrawMethod: 0
   rangeOld: 5
   range: 300
@@ -777,6 +778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawGrid: 0
+  useSlowNewMethod: 0
   useOldDrawMethod: 0
   rangeOld: 5
   range: 300

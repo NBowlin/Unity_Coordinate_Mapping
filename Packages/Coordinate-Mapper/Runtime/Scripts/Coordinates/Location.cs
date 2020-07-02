@@ -20,8 +20,11 @@ namespace CoordinateMapper.Coordinates {
 
         //TODO: This is actually fairly expensive: https://latkin.org/blog/2014/11/09/a-simple-benchmark-of-various-math-operations/
         public static float kmBetweenLocations(float lat1, float lon1, float lat2, float lon2) {
+            //φ is latitude, λ is longitude, R is earth’s radius(mean radius = 6,371km);
+            //note that angles need to be in radians to pass to trig functions!
+
             //Haversine Formula
-            float R = 6371000f; //meters
+            /*float R = 6371000f; //meters
             float φ1 = lat1 * Mathf.Deg2Rad; // φ, λ in radians
             float φ2 = lat2 * Mathf.Deg2Rad;
             float Δφ = (lat2 - lat1) * Mathf.Deg2Rad;
@@ -33,17 +36,20 @@ namespace CoordinateMapper.Coordinates {
             float c = 2 * Mathf.Atan2(Mathf.Sqrt(a), Mathf.Sqrt(1 - a));
 
             float d = (R * c) / 1000f; //kilometers
+            return d;*/
+
+            //Spherical Law of Cosines - in my testing about 30% faster than the Haversine formula
+            float R = 6371000f; //meters
+            float φ1 = lat1 * Mathf.Deg2Rad;
+            float φ2 = lat2 * Mathf.Deg2Rad;
+            float Δλ = (lon2 - lon1) * Mathf.Deg2Rad;
+            float d = (Mathf.Acos(Mathf.Sin(φ1) * Mathf.Sin(φ2) + Mathf.Cos(φ1) * Mathf.Cos(φ2) * Mathf.Cos(Δλ)) * R) / 1000f;
             return d;
 
-            //TODO: Compare this Equirectangular approximation formula for speed / accuracy
-            /*Formula: 
-            x = Δλ ⋅ cos φm
-            y = Δφ
-            d = R ⋅ √x² +y²
-            JavaScript:
-            const x = (λ2 - λ1) * Math.cos((φ1 + φ2) / 2);
-            const y = (φ2 - φ1);
-            const d = Math.sqrt(x * x + y * y) * R;*/
+            //Equirectangular approximation - VERY inaccurate, not sure if I have something off in the formula...
+            /*float x = Δλ * Mathf.Cos((φ1 + φ2) / 2f);
+            float y = (φ2 - φ1);
+            float d = (Mathf.Sqrt(x * x + y * y) * R) / 1000f;*/
         }
     }
 }
