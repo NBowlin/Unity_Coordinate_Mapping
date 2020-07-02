@@ -45,7 +45,7 @@ public class StaticHeatmap : ScriptableWizard
         Debug.Log(json.text);
         var points = JsonDataLoader<CoordinatePoint_Basic>.ParseJson(json);
 
-        int[,] heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, range, startValue, endValue, colors, points, false);
+        int[,] heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, range, startValue, endValue, colors, points);
         return Texture2D_Extensions.DrawHeatmap(heatmapGrid, colors);
         //return DrawHeatmapTexture(heatmapGrid);
     }
