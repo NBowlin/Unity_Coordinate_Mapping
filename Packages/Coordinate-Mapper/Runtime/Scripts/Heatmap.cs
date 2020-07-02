@@ -79,11 +79,10 @@ public class Heatmap : MonoBehaviour
 
         //Latitude lines are constant distance - so pre-calculate the km between latitudes and use that to restrict
         //the y coords as we check location distance below
-        float pC = 39940.653f;
-        float kmPerLat = pC / 180f;
+        float kmPerLat = 111f; //111km per 1 degree of latitude
         float degPerLat = 180f / h;
         float cellHeightKm = kmPerLat * degPerLat;
-        int cellRangeY = Mathf.RoundToInt(range / cellHeightKm) + 4; //TODO: Determine why I need +n here
+        int cellRangeY = Mathf.RoundToInt(range / cellHeightKm);
 
         foreach (CoordinatePoint p in points) {
             float texLat = 90f + p.location.latitude;

@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1251436793
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -672,7 +672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2020255491
 Transform:
   m_ObjectHideFlags: 0
@@ -719,6 +719,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2020255497}
         m_MethodName: GenerateHeatmapGrid
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2020255496}
+        m_MethodName: MapPoints
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -776,9 +787,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drawGrid: 0
   kmRange: 300
-  startValue: 60
+  startValue: 40
   endValue: 0
-  heatmapSize: {x: 1200, y: 600}
+  heatmapSize: {x: 2048, y: 1024}
   colors:
     serializedVersion: 2
     key0: {r: 0.25663006, g: 0.8301887, b: 0.254539, a: 0.39215687}
