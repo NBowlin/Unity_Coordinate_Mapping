@@ -1,0 +1,18 @@
+[
+  {
+    "location": {
+      "name": "NYC",
+      "lat": 40.7128,
+      "lng": -74.006
+    },
+    "magnitude": 10
+  },
+  {
+    "location": {
+      "name": "Origin",
+      "lat": 21,
+      "lng": 59
+    },
+    "magnitude": 10
+  }
+]

@@ -411,6 +411,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jsonFile: {fileID: 4900000, guid: 56cfa9ccb5612434ab252a653c0f38e2, type: 3}
+  parseStyle: 0
+  latitudeKey: 
+  longitudeKey: 
   loadComplete:
     m_PersistentCalls:
       m_Calls:
@@ -714,7 +717,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47479ad4d54e9e943b1d478111901559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 3fc848d28af564640b6b971c38f2eb66, type: 3}
+  jsonFile: {fileID: 4900000, guid: 3283e3d3a9b35664a9fde752571bf1cf, type: 3}
+  parseStyle: 1
+  latitudeKey: lat
+  longitudeKey: lng
   loadComplete:
     m_PersistentCalls:
       m_Calls:
@@ -742,6 +748,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jsonFile: {fileID: 4900000, guid: 3fc848d28af564640b6b971c38f2eb66, type: 3}
+  parseStyle: 0
+  latitudeKey: 
+  longitudeKey: 
   loadComplete:
     m_PersistentCalls:
       m_Calls:

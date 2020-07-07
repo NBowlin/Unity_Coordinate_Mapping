@@ -5,15 +5,27 @@ using UnityEngine.Events;
 
 using CoordinateMapper.Coordinates;
 
+public enum JsonParseStyle {
+    DefaultModel,
+    LatAndLngKeys,
+    SingleLatLngArray,
+    LatLngArrays
+};
+
 namespace CoordinateMapper.Data {
 
     [System.Serializable] public class JsonLoadedEvent : UnityEvent<IEnumerable<CoordinatePoint>> { }
 
     //TODO: Better way to do this without needing a subclass for each coordinate point type?
     public abstract class DataLoader : MonoBehaviour {
+
         //[SerializeField] private GameObject pointPrefab;
         [SerializeField] protected TextAsset jsonFile;
         //[SerializeField] private string containerName;
+
+        [SerializeField] protected JsonParseStyle parseStyle;
+        [SerializeField] protected string latitudeKey;
+        [SerializeField] protected string longitudeKey;
 
         [SerializeField] private JsonLoadedEvent loadComplete;
 
