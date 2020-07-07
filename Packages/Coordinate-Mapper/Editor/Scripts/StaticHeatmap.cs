@@ -18,7 +18,7 @@ public class StaticHeatmap : ScriptableWizard
 
     [SerializeField] private TextAsset json;
 
-    [SerializeField] private int range = 6;
+    [SerializeField] private int kmRange = 200;
     [SerializeField] [Range(0, 100)] private int startValue = 60;
     [SerializeField] [Range(0, 100)] private int endValue = 0;
     [SerializeField] private Vector2 heatmapSize = new Vector2(2048, 1024);
@@ -36,7 +36,7 @@ public class StaticHeatmap : ScriptableWizard
             var hm = GenerateStaticHeatmap();
             DateTime after = DateTime.Now;
             TimeSpan duration = after.Subtract(before);
-            Debug.Log("Heatmap generation time in seconds: " + duration.Seconds);
+            Debug.Log("Heatmap generation time in seconds: " + duration.TotalSeconds);
             System.IO.File.WriteAllBytes(path, hm.EncodeToPNG());
         }
     }
@@ -45,7 +45,7 @@ public class StaticHeatmap : ScriptableWizard
         Debug.Log(json.text);
         var points = JsonDataLoader<CoordinatePoint_Basic>.ParseJson(json);
 
-        int[,] heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, range, startValue, endValue, colors, points);
+        int[,] heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, kmRange, startValue, endValue, colors, points);
         return Texture2D_Extensions.DrawHeatmap(heatmapGrid, colors);
         //return DrawHeatmapTexture(heatmapGrid);
     }

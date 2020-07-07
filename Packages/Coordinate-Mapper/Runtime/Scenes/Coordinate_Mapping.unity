@@ -664,6 +664,7 @@ GameObject:
   - component: {fileID: 2020255492}
   - component: {fileID: 2020255495}
   - component: {fileID: 2020255494}
+  - component: {fileID: 2020255493}
   - component: {fileID: 2020255496}
   - component: {fileID: 2020255497}
   m_Layer: 0
@@ -701,7 +702,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2020255494
+--- !u!114 &2020255493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -710,10 +711,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 2020255490}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47479ad4d54e9e943b1d478111901559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonFile: {fileID: 4900000, guid: 3fc848d28af564640b6b971c38f2eb66, type: 3}
+  loadComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2020255496}
+        m_MethodName: MapPoints
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2020255494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020255490}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb2f26517a7a5c84ab393e7fc7c81a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 56cfa9ccb5612434ab252a653c0f38e2, type: 3}
+  jsonFile: {fileID: 4900000, guid: 3fc848d28af564640b6b971c38f2eb66, type: 3}
   loadComplete:
     m_PersistentCalls:
       m_Calls:
@@ -727,7 +755,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
       - m_Target: {fileID: 2020255496}
         m_MethodName: MapPoints
         m_Mode: 0
@@ -786,8 +814,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawGrid: 0
-  kmRange: 300
-  startValue: 40
+  kmRange: 180
+  startValue: 60
   endValue: 0
   heatmapSize: {x: 2048, y: 1024}
   colors:

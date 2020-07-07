@@ -40,10 +40,4 @@ namespace CoordinateMapper.Extensions {
             return tex;
         }
     }
-
-    /*public static class Heatmap_Extensions {
-        public static void GenerateValues() {
-
-        }
-    }*/
 }
