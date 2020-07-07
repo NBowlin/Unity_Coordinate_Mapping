@@ -23,6 +23,7 @@ namespace CoordinateMapper.Data {
         [SerializeField] protected TextAsset jsonFile;
         //[SerializeField] private string containerName;
 
+        //TODO: Can I write a property drawer that hides the lat/lng keys depending on which parseStyle chosen?
         [SerializeField] protected JsonParseStyle parseStyle;
         [SerializeField] protected string latitudeKey;
         [SerializeField] protected string longitudeKey;

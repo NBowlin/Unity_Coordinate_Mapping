@@ -10,6 +10,11 @@ namespace CoordinateMapper.Coordinates {
         public float latitude;
         public float longitude;
 
+        public Location(float lat, float lng) {
+            latitude = lat;
+            longitude = lng;
+        }
+
         public float kmBetweenLocations(Location loc) {
             return kmBetweenLocations(latitude, longitude, loc.latitude, loc.longitude);
         }

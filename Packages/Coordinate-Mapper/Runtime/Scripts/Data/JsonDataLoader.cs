@@ -10,7 +10,7 @@ using CoordinateMapper.Coordinates;
 using CoordinateMapper.Extensions;
 
 namespace CoordinateMapper.Data {
-    [System.Serializable] public class JsonDataLoader<T> where T : CoordinatePoint {
+    [System.Serializable] public class JsonDataLoader<T> where T : CoordinatePoint, new() {
         public List<T> data;
 
         public static List<T> ParseJson(TextAsset file) {
@@ -28,6 +28,7 @@ namespace CoordinateMapper.Data {
             return ParseJson(file.text);
         }
 
+        //TODO: Is it confusing to have the .Net parser be part of the same file as the Unity parser?
         public static List<T> ParseJson(string json, JsonParseStyle parseStyle, string latitudeKey, string longitudeKey) {
             if(parseStyle == JsonParseStyle.DefaultModel) { return ParseJson(json); }
 
@@ -37,7 +38,6 @@ namespace CoordinateMapper.Data {
             var tokens = parsed.AllTokens();
 
             var allPoints = new List<T>();
-            var latLngs = new List<Vector2>();
             var latProperties = new List<JProperty>();
             var lngProperties = new List<JProperty>();
 
@@ -81,15 +81,12 @@ namespace CoordinateMapper.Data {
                         break;
                 }
 
-                latLngs.Add(new Vector2(lat, lng));
+                var cp = new T();
+                cp.location = new Location(lat, lng);
+                allPoints.Add(cp);
             }
 
-            foreach(Vector2 coords in latLngs) {
-                Debug.Log("Coord: " + coords.ToString());
-            }
-
-            //TODO: Convert to Location
-            return new List<T>();
+            return allPoints;
         }
 
         private static string CheckRootObject(string json) {
