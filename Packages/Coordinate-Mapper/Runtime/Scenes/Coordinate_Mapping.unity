@@ -758,10 +758,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47479ad4d54e9e943b1d478111901559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 3283e3d3a9b35664a9fde752571bf1cf, type: 3}
+  jsonFile: {fileID: 4900000, guid: cdcb71d6b600c0645b84715036838417, type: 3}
   parseStyle: 1
-  latitudeKey: lat
-  longitudeKey: lng
+  latitudeKey: latitude
+  longitudeKey: longitude
   loadComplete:
     m_PersistentCalls:
       m_Calls:
@@ -786,7 +786,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
 --- !u!114 &2020255495
 MonoBehaviour:
   m_ObjectHideFlags: 0
