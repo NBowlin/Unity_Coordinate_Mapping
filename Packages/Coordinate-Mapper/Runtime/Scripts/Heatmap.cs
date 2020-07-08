@@ -27,7 +27,11 @@ public class Heatmap : MonoBehaviour
         p.location = l;
         points = new List<CoordinatePoint>() { p };*/
 
+        //TODO: Do this elsewhere?
+        LookupTable.GenerateTables();
+
         int[,] heatmapGrid;
+
         heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, kmRange, startValue, endValue, colors, points);
 
         DrawHeatmapGrid(heatmapGrid);
