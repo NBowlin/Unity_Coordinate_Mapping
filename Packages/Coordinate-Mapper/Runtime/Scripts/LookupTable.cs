@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class LookupTable {
-    public static float[,] sinTable = new float[361, 10000];
-    public static float[,] cosTable = new float[361, 10000];
+    //public static float[,] sinTable = new float[361, 10000];
+    //public static float[,] cosTable = new float[361, 10000];
 
-    public static void GenerateTables() {
+    public static float[] sinTable = new float[361];
+    public static float[] cosTable = new float[361];
+
+    //public static System.Diagnostics.Stopwatch sinSw = new System.Diagnostics.Stopwatch();
+    //public static System.Diagnostics.Stopwatch cosSw = new System.Diagnostics.Stopwatch();
+    //public static System.Diagnostics.Stopwatch absSw = new System.Diagnostics.Stopwatch();
+
+    /*public static void GenerateTables() {
         var onesCount = sinTable.GetLength(0);
         var decCount = sinTable.GetLength(1);
 
@@ -19,19 +26,34 @@ public static class LookupTable {
                 cosTable[i, j] = Mathf.Cos(radians);
             }
         }
+    }*/
+
+    public static void GenerateTables() {
+        var count = sinTable.Length;
+
+        for (int i = 0; i < count; i++) {
+            float radians = (float)i * Mathf.Deg2Rad;
+
+            sinTable[i] = Mathf.Sin(radians);
+            cosTable[i] = Mathf.Cos(radians);
+        }
     }
 
     public static float LookupSinValue(float degrees) {
-        var numParts = BreakOutParts(Mathf.Abs(degrees));
-        float sinVal = sinTable[numParts.onesPlace, numParts.decimals];
+        var abs = Abs((int)degrees);
+        //sinSw.Start();
+        float sinVal = sinTable[abs];
+        //sinSw.Stop();
 
         //sin(x) == -sin(-x)
         return degrees < 0 ? -sinVal : sinVal;
     }
 
     public static float LookupCosValue(float degrees) {
-        var numParts = BreakOutParts(Mathf.Abs(degrees));
-        float cosVal = cosTable[numParts.onesPlace, numParts.decimals];
+        var abs = Abs((int)degrees);
+        //cosSw.Start();
+        float cosVal = cosTable[abs];
+        //cosSw.Stop();
 
         //cos(x) == cos(-x)
         return cosVal;
@@ -46,5 +68,12 @@ public static class LookupTable {
         if (dec >= sinTable.GetLength(1)) { dec -= 1; } //Adjust for .995+ decimal rounding
 
         return (ones, dec);
+    }
+
+    private static int Abs(int degrees) {
+        //absSw.Start();
+        var abs = degrees < 0 ? (degrees - degrees * 2) : degrees;
+        //absSw.Stop();
+        return abs;
     }
 }

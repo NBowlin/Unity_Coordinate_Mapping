@@ -364,10 +364,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawGrid: 0
-  kmRange: 300
+  kmRange: 180
   startValue: 60
   endValue: 0
-  heatmapSize: {x: 1200, y: 600}
+  heatmapSize: {x: 2048, y: 1024}
   colors:
     serializedVersion: 2
     key0: {r: 0.25663006, g: 0.8301887, b: 0.254539, a: 0.39215687}
@@ -410,10 +410,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47479ad4d54e9e943b1d478111901559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 56cfa9ccb5612434ab252a653c0f38e2, type: 3}
+  jsonFile: {fileID: 4900000, guid: 89a32a31af3f97c45a7cc19c7f49c488, type: 3}
   parseStyle: 0
-  latitudeKey: 
-  longitudeKey: 
+  latitudeKey: latitude
+  longitudeKey: longitude
   loadComplete:
     m_PersistentCalls:
       m_Calls:
@@ -506,8 +506,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263628672}
-  m_LocalRotation: {x: 0.28404298, y: -0.0652278, z: 0.01820768, w: 0.95641696}
-  m_LocalPosition: {x: 1.3289808, y: 7.1465654, z: -10.995144}
+  m_LocalRotation: {x: -0.3078206, y: -0.09329803, z: 0.031205505, w: -0.9463447}
+  m_LocalPosition: {x: 253.73415, y: 9.280331, z: -308.54797}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47479ad4d54e9e943b1d478111901559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 3fc848d28af564640b6b971c38f2eb66, type: 3}
+  jsonFile: {fileID: 4900000, guid: 8136a9d133e774b4282eb267e0d341fb, type: 3}
   parseStyle: 0
   latitudeKey: latitiude
   longitudeKey: longitude
