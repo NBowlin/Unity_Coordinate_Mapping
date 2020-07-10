@@ -124,6 +124,7 @@ public class Heatmap : MonoBehaviour
             xCenter = (int)Mathf.Clamp(xCenter, 0f, w - 1);
             yCenter = (int)Mathf.Clamp(yCenter, 0f, h - 1);
 
+            //Calculate longitudinal range for given point
             int cellRangeX = w;
             float yLat = (float)yCenter / (float)h * 180f - 90f;
 
@@ -144,11 +145,83 @@ public class Heatmap : MonoBehaviour
                 gridX += 1;
             }
 
-            //for (int x = 0; x < w; x++) {
+            //The idea was to only do distance calculations for 1/4th of the circle, then just mirror those values around the grid
+            //However, because bot-left lat/lng of circle is farther from center than, say, bot-right, it doesn't quite work
+            //Could adjust where I'm checking lat/lng, but moving on for now
+            /*heatmapGrid[(int)xCenter, (int)yCenter] += startValue;
+            int[,] currValues = new int[cellRangeX + 1, cellRangeY + 1];
+            //Bottom left quadrant
+            for (int x = (int)xCenter - cellRangeX; x <= xCenter; x++) {
+                var currX = x;
+                if (x < 0 || x >= w) {
+                    if (cellRangeX < w / 2) { currX = Modulo(x, w); }
+                    else { continue; }
+                }
+
+                for (int y = (int)yCenter - cellRangeY; y <= yCenter; y++) {
+                    if (y < 0 || y >= h || (currX == (int)xCenter && y == (int)yCenter)) { continue; }
+
+                    float lng = (float)currX / (float)w * 360f - 180f;
+                    float lat = (float)y / (float)h * 180f - 90f;
+                    float d = p.location.kmBetweenLocations(lat, lng);
+
+                    if (d < range) {
+                        float dRatio = d / (float)range;
+                        int fallOffRange = startValue - endValue;
+                        int fallOffVal = (int)(startValue - (fallOffRange * dRatio));
+                        heatmapGrid[currX, y] += fallOffVal;
+
+                        currValues[(int)xCenter - x, (int)yCenter - y] = fallOffVal;
+                    }
+                }
+            }
+
+            //Bottom right quadrant
+            for (int x = (int)xCenter + 1; x <= xCenter + cellRangeX; x++) {
+                var currX = x;
+                if (x < 0 || x >= w) {
+                    if (cellRangeX < w / 2) { currX = Modulo(x, w); }
+                    else { continue; }
+                }
+
+                for (int y = (int)yCenter - cellRangeY; y < yCenter; y++) {
+                    if (y < 0 || y >= h || (currX == (int)xCenter && y == (int)yCenter)) { continue; }
+                    heatmapGrid[currX, y] += currValues[x - (int)xCenter, (int)yCenter - y];
+                }
+            }
+
+            //Top left quadrant
+            for (int x = (int)xCenter - cellRangeX; x < xCenter; x++) {
+                var currX = x;
+                if (x < 0 || x >= w) {
+                    if (cellRangeX < w / 2) { currX = Modulo(x, w); }
+                    else { continue; }
+                }
+
+                for (int y = (int)yCenter + 1; y <= yCenter + cellRangeY; y++) {
+                    if (y < 0 || y >= h || (currX == (int)xCenter && y == (int)yCenter)) { continue; }
+                }
+            }
+
+            //Top right quadrant
+            for (int x = (int)xCenter; x <= xCenter + cellRangeX; x++) {
+                var currX = x;
+                if (x < 0 || x >= w) {
+                    if (cellRangeX < w / 2) { currX = Modulo(x, w); }
+                    else { continue; }
+                }
+
+                for (int y = (int)yCenter; y <= yCenter + cellRangeY; y++) {
+                    if (y < 0 || y >= h || (currX == (int)xCenter && y == (int)yCenter)) { continue; }
+                }
+            }*/
+
+
+
             for (int x = (int)xCenter - cellRangeX; x <= xCenter + cellRangeX; x++) {
                 var currX = x;
                 if (x < 0 || x >= w) {
-                    if(cellRangeX < w / 2) { currX = nfmod(x, w); }
+                    if(cellRangeX < w / 2) { currX = Modulo(x, w); }
                     else { continue; }
                 }
 
@@ -177,7 +250,8 @@ public class Heatmap : MonoBehaviour
         return heatmapGrid;
     }
 
-    public static int nfmod(int a, int b) {
+    //Apparently C# % operator is actually just remainder. So negative numbers don't mod properly, below is proper modulo
+    public static int Modulo(int a, int b) {
         return a - b * Mathf.FloorToInt((float)a / (float)b);
     }
 
