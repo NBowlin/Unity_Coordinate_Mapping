@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-using CoordinateMapper.Coordinates;
-
-public enum JsonParseStyle {
-    DefaultModel, //JSON matches format outlined by my models
-    LatAndLngKeys, //JSON has seperate Latitude and Longitude keys in objects for each location
-    SingleLatLngArray, //JSON has a single array with alternating Latitude and Longitude numbers
-    LatLngArrays, //JSON has two arrays, one for Latitude and one for Longitude
-    CSV //CSV parsing
-};
-
-namespace CoordinateMapper.Data {
+namespace CoordinateMapper {
+    public enum JsonParseStyle {
+        DefaultModel, //JSON matches format outlined by my models
+        LatAndLngKeys, //JSON has seperate Latitude and Longitude keys in objects for each location
+        SingleLatLngArray, //JSON has a single array with alternating Latitude and Longitude numbers
+        LatLngArrays, //JSON has two arrays, one for Latitude and one for Longitude
+        CSV //CSV parsing
+    };
 
     [System.Serializable] public class JsonLoadedEvent : UnityEvent<IEnumerable<CoordinatePoint>> { }
 

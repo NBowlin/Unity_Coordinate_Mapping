@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-using CoordinateMapper.Utility;
-
-namespace CoordinateMapper.Graticule {
+namespace CoordinateMapper {
     public class GenerateGraticule : MonoBehaviour {
         private enum DrawingTechnique {
             LineRenderer,

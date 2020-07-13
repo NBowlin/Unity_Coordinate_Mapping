@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using CoordinateMapper.Utility;
-
-namespace CoordinateMapper.Graticule {
+namespace CoordinateMapper {
     public class DrawGraticuleLine : MonoBehaviour {
         [SerializeField] private LineRenderer lineRenderer;
 

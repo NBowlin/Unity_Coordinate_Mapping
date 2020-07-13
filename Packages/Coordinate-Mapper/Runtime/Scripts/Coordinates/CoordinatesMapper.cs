@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CoordinateMapper.Coordinates {
+namespace CoordinateMapper {
     public class CoordinatesMapper : MonoBehaviour {
         //[SerializeField] private List<CoordinatePoint> locations;
         [SerializeField] private GameObject pointPrefab;

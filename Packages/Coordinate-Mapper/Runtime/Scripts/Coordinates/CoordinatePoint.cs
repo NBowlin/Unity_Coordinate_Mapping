@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using CoordinateMapper.Utility;
-
-namespace CoordinateMapper.Coordinates {
+namespace CoordinateMapper {
     [Serializable] public abstract class CoordinatePoint {
         public GameObject pointPrefab;
         public Location location;

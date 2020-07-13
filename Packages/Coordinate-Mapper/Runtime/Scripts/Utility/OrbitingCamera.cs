@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using CoordinateMapper.Utility;
-
-namespace CoordinateMapper.Cam {
+namespace CoordinateMapper {
 
     public class OrbitingCamera : MonoBehaviour {
         [SerializeField] private Camera cam;

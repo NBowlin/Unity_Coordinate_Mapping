@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CoordinateMapper.Utility {
+namespace CoordinateMapper {
     public static class PlanetUtility {
         public static Vector3 VectorFromLatLng(float latitude, float longitude, Vector3 direction) {
             return Quaternion.Euler(0.0f, -longitude, latitude) * direction;

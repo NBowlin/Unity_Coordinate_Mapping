@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using System.Linq;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-using CoordinateMapper.Coordinates;
-using CoordinateMapper.Extensions;
-
-namespace CoordinateMapper.Data {
+namespace CoordinateMapper {
     [System.Serializable] public class JsonDataLoader<T> where T : CoordinatePoint, new() {
         public List<T> data;
 

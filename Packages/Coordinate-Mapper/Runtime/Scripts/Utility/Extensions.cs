@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace CoordinateMapper.Extensions {
+namespace CoordinateMapper {
     public static class Texture2D_Extensions {
 
         public static Texture2D DrawHeatmap(int[,] heatmapValues, Gradient colors) {

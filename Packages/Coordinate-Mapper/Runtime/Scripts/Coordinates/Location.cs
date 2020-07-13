@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CoordinateMapper.Coordinates {
+namespace CoordinateMapper {
     [Serializable] public class Location {
         public string name;
 
