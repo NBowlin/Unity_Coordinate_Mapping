@@ -26,8 +26,7 @@ namespace CoordinateMapper {
             p.location = l;
             points = new List<CoordinatePoint>() { p };*/
 
-            //TODO: Do this elsewhere?
-            LookupTable.GenerateTables();
+            //TODO: Don't invoke once done profiling
             this.points = points;
             Invoke("TestProfile", 0.2f);
         }

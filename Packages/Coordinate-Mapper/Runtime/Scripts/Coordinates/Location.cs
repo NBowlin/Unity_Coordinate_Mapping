@@ -49,10 +49,18 @@ namespace CoordinateMapper {
 
             //Spherical Law of Cosines - in my testing about 30% faster than the Haversine formula
             float R = 6371000f; //meters
-            float φ1 = lat1 * Mathf.Deg2Rad;
+
+            /*float φ1 = lat1 * Mathf.Deg2Rad;
             float φ2 = lat2 * Mathf.Deg2Rad;
             float Δλ = (lon2 - lon1) * Mathf.Deg2Rad;
-            float d = (Mathf.Acos(Mathf.Sin(φ1) * Mathf.Sin(φ2) + Mathf.Cos(φ1) * Mathf.Cos(φ2) * Mathf.Cos(Δλ)) * R) / 1000f;
+            float d = (Mathf.Acos(Mathf.Sin(φ1) * Mathf.Sin(φ2) + Mathf.Cos(φ1) * Mathf.Cos(φ2) * Mathf.Cos(Δλ)) * R) / 1000f;*/
+
+            float[] sinTable = LookupTable.sinTable;
+            float[] cosTable = LookupTable.cosTable;
+            int φ1 = LookupTable.Rad2Index(lat1 * Mathf.Deg2Rad);
+            int φ2 = LookupTable.Rad2Index(lat2 * Mathf.Deg2Rad);
+            int Δλ = LookupTable.Rad2Index((lon2 - lon1) * Mathf.Deg2Rad);
+            float d = (Mathf.Acos(sinTable[φ1] * sinTable[φ2] + cosTable[φ1] * cosTable[φ2] * cosTable[Δλ]) * R) / 1000f;
             UnityEngine.Profiling.Profiler.EndSample();
             return d;
 
