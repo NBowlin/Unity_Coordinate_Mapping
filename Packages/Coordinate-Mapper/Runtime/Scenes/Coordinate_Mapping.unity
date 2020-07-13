@@ -122,12 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &63407449 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 694074693411668023, guid: e0f13e28d6fe3d34391b8590f20e35f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 694074694279042369}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &241799908
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1263628674}
-  lookAt: {fileID: 63407449}
+  lookAt: {fileID: 2020255491}
   minPanSpeed: 20
   maxPanSpeed: 180
   minCameraDistance: 1.3
@@ -712,15 +706,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020255490}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47479ad4d54e9e943b1d478111901559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 98097e4ec37455742a5012cd12ef54f0, type: 3}
+  jsonFile: {fileID: 4900000, guid: 7b5891be24f65d64c9dfa1b2ecd6f03e, type: 3}
   parseStyle: 4
-  latitudeKey: latitude
-  longitudeKey: longitude
+  latitudeKey: earthquake.latitude
+  longitudeKey: earthquake.longitude
   loadComplete:
     m_PersistentCalls:
       m_Calls:
@@ -753,15 +747,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020255490}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47479ad4d54e9e943b1d478111901559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: d106dd204e69b2444987539d7a0d11a9, type: 3}
-  parseStyle: 1
-  latitudeKey: lat
-  longitudeKey: lng
+  jsonFile: {fileID: 4900000, guid: 3fc848d28af564640b6b971c38f2eb66, type: 3}
+  parseStyle: 0
+  latitudeKey: latitude
+  longitudeKey: longitude
   loadComplete:
     m_PersistentCalls:
       m_Calls:

@@ -6,11 +6,11 @@ using UnityEngine.Events;
 using CoordinateMapper.Coordinates;
 
 public enum JsonParseStyle {
-    DefaultModel,
-    LatAndLngKeys,
-    SingleLatLngArray,
-    LatLngArrays,
-    CSV
+    DefaultModel, //JSON matches format outlined by my models
+    LatAndLngKeys, //JSON has seperate Latitude and Longitude keys in objects for each location
+    SingleLatLngArray, //JSON has a single array with alternating Latitude and Longitude numbers
+    LatLngArrays, //JSON has two arrays, one for Latitude and one for Longitude
+    CSV //CSV parsing
 };
 
 namespace CoordinateMapper.Data {
@@ -38,14 +38,11 @@ namespace CoordinateMapper.Data {
                 var csvData = CSVParser.Read(jsonFile.text);
                 var csvPoints = new List<CoordinatePoint>();
                 foreach (Dictionary<string, object> info in csvData) {
-                    //TODO: Remove hard coded keys for this specific test file
-                    Debug.Log("Country code: " + info["country_code"] + " | Coords: " + info["latitude"] + "/" + info["longitude"] + " | Country: " + info["country"]);
                     var point = new CoordinatePoint_Basic();
                     var lat = info[latitudeKey];
                     var lng = info[longitudeKey];
                     if (!(lat is float) || !(lng is float)) { continue; }
                     var loc = new Location((float)lat, (float)lng);
-                    loc.name = (string)info["country"];
                     point.location = loc;
                     csvPoints.Add(point);
                 }

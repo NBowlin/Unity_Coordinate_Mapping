@@ -9,10 +9,6 @@ public static class LookupTable {
     public static float[] sinTable = new float[361];
     public static float[] cosTable = new float[361];
 
-    //public static System.Diagnostics.Stopwatch sinSw = new System.Diagnostics.Stopwatch();
-    //public static System.Diagnostics.Stopwatch cosSw = new System.Diagnostics.Stopwatch();
-    //public static System.Diagnostics.Stopwatch absSw = new System.Diagnostics.Stopwatch();
-
     /*public static void GenerateTables() {
         var onesCount = sinTable.GetLength(0);
         var decCount = sinTable.GetLength(1);
@@ -41,9 +37,7 @@ public static class LookupTable {
 
     public static float LookupSinValue(float degrees) {
         var abs = Abs((int)degrees);
-        //sinSw.Start();
         float sinVal = sinTable[abs];
-        //sinSw.Stop();
 
         //sin(x) == -sin(-x)
         return degrees < 0 ? -sinVal : sinVal;
@@ -51,9 +45,7 @@ public static class LookupTable {
 
     public static float LookupCosValue(float degrees) {
         var abs = Abs((int)degrees);
-        //cosSw.Start();
         float cosVal = cosTable[abs];
-        //cosSw.Stop();
 
         //cos(x) == cos(-x)
         return cosVal;
@@ -71,9 +63,7 @@ public static class LookupTable {
     }
 
     private static int Abs(int degrees) {
-        //absSw.Start();
         var abs = degrees < 0 ? (degrees - degrees * 2) : degrees;
-        //absSw.Stop();
         return abs;
     }
 }
