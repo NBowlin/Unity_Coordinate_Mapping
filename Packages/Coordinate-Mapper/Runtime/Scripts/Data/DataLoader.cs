@@ -9,7 +9,8 @@ public enum JsonParseStyle {
     DefaultModel,
     LatAndLngKeys,
     SingleLatLngArray,
-    LatLngArrays
+    LatLngArrays,
+    CSV
 };
 
 namespace CoordinateMapper.Data {
@@ -32,7 +33,27 @@ namespace CoordinateMapper.Data {
 
         // Start is called before the first frame update
         void Start() {
-            var points = LoadJson();
+            IEnumerable<CoordinatePoint> points;
+            if (parseStyle == JsonParseStyle.CSV) {
+                var csvData = CSVParser.Read(jsonFile.text);
+                var csvPoints = new List<CoordinatePoint>();
+                foreach (Dictionary<string, object> info in csvData) {
+                    //TODO: Remove hard coded keys for this specific test file
+                    Debug.Log("Country code: " + info["country_code"] + " | Coords: " + info["latitude"] + "/" + info["longitude"] + " | Country: " + info["country"]);
+                    var point = new CoordinatePoint_Basic();
+                    var lat = info[latitudeKey];
+                    var lng = info[longitudeKey];
+                    if (!(lat is float) || !(lng is float)) { continue; }
+                    var loc = new Location((float)lat, (float)lng);
+                    loc.name = (string)info["country"];
+                    point.location = loc;
+                    csvPoints.Add(point);
+                }
+                points = csvPoints;
+            } else {
+                points = LoadJson();
+            }
+
             if (loadComplete != null) { loadComplete.Invoke(points); }
         }
 

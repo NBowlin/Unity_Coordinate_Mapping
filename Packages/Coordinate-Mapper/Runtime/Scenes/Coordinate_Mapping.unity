@@ -712,13 +712,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020255490}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47479ad4d54e9e943b1d478111901559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 3fc848d28af564640b6b971c38f2eb66, type: 3}
-  parseStyle: 0
+  jsonFile: {fileID: 4900000, guid: 98097e4ec37455742a5012cd12ef54f0, type: 3}
+  parseStyle: 4
   latitudeKey: latitude
   longitudeKey: longitude
   loadComplete:
@@ -753,15 +753,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020255490}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47479ad4d54e9e943b1d478111901559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 3fc848d28af564640b6b971c38f2eb66, type: 3}
-  parseStyle: 0
-  latitudeKey: latitiude
-  longitudeKey: longitude
+  jsonFile: {fileID: 4900000, guid: d106dd204e69b2444987539d7a0d11a9, type: 3}
+  parseStyle: 1
+  latitudeKey: lat
+  longitudeKey: lng
   loadComplete:
     m_PersistentCalls:
       m_Calls:
@@ -775,7 +775,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 0
+        m_CallState: 2
       - m_Target: {fileID: 2020255497}
         m_MethodName: GenerateHeatmapGrid
         m_Mode: 0

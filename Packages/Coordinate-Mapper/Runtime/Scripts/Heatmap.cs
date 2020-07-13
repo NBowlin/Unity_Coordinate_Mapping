@@ -29,12 +29,10 @@ public class Heatmap : MonoBehaviour
         p.location = l;
         points = new List<CoordinatePoint>() { p };*/
 
-        
-
         //TODO: Do this elsewhere?
         LookupTable.GenerateTables();
         this.points = points;
-        Invoke("TestProfile", 2f);
+        Invoke("TestProfile", 0.2f);
     }
 
     void TestProfile() {
@@ -134,7 +132,7 @@ public class Heatmap : MonoBehaviour
                 var currX = xCenter + (movingEast ? gridX : -gridX);
                 if(currX > w || currX < 0) { break; }
 
-                float lng = currX / (float)w * 360f - 180f;
+                float lng = CartesianToSphericalLongitude(currX, (float)w);
                 float d = p.location.kmBetweenLocations(yLat, lng);
 
                 if(d > range) {
@@ -161,8 +159,8 @@ public class Heatmap : MonoBehaviour
                 for (int y = (int)yCenter - cellRangeY; y <= yCenter; y++) {
                     if (y < 0 || y >= h || (currX == (int)xCenter && y == (int)yCenter)) { continue; }
 
-                    float lng = (float)currX / (float)w * 360f - 180f;
-                    float lat = (float)y / (float)h * 180f - 90f;
+                    float lng = CartesianToSphericalLongitude((float)currX, (float)w);
+                    float lat = CartesianToSphericalLatitude((float)y, (float)h);
                     float d = p.location.kmBetweenLocations(lat, lng);
 
                     if (d < range) {
@@ -228,8 +226,8 @@ public class Heatmap : MonoBehaviour
                 for (int y = (int)yCenter - cellRangeY; y <= yCenter + cellRangeY; y++) {
                     if (y < 0 || y >= h) { continue; }
 
-                    float lng = (float)currX / (float)w * 360f - 180f;
-                    float lat = (float)y / (float)h * 180f - 90f;
+                    float lng = CartesianToSphericalLongitude((float)currX, (float)w);
+                    float lat = CartesianToSphericalLatitude((float)y, (float)h);
                     //sw.Start();
                     float d = p.location.kmBetweenLocations(lat, lng);
                     //sw.Stop();
@@ -248,6 +246,22 @@ public class Heatmap : MonoBehaviour
         //     + " | Abs time: " + LookupTable.absSw.ElapsedMilliseconds / 1000f);
 
         return heatmapGrid;
+    }
+
+    public static (float latitude, float longitude) CartesionToSphericalCoords(float x, float y, float gridWidth, float gridHeight) {
+        float lng = CartesianToSphericalLongitude(x, gridWidth);
+        float lat = CartesianToSphericalLatitude(y, gridHeight);
+        return (lat, lng);
+    }
+
+    public static float CartesianToSphericalLatitude(float y, float gridHeight) {
+        //var centerY = y + (y >= gridHeight / 2  ? 0.5f :-0.5f); //Test vs the center of the grid point, rather than the origin
+        return y / gridHeight * 180f - 90f;
+    }
+
+    public static float CartesianToSphericalLongitude(float x, float gridWidth) {
+        //var centerX = x + (x >= gridWidth / 2 ? 0.5f : -0.5f); //Test vs the center of the grid point, rather than the origin
+        return x / gridWidth * 360f - 180f;
     }
 
     //Apparently C# % operator is actually just remainder. So negative numbers don't mod properly, below is proper modulo
