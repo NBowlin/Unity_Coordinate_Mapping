@@ -10,16 +10,16 @@
   {
     "location": {
       "name": "Origin",
-      "lat": 21,
-      "lng": 59
+      "lat": 21.01,
+      "lng": 59.01
     },
     "magnitude": 10
   }, 
   {
-    "alternatingCoords": [40.7128, -74.006, 21, 59]
+    "alternatingCoords": [40.7128, -74.006, 21.01, 59.01]
   }, 
   {
-    "latArr": [40.7128, 21],
-    "lngArr": [-74.006, 59]
+    "latArr": [40.7128, 21.01],
+    "lngArr": [-74.006, 59.01]
   }
 ]

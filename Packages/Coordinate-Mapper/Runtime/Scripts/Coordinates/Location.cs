@@ -17,6 +17,10 @@ namespace CoordinateMapper {
             longitude = lng;
         }
 
+        public override string ToString() {
+            return "Location: Name: " + name + " Coords: " + latitude + "/" + longitude;
+        }
+
         public float kmBetweenLocations(Location loc, float radius) {
             return kmBetweenLocations(latitude, longitude, loc.latitude, loc.longitude, radius);
         }

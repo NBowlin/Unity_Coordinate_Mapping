@@ -133,8 +133,7 @@ namespace CoordinateMapper {
                         break;
                 }
 
-                var cp = new T();
-                cp.location = new Location(lat, lng);
+                var cp = new T() { location = new Location(lat, lng) };
                 allPoints.Add(cp);
             }
 
