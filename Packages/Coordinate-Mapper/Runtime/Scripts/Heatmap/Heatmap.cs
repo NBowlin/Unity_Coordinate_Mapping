@@ -119,26 +119,12 @@ namespace CoordinateMapper {
                 xCenter = (int)Mathf.Clamp(xCenter, 0f, w - 1);
                 yCenter = (int)Mathf.Clamp(yCenter, 0f, h - 1);
 
-                //Calculate longitudinal range for given point
-                int cellRangeX = w;
+                //Calculate longitudinal range for given point: 1° Longitude = Cos(lat) * length of 1° (km) at equator
                 float yLat = (float)yCenter / (float)h * 180f - 90f;
-
-                int gridX = 1;
-                var movingEast = xCenter <= w / 2; //If in western hemisphere - move east so we have more space to check range
-                while (true) {
-                    var currX = xCenter + (movingEast ? gridX : -gridX);
-                    if (currX > w || currX < 0) { break; }
-
-                    float lng = CartesianToSphericalLongitude(currX, (float)w);
-                    float d = p.location.kmBetweenLocations(yLat, lng, radius);
-
-                    if (d > range) {
-                        cellRangeX = gridX - 1;
-                        break;
-                    }
-
-                    gridX += 1;
-                }
+                float kmPerLng = Mathf.Cos(yLat * Mathf.Deg2Rad) * kmPerLat;
+                float degPerLng = 360f / w;
+                float cellWidthKm = kmPerLng * degPerLng;
+                int cellRangeX = Mathf.RoundToInt(range / cellWidthKm);
 
                 //The idea was to only do distance calculations for 1/4th of the circle, then just mirror those values around the grid
                 //However, because bot-left lat/lng of circle is farther from center than, say, bot-right, it doesn't quite work
