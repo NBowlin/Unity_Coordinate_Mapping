@@ -29,7 +29,7 @@ namespace CoordinateMapper {
 
                 var line = PlanetUtility.VectorFromLatLng(isLatitude ? angle : j, isLatitude ? j : angle, Vector3.right);
 
-                var hitInfo = PlanetUtility.LineFromOriginToSurface(transform, line);
+                var hitInfo = PlanetUtility.LineFromOriginToSurface(transform, line, LayerMask.GetMask("Planet"));
                 if (hitInfo.HasValue) {
                     lineRenderer.SetPosition(currSegment, hitInfo.Value.point);
                 }

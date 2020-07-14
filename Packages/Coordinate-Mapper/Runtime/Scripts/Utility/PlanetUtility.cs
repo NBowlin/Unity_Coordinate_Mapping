@@ -9,7 +9,7 @@ namespace CoordinateMapper {
         }
 
         //TODO: Better name
-        public static RaycastHit? LineFromOriginToSurface(Transform planet, Vector3 line) {
+        public static RaycastHit? LineFromOriginToSurface(Transform planet, Vector3 line, LayerMask mask) {
             //Need to reverse the ray direction because collisions don't work from the inside of a collider
             //So take a point some distance along the line as origin, then reverse the direction
             //Also, planet can't be larger than 200 units
@@ -18,8 +18,9 @@ namespace CoordinateMapper {
             ray.direction = -ray.direction;
 
             RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit)) {
+            
+            //Physics.Raycast(ray, hit, Dist, mask)
+            if (Physics.Raycast(ray, out hit, 200.0f, mask)) {
                 if (hit.collider.gameObject == planet.gameObject) {
                     return hit;
                 }
@@ -32,11 +33,11 @@ namespace CoordinateMapper {
             return null;
         }
 
-        public static RaycastHit? LineToSurface(Transform planet, Transform orbiter, float maxDist) {
+        public static RaycastHit? LineToSurface(Transform planet, Transform orbiter, float maxDist, LayerMask mask) {
             RaycastHit hit;
             var planetDir = (planet.position - orbiter.position).normalized;
 
-            if (Physics.Raycast(orbiter.position, planetDir, out hit, maxDist)) {
+            if (Physics.Raycast(orbiter.position, planetDir, out hit, maxDist, mask)) {
                 if (hit.collider.gameObject == planet.gameObject) {
                     return hit;
                 }

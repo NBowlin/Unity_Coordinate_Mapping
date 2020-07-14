@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 559591687}
   - component: {fileID: 559591686}
   - component: {fileID: 559591685}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -674,7 +674,7 @@ GameObject:
   - component: {fileID: 2020255494}
   - component: {fileID: 2020255496}
   - component: {fileID: 2020255497}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Default_Earth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -798,7 +798,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020255490}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25cd287a6b9002a46810aaec4b0242e4, type: 3}
   m_Name: 
@@ -818,7 +818,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020255490}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fbdaaa866cf2f9469a5f9b29b6f739b, type: 3}
   m_Name: 

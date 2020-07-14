@@ -17,7 +17,7 @@ namespace CoordinateMapper {
         protected GameObject PlacePoint(Transform planet, Transform container) {
             var point = PlanetUtility.VectorFromLatLng(location.latitude, location.longitude, Vector3.right);
 
-            var hitInfo = PlanetUtility.LineFromOriginToSurface(planet, point);
+            var hitInfo = PlanetUtility.LineFromOriginToSurface(planet, point, LayerMask.GetMask("Planet"));
             if (hitInfo.HasValue) {
                 var go = UnityEngine.Object.Instantiate(pointPrefab, hitInfo.Value.point + point * placingAdjustment, Quaternion.identity, container);
                 go.name = location.name;

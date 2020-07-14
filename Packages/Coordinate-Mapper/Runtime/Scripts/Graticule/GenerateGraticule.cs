@@ -101,7 +101,7 @@ namespace CoordinateMapper {
 
                     var line = PlanetUtility.VectorFromLatLng(plottingParallels ? i : j, plottingParallels ? j : i, Vector3.right);
 
-                    var hitInfo = PlanetUtility.LineFromOriginToSurface(transform, line);
+                    var hitInfo = PlanetUtility.LineFromOriginToSurface(transform, line, LayerMask.GetMask("Planet"));
                     if (hitInfo.HasValue) { currPoints.Add(hitInfo.Value.point); }
                 }
 

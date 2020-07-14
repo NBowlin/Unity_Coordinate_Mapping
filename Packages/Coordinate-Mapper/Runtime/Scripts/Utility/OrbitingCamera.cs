@@ -68,7 +68,7 @@ namespace CoordinateMapper {
         }
 
         private float CheckCameraDistance() {
-            var distance = PlanetUtility.LineToSurface(lookAt.transform, cam.transform, maxCameraDistance);
+            var distance = PlanetUtility.LineToSurface(lookAt.transform, cam.transform, maxCameraDistance, LayerMask.GetMask("Planet"));
 
             if (distance.HasValue) { return (distance.Value.point - cam.transform.position).magnitude; }
             return maxCameraDistance;
