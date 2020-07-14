@@ -14,7 +14,8 @@ namespace CoordinateMapper {
 
         [SerializeField] private TextAsset json;
 
-        [SerializeField] private int kmRange = 200;
+        [SerializeField] private float mPlanetRadius = 6371000f; //Planet's radius in meters
+        [SerializeField] private float kmRange = 200f;
         [SerializeField] [Range(0, 100)] private int startValue = 60;
         [SerializeField] [Range(0, 100)] private int endValue = 0;
         [SerializeField] private Vector2 heatmapSize = new Vector2(2048, 1024);
@@ -41,7 +42,7 @@ namespace CoordinateMapper {
             Debug.Log(json.text);
             var points = JsonDataLoader<CoordinatePoint_Basic>.ParseJson(json);
 
-            int[,] heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, kmRange, startValue, endValue, colors, points);
+            int[,] heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, mPlanetRadius, kmRange, startValue, endValue, colors, points);
             return Texture2D_Extensions.DrawHeatmap(heatmapGrid, colors);
             //return DrawHeatmapTexture(heatmapGrid);
         }

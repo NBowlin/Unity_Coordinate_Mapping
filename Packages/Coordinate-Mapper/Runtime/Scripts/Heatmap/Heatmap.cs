@@ -6,7 +6,8 @@ namespace CoordinateMapper {
     public class Heatmap : MonoBehaviour {
         [SerializeField] private bool drawGrid;
 
-        [SerializeField] private int kmRange; //Range of effect for each point in kilometers
+        [SerializeField] private float mPlanetRadius; //Planet's radius in meters
+        [SerializeField] private float kmRange; //Range of effect for each point in kilometers
         [SerializeField] [Range(0, 100)] private int startValue;
         [SerializeField] [Range(0, 100)] private int endValue;
         [SerializeField] private Vector2 heatmapSize;
@@ -37,7 +38,7 @@ namespace CoordinateMapper {
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
             UnityEngine.Profiling.Profiler.BeginSample("HeatmapGenerate");
-            heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, kmRange, startValue, endValue, colors, points);
+            heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, mPlanetRadius, kmRange, startValue, endValue, colors, points);
             UnityEngine.Profiling.Profiler.EndSample();
 
             sw.Stop();
@@ -84,7 +85,7 @@ namespace CoordinateMapper {
         }
 
         //TODO: Make this more efficient
-        public static int[,] GenerateValues(int w, int h, int range, int startValue, int endValue, Gradient colors, IEnumerable<CoordinatePoint> points) {
+        public static int[,] GenerateValues(int w, int h, float radius, float range, int startValue, int endValue, Gradient colors, IEnumerable<CoordinatePoint> points) {
             int[,] heatmapGrid = new int[w, h];
 
             //TODO: Check vs lat/lng of center grid space for x/y (currently bot left of grid space)
@@ -98,7 +99,7 @@ namespace CoordinateMapper {
 
             //Latitude lines are constant distance - so pre-calculate the km between latitudes and use that to restrict
             //the y coords as we check location distance below
-            float kmPerLat = 111f; //111km per 1 degree of latitude
+            float kmPerLat = Mathf.PI * radius / 180.0f / 1000f; //km per 1 degree of latitude (Earth is ~111km)
             float degPerLat = 180f / h;
             float cellHeightKm = kmPerLat * degPerLat;
             int cellRangeY = Mathf.RoundToInt(range / cellHeightKm);
@@ -129,7 +130,7 @@ namespace CoordinateMapper {
                     if (currX > w || currX < 0) { break; }
 
                     float lng = CartesianToSphericalLongitude(currX, (float)w);
-                    float d = p.location.kmBetweenLocations(yLat, lng);
+                    float d = p.location.kmBetweenLocations(yLat, lng, radius);
 
                     if (d > range) {
                         cellRangeX = gridX - 1;
@@ -225,11 +226,11 @@ namespace CoordinateMapper {
                         float lng = CartesianToSphericalLongitude((float)currX, (float)w);
                         float lat = CartesianToSphericalLatitude((float)y, (float)h);
                         //sw.Start();
-                        float d = p.location.kmBetweenLocations(lat, lng);
+                        float d = p.location.kmBetweenLocations(lat, lng, radius);
                         //sw.Stop();
 
                         if (d < range) {
-                            float dRatio = d / (float)range;
+                            float dRatio = d / range;
                             int fallOffRange = startValue - endValue;
                             int fallOffVal = (int)(startValue - (fallOffRange * dRatio));
                             heatmapGrid[currX, y] += fallOffVal;
