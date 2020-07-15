@@ -27,7 +27,7 @@ namespace CoordinateMapper {
         }
 
         private void OnWizardCreate() {
-            string path = EditorUtility.SaveFilePanelInProject("Save Heatmap Texture", "Heatmap", "png", "Specify where to save the heatmap.");
+            string path = EditorUtility.SaveFilePanelInProject("Save Heatmap Texture", "Static_Heatmap", "png", "Specify where to save the heatmap.");
             if (path.Length > 0) {
                 DateTime before = DateTime.Now;
                 var hm = GenerateStaticHeatmap();
