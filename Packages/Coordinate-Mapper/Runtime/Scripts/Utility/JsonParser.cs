@@ -6,12 +6,6 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace CoordinateMapper {
-    public enum JsonParserTypes {
-        JsonString,
-        JsonInt,
-        JsonFloat
-    };
-
     public class JsonParser {
         
         public static object CastToken(JToken token) {
