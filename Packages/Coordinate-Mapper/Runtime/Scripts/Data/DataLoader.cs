@@ -32,7 +32,7 @@ namespace CoordinateMapper {
         void Start() {
             IEnumerable<CoordinatePoint> points;
             if (parseStyle == JsonParseStyle.CSV) {
-                var csvData = CSVParser.Read(jsonFile.text);
+                /*var csvData = CSVParser.Read(jsonFile.text);
                 var csvPoints = new List<CoordinatePoint>();
                 foreach (Dictionary<string, object> info in csvData) {
                     var point = new CoordinatePoint_Basic();
@@ -43,7 +43,8 @@ namespace CoordinateMapper {
                     point.location = loc;
                     csvPoints.Add(point);
                 }
-                points = csvPoints;
+                points = csvPoints;*/
+                points = null;
             } else {
                 points = LoadJson();
             }

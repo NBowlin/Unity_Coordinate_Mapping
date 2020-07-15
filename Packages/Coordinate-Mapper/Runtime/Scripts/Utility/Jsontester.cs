@@ -36,5 +36,19 @@ public class Jsontester : MonoBehaviour
             var loc = new Location(lat, lng);
             Debug.Log(loc);
         }
+
+        var csv = (TextAsset)Resources.Load("test_csv", typeof(TextAsset));
+        var csvParse = CsvParser.Parse(csv.text);
+
+        var csvLats = csvParse["latitude"].Cast<float>().ToArray();
+        var csvLngs = csvParse["longitude"].Cast<float>().ToArray();
+
+        for (int i = 0; i < csvLats.Length; i++) {
+            var lat = csvLats[i];
+            var lng = csvLngs[i];
+
+            var loc = new Location(lat, lng);
+            Debug.Log(loc);
+        }
     }
 }
