@@ -6,7 +6,7 @@ using System;
 
 namespace CoordinateMapper {
     public class StaticHeatmap : ScriptableWizard {
-        [MenuItem("Heatmap/Generate Heatmap Texture")]
+        [MenuItem("Coordinate Mapper/Generate Heatmap Texture")]
         static void CreateStaticHeatmap() {
 
             DisplayWizard<StaticHeatmap>("Create a heat map");
