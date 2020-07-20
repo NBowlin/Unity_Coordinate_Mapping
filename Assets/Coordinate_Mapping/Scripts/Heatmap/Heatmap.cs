@@ -15,9 +15,10 @@ namespace CoordinateMapper {
         [SerializeField] private Gradient colors;
         [SerializeField] private Renderer hmRenderer;
 
-        private IEnumerable<CoordinatePoint> points;
+        //TODO: Updated the class to use ICoordinatePoint - check back after rework
+        private IEnumerable<ICoordinatePoint> points;
 
-        public void GenerateHeatmapGrid(IEnumerable<CoordinatePoint> points) {
+        public void GenerateHeatmapGrid(IEnumerable<ICoordinatePoint> points) {
 
             /*var p = new CoordinatePoint_Basic();
             var l = new Location();
@@ -85,7 +86,7 @@ namespace CoordinateMapper {
         }
 
         //TODO: Make this more efficient
-        public static int[,] GenerateValues(int w, int h, float radius, float range, int startValue, int endValue, Gradient colors, IEnumerable<CoordinatePoint> points) {
+        public static int[,] GenerateValues(int w, int h, float radius, float range, int startValue, int endValue, Gradient colors, IEnumerable<ICoordinatePoint> points) {
             int[,] heatmapGrid = new int[w, h];
 
             //TODO: Check vs lat/lng of center grid space for x/y (currently bot left of grid space)
@@ -106,7 +107,7 @@ namespace CoordinateMapper {
 
             //var sw = new System.Diagnostics.Stopwatch();
 
-            foreach (CoordinatePoint p in points) {
+            foreach (ICoordinatePoint p in points) {
                 float texLat = 90f + p.location.latitude;
                 float texLng = 180f + p.location.longitude;
 
@@ -252,10 +253,10 @@ namespace CoordinateMapper {
             return a - b * Mathf.FloorToInt((float)a / (float)b);
         }
 
-        public static int[,] GenerateValuesOld(int w, int h, int range, int startValue, int endValue, Gradient colors, IEnumerable<CoordinatePoint> points) {
+        public static int[,] GenerateValuesOld(int w, int h, int range, int startValue, int endValue, Gradient colors, IEnumerable<ICoordinatePoint> points) {
             int[,] heatmapGrid = new int[w, h];
 
-            foreach (CoordinatePoint p in points) {
+            foreach (ICoordinatePoint p in points) {
                 float texLat = 90f + p.location.latitude;
                 float texLng = 180f + p.location.longitude;
 

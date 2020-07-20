@@ -37,7 +37,11 @@ namespace CoordinateMapper {
                 var assetType = AssetDatabase.GetMainAssetTypeAtPath(path);
 
                 if (assetType == typeof(GameObject)) {
-                    Object planet = AssetDatabase.LoadAssetAtPath(path, typeof(GameObject));
+                    GameObject planet = (GameObject)AssetDatabase.LoadAssetAtPath(path, typeof(GameObject));
+
+                    //TODO: Create (if needed) / add planet to "Planet" layer? : https://forum.unity.com/threads/adding-layer-by-script.41970/
+                    //planet.layer = LayerMask.NameToLayer("Planet");
+
                     if (planet != null) {
                         PrefabUtility.InstantiatePrefab(planet);
                         break;

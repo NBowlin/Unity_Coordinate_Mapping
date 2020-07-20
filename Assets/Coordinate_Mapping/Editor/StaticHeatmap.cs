@@ -8,7 +8,6 @@ namespace CoordinateMapper {
     public class StaticHeatmap : ScriptableWizard {
         [MenuItem("Coordinate Mapper/Generate Heatmap Texture")]
         static void CreateStaticHeatmap() {
-
             DisplayWizard<StaticHeatmap>("Create a heat map");
         }
 
@@ -23,6 +22,7 @@ namespace CoordinateMapper {
         [SerializeField] private Gradient colors = new Gradient();
 
         private void OnEnable() {
+            //TODO: Remove this for production
             json = (TextAsset)Resources.Load("magnitude_point_data", typeof(TextAsset));
         }
 
@@ -38,47 +38,14 @@ namespace CoordinateMapper {
             }
         }
 
+        //TODO: Update this to use proper parser when rework is done
         private Texture2D GenerateStaticHeatmap() {
-            Debug.Log(json.text);
+            /*Debug.Log(json.text);
             var points = JsonDataLoader<CoordinatePoint_Basic>.ParseJson(json);
 
             int[,] heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, mPlanetRadius, kmRange, startValue, endValue, colors, points);
-            return Texture2D_Extensions.DrawHeatmap(heatmapGrid, colors);
-            //return DrawHeatmapTexture(heatmapGrid);
+            return Texture2D_Extensions.DrawHeatmap(heatmapGrid, colors);*/
+            return null;
         }
-
-        //Draw texture using SetPixel
-        //private Texture2D DrawHeatmapTexture(int[,] heatmap) {
-        //    DateTime before = DateTime.Now;
-        //    int w = heatmap.GetLength(0);
-        //    int h = heatmap.GetLength(1);
-
-        //    Texture2D overlay = new Texture2D(w, h);
-
-        //    Color[] clearColors = new Color[w * h];
-        //    for (int i = 0; i < clearColors.Length; i++) { clearColors[i] = Color.clear; }
-        //    overlay.SetPixels(clearColors);
-
-        //    for (int x = 0; x < w; x++) {
-        //        for (int y = 0; y < h; y++) {
-        //            if (heatmap[x, y] > 0) {
-        //                //Color using gradient
-        //                var c = colors.Evaluate(heatmap[x, y] / 100f);
-        //                overlay.SetPixel(x, y, c);
-
-        //                //Red color using alpha
-        //                //overlay.SetPixel(x, y, new Color(1f, 0f, 0f, heatmap[x, y] / 100f));
-        //            }
-        //        }
-        //    }
-
-        //    overlay.Apply();
-
-        //    DateTime after = DateTime.Now;
-        //    TimeSpan duration = after.Subtract(before);
-        //    Debug.Log("Draw time in seconds: " + duration.Seconds);
-
-        //    return overlay;
-        //}
     }
 }

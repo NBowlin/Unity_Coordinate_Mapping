@@ -21,9 +21,10 @@ namespace CoordinateMapper {
             
             //Physics.Raycast(ray, hit, Dist, mask)
             if (Physics.Raycast(ray, out hit, 200.0f, mask)) {
-                if (hit.collider.gameObject == planet.gameObject) {
+                //TODO: Since we have layermask we don't need collider check anymore?
+                //if (hit.collider.gameObject == planet.gameObject) {
                     return hit;
-                }
+                //}
             }
             else {
                 Debug.Log("Raycast missed Planet");
@@ -38,9 +39,23 @@ namespace CoordinateMapper {
             var planetDir = (planet.position - orbiter.position).normalized;
 
             if (Physics.Raycast(orbiter.position, planetDir, out hit, maxDist, mask)) {
-                if (hit.collider.gameObject == planet.gameObject) {
+                //if (hit.collider.gameObject == planet.gameObject) {
                     return hit;
-                }
+                //}
+            }
+
+            return null;
+        }
+
+        public static GameObject PlacePoint(Transform planet, Transform container, Location location, GameObject prefab) {
+            var placingAdjustment = 0.0f;
+            var point = PlanetUtility.VectorFromLatLng(location.latitude, location.longitude, Vector3.right);
+
+            var hitInfo = PlanetUtility.LineFromOriginToSurface(planet, point, LayerMask.GetMask("Planet"));
+            if (hitInfo.HasValue) {
+                var go = UnityEngine.Object.Instantiate(prefab, hitInfo.Value.point + point * placingAdjustment, Quaternion.identity, container);
+                go.name = location.name;
+                return go;
             }
 
             return null;
