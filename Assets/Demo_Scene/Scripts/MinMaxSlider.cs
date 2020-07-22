@@ -4,23 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class MinMaxSlider : MonoBehaviour, IDragHandler
+public class MinMaxSlider : MonoBehaviour
 {
     private float minX = 0f;
     private float maxX = 0f;
 
-    RectTransform rt;
+    private RectTransform rt;
+
+    [SerializeField] private RectTransform leftHandle;
+    [SerializeField] private RectTransform rightHandle;
 
     private void Start() {
         rt = (RectTransform)transform;
-        minX = rt.rect.width / 2;
-        maxX = ((RectTransform)rt.parent).rect.width - minX;
-        Debug.Log(gameObject.name + ": " + minX + "/" + maxX + " AnchorP: " + rt.anchoredPosition + " LocalP: " + rt.localPosition + " WorldP: " + rt.position);
+        minX = leftHandle.rect.width / 2;
+        maxX = rt.rect.width - minX;
     }
 
-    public void OnDrag(PointerEventData eventData) {
-        float toX = Mathf.Clamp(rt.anchoredPosition.x + eventData.delta.x, minX, maxX);
-        Debug.Log("Local: " + rt.anchoredPosition.x + " Delta: " + eventData.delta.x + " ToX: " + toX);
-        rt.anchoredPosition = new Vector2(toX, rt.anchoredPosition.y);
+    public void LeftHandleDragged(BaseEventData data) {
+        var pointerEvent = (PointerEventData)data;
+        var selectedRT = (RectTransform)pointerEvent.pointerDrag.transform;
+
+        float toX = Mathf.Clamp(selectedRT.anchoredPosition.x + pointerEvent.delta.x, minX, maxX);
+        selectedRT.anchoredPosition = new Vector2(toX, selectedRT.anchoredPosition.y);
     }
 }
