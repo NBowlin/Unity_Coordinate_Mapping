@@ -13,6 +13,7 @@ public class MinMaxSlider : MonoBehaviour
     private float minX = 0f;
     private float maxX = 0f;
 
+    [SerializeField] private RectTransform fillBar;
     [SerializeField] private RectTransform leftHandle;
     [SerializeField] private RectTransform rightHandle;
     private float handleRange = 0f;
@@ -71,15 +72,10 @@ public class MinMaxSlider : MonoBehaviour
 
         if (toX + leftHandle.rect.width / 2f >= rightHandle.anchoredPosition.x - rightHandle.rect.width / 2f) {
             if (rightHandle.anchoredPosition.x >= maxX) { return; }
-
-            rightHandle.anchoredPosition = new Vector2((toX + leftHandle.rect.width / 2f) + (rightHandle.rect.width / 2f), rightHandle.anchoredPosition.y);
-            maxText.rectTransform.anchoredPosition = rightHandle.anchoredPosition + maxTextOffset;
-            currMaxValue = calculateSliderValue(rightHandle.anchoredPosition.x);
+            UpdateRightHandleValues((toX + leftHandle.rect.width / 2f) + (rightHandle.rect.width / 2f));
         }
 
-        leftHandle.anchoredPosition = new Vector2(toX, leftHandle.anchoredPosition.y);
-        minText.rectTransform.anchoredPosition = leftHandle.anchoredPosition - minTextOffset;
-        currMinValue = calculateSliderValue(toX);
+        UpdateLeftHandleValues(toX);
     }
 
     public void RightHandleDragged(BaseEventData data) {
@@ -89,13 +85,22 @@ public class MinMaxSlider : MonoBehaviour
 
         if(toX - rightHandle.rect.width / 2f <= leftHandle.anchoredPosition.x + leftHandle.rect.width / 2f) {
             if(leftHandle.anchoredPosition.x <= minX) { return; }
-
-            leftHandle.anchoredPosition = new Vector2((toX - rightHandle.rect.width / 2f) - (leftHandle.rect.width / 2f), leftHandle.anchoredPosition.y);
-            minText.rectTransform.anchoredPosition = leftHandle.anchoredPosition - minTextOffset;
-            currMinValue = calculateSliderValue(leftHandle.anchoredPosition.x);
+            UpdateLeftHandleValues((toX - rightHandle.rect.width / 2f) - (leftHandle.rect.width / 2f));
         }
 
+        UpdateRightHandleValues(toX);
+    }
+
+    private void UpdateLeftHandleValues(float toX) {
+        leftHandle.anchoredPosition = new Vector2(toX, leftHandle.anchoredPosition.y);
+        fillBar.offsetMin = new Vector2(leftHandle.anchoredPosition.x, fillBar.offsetMin.y);
+        minText.rectTransform.anchoredPosition = leftHandle.anchoredPosition - minTextOffset;
+        currMinValue = calculateSliderValue(toX);
+    }
+
+    private void UpdateRightHandleValues(float toX) {
         rightHandle.anchoredPosition = new Vector2(toX, rightHandle.anchoredPosition.y);
+        fillBar.offsetMax = new Vector2(rightHandle.anchoredPosition.x - maxX, fillBar.offsetMax.y);
         maxText.rectTransform.anchoredPosition = rightHandle.anchoredPosition + maxTextOffset;
         currMaxValue = calculateSliderValue(toX);
     }
