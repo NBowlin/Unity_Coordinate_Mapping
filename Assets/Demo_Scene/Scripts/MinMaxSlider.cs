@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
+using UnityEngine.Events;
+
+[System.Serializable] public class SliderEvent : UnityEvent<float, float> { }
 
 public class MinMaxSlider : MonoBehaviour
 {
@@ -17,8 +21,33 @@ public class MinMaxSlider : MonoBehaviour
     [SerializeField] private float maxValue = 100f;
     private float valueRange = 100f;
 
-    public float currMinValue { get; private set; }
-    public float currMaxValue { get; private set; }
+    private float _currMinValue;
+    public float currMinValue {
+        get { return _currMinValue; }
+        private set {
+            _currMinValue = value;
+            minText.text = value.ToString("F1");
+            if(valueChanged != null) { valueChanged.Invoke(currMinValue, currMaxValue); }
+        }
+    }
+
+    private float _currMaxValue;
+    public float currMaxValue {
+        get { return _currMaxValue; }
+        private set {
+            _currMaxValue = value;
+            maxText.text = value.ToString("F1");
+            if (valueChanged != null) { valueChanged.Invoke(currMinValue, currMaxValue); }
+        }
+    }
+
+    [SerializeField] private TextMeshProUGUI minText;
+    private Vector2 minTextOffset;
+
+    [SerializeField] private TextMeshProUGUI maxText;
+    private Vector2 maxTextOffset;
+
+    public SliderEvent valueChanged;
 
     private void Start() {
         minX = leftHandle.rect.width / 2;
@@ -26,6 +55,12 @@ public class MinMaxSlider : MonoBehaviour
 
         valueRange = maxValue - minValue;
         handleRange = maxX - minX;
+
+        minTextOffset = new Vector2(leftHandle.anchoredPosition.x - minText.rectTransform.anchoredPosition.x, leftHandle.anchoredPosition.y - minText.rectTransform.anchoredPosition.y);
+        maxTextOffset = new Vector2(maxText.rectTransform.anchoredPosition.x - rightHandle.anchoredPosition.x, maxText.rectTransform.anchoredPosition.y - rightHandle.anchoredPosition.y);
+
+        currMinValue = minValue;
+        currMaxValue = maxValue;
     }
 
     //These functioned are called via an Event Trigger on the handles
@@ -38,10 +73,12 @@ public class MinMaxSlider : MonoBehaviour
             if (rightHandle.anchoredPosition.x >= maxX) { return; }
 
             rightHandle.anchoredPosition = new Vector2((toX + leftHandle.rect.width / 2f) + (rightHandle.rect.width / 2f), rightHandle.anchoredPosition.y);
+            maxText.rectTransform.anchoredPosition = rightHandle.anchoredPosition + maxTextOffset;
             currMaxValue = calculateSliderValue(rightHandle.anchoredPosition.x);
         }
 
         leftHandle.anchoredPosition = new Vector2(toX, leftHandle.anchoredPosition.y);
+        minText.rectTransform.anchoredPosition = leftHandle.anchoredPosition - minTextOffset;
         currMinValue = calculateSliderValue(toX);
     }
 
@@ -54,10 +91,12 @@ public class MinMaxSlider : MonoBehaviour
             if(leftHandle.anchoredPosition.x <= minX) { return; }
 
             leftHandle.anchoredPosition = new Vector2((toX - rightHandle.rect.width / 2f) - (leftHandle.rect.width / 2f), leftHandle.anchoredPosition.y);
+            minText.rectTransform.anchoredPosition = leftHandle.anchoredPosition - minTextOffset;
             currMinValue = calculateSliderValue(leftHandle.anchoredPosition.x);
         }
 
         rightHandle.anchoredPosition = new Vector2(toX, rightHandle.anchoredPosition.y);
+        maxText.rectTransform.anchoredPosition = rightHandle.anchoredPosition + maxTextOffset;
         currMaxValue = calculateSliderValue(toX);
     }
 

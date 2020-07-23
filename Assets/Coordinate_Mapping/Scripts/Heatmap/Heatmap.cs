@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace CoordinateMapper {
     public class Heatmap : MonoBehaviour {
-        [SerializeField] private bool drawGrid;
+        [SerializeField] private bool drawGrid; //TODO: remove before submission
 
-        [SerializeField] private float mPlanetRadius; //Planet's radius in meters
-        [SerializeField] private float kmRange; //Range of effect for each point in kilometers
-        [SerializeField] [Range(0, 100)] private int startValue;
-        [SerializeField] [Range(0, 100)] private int endValue;
-        [SerializeField] private Vector2 heatmapSize;
+        [SerializeField] private float mPlanetRadius = 6371000f; //Planet's radius in meters
+        [SerializeField] private float kmRange = 200f; //Range of effect for each point in kilometers
+        [SerializeField] [Range(0, 100)] private int startValue = 60;
+        [SerializeField] [Range(0, 100)] private int endValue = 0;
+        [SerializeField] private Vector2 heatmapSize = new Vector2(2048, 1024);
 
         [SerializeField] private Gradient colors;
         [SerializeField] private Renderer hmRenderer;

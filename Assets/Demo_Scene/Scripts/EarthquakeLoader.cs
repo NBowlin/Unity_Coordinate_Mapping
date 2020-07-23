@@ -62,6 +62,11 @@ public class EarthquakeLoader : MonoBehaviour, IDataLoader {
             plotted.name = titles[i];
             earthquakes.Add((plotted, eP));
         }
+
+        if(loadComplete != null) {
+            var cps = earthquakes.Select(p => p.data);
+            loadComplete.Invoke(cps);
+        }
     }
 
     public void filter(float minMagnitude, float maxMagnitude) {
