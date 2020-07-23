@@ -264,6 +264,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHandle: {fileID: 1269502825}
   rightHandle: {fileID: 1898747992}
+  minValue: 20
+  maxValue: 100
 --- !u!1 &317560409
 GameObject:
   m_ObjectHideFlags: 0
