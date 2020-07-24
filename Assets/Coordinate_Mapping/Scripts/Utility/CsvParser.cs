@@ -24,22 +24,20 @@ namespace CoordinateMapper {
 
             for (var i = 1; i < lines.Length; i++) {
                 var values = Regex.Split(lines[i], SPLIT_RE); //TODO: This is SUPER slow - It's like 99% of parse time
-                //TODO: Add dummy data here?
                 if (values.Length == 0 || values[0] == "") { continue; }
 
                 for (var j = 0; j < headers.Length && j < values.Length; j++) {
                     string value = values[j];
                     value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS).Replace("\\", "");
                     object finalvalue = value;
-                    //int n;
+                    long n;
                     float f;
-                    //if (int.TryParse(value, out n)) { finalvalue = n; }
-                    /*else */if (float.TryParse(value, out f)) { finalvalue = f; }
+                    if (long.TryParse(value, out n)) { finalvalue = n; }
+                    else if (float.TryParse(value, out f)) { finalvalue = f; }
                     var key = headers[j];
                     var keyVal = info[key];
                     keyVal[i - 1] = finalvalue;
                     info[key] = keyVal;
-                    //Debug.Log("Key: " + key + " Val: " + finalvalue);
                 }
             }
             return info;

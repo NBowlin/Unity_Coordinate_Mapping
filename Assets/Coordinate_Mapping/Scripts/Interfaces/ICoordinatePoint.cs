@@ -7,6 +7,6 @@ namespace CoordinateMapper {
         Location location { get; set; }
         GameObject pointPrefab { get; set; }
 
-        GameObject Plot(Transform planet, Transform container);
+        GameObject Plot(Transform planet, Transform container, int layer);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CoordinateMapper;
 using System.Linq;
+using System;
 
 public class EarthquakeLoader : MonoBehaviour, IDataLoader {
     [SerializeField] private TextAsset _dataFile;
@@ -45,20 +46,32 @@ public class EarthquakeLoader : MonoBehaviour, IDataLoader {
             earthquakes.Add(eP);
         }*/
 
-        var jsonParsed = JsonParser.Parse(fileText, new string[] { "mag", "coordinates", "title" });
-        var mags = jsonParsed["mag"].Cast<float>().ToArray();
+        var jsonParsed = JsonParser.Parse(fileText, new string[] { "mag", "coordinates", "title", "place", "time" });
+
+
+        var mags = jsonParsed["mag"].Select(m => Convert.ToSingle(m)).ToArray();
         var coords = jsonParsed["coordinates"].Cast<object[]>().ToArray();
         var titles = jsonParsed["title"].Cast<string>().ToArray();
+        var places = jsonParsed["place"].Cast<string>().ToArray();
+        var times = jsonParsed["time"].Cast<long>().ToArray();
 
-        for(int i = 0; i < coords.Length; i++) {
-            var lng = (float)coords[i][0];
-            var lat = (float)coords[i][1];
+        var container = new GameObject("Earthquakes");
+        container.transform.SetParent(transform, false);
+
+        for (int i = 0; i < coords.Length; i++) {
+            var lng = Convert.ToSingle(coords[i][0]);
+            var lat = Convert.ToSingle(coords[i][1]);
+            var depth = Convert.ToSingle(coords[i][2]);
             var mag = mags[i];
+            var place = places[i];
+            var time = times[i];
 
-            var eP = new EarthquakePoint(lat, lng, mag);
+            var eP = new EarthquakePoint(lat, lng, mag, depth, place, time);
             
             eP.pointPrefab = pointPrefab;
-            var plotted = eP.Plot(transform, transform);
+            var plotted = eP.Plot(transform, container.transform, LayerMask.NameToLayer("Location"));
+
+
             plotted.name = titles[i];
             earthquakes.Add((plotted, eP));
         }

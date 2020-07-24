@@ -32,8 +32,8 @@ namespace CoordinateMapper {
         // Update is called once per frame
         void Update() {
             //TODO: Adjust keys to zoom
-            if (Input.GetButton("Jump")) { ZoomCamera(true); }
-            else if (Input.GetButton("Fire2")) { ZoomCamera(false); }
+            if (Input.GetKey(KeyCode.Z)) { ZoomCamera(true); }
+            else if (Input.GetKey(KeyCode.X)) { ZoomCamera(false); }
 
             if (Input.GetMouseButtonDown(0)) {
                 previousPos = cam.ScreenToViewportPoint(Input.mousePosition);

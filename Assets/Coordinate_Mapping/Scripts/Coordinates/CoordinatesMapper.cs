@@ -32,7 +32,7 @@ namespace CoordinateMapper {
 
             foreach (ICoordinatePoint point in p) {
                 point.pointPrefab = pointPrefab; //TODO: Rework this
-                point.Plot(transform, container.transform);
+                point.Plot(transform, container.transform, 0); //Default layer
             }
         }
     }

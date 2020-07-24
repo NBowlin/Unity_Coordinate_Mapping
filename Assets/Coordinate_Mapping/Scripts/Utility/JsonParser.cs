@@ -11,6 +11,7 @@ namespace CoordinateMapper {
         public static object CastToken(JToken token) {
             switch (token.Type) {
                 case JTokenType.Integer:
+                    return (long)token;
                     //return (int)token; //TODO: Add option to JsonParser to specify cast ints to float? (CSV Parser also)
                 case JTokenType.Float:
                     return (float)token;

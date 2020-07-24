@@ -12,6 +12,12 @@ namespace CoordinateMapper {
 
         //public static System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 
+        public Location(string place, float lat, float lng) {
+            name = place;
+            latitude = lat;
+            longitude = lng;
+        }
+
         public Location(float lat, float lng) {
             latitude = lat;
             longitude = lng;
