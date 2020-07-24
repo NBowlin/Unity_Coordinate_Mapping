@@ -48,7 +48,6 @@ public class EarthquakeLoader : MonoBehaviour, IDataLoader {
 
         var jsonParsed = JsonParser.Parse(fileText, new string[] { "mag", "coordinates", "title", "place", "time" });
 
-
         var mags = jsonParsed["mag"].Select(m => Convert.ToSingle(m)).ToArray();
         var coords = jsonParsed["coordinates"].Cast<object[]>().ToArray();
         var titles = jsonParsed["title"].Cast<string>().ToArray();
