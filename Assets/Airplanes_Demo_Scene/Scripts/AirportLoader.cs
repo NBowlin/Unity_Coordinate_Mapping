@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using CoordinateMapper;
 using System.Linq;
+using UnityEngine.Events;
+
+[System.Serializable] public class AirportsPlottedEvent : UnityEvent<List<GameObject>> { }
 
 public class AirportLoader : MonoBehaviour, IDataLoader {
     [SerializeField] private TextAsset _dataFile;
     public TextAsset dataFile { get { return _dataFile; } set { _dataFile = value; } }
 
-    [SerializeField] private JsonLoadedEvent _loadComplete;
-    public JsonLoadedEvent loadComplete { get { return _loadComplete; } set { _loadComplete = value; } }
+    public JsonLoadedEvent loadComplete { get; set; }
 
     [SerializeField] private GameObject airportPrefab;
 
+    [SerializeField] private AirportsPlottedEvent airportsPlotted;
     private List<GameObject> airports = new List<GameObject>();
 
     void Start() {
@@ -42,8 +45,6 @@ public class AirportLoader : MonoBehaviour, IDataLoader {
             airports.Add(plotted);
         }
 
-        if (loadComplete != null) {
-
-        }
+        if (airportsPlotted != null) { airportsPlotted.Invoke(airports); }
     }
 }
