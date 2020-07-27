@@ -51,7 +51,7 @@ namespace CoordinateMapper {
             var placingAdjustment = 0.0f;
             var point = PlanetUtility.VectorFromLatLng(location.latitude, location.longitude, Vector3.right);
 
-            var hitInfo = PlanetUtility.LineFromOriginToSurface(planet, point, LayerMask.GetMask("Planet"));
+            var hitInfo = PlanetUtility.LineFromOriginToSurface(planet, point, LayerMask.GetMask("Planet")); //TODO: Don't use "Planet" default layer?
             if (hitInfo.HasValue) {
                 var go = UnityEngine.Object.Instantiate(prefab, hitInfo.Value.point + point * placingAdjustment, Quaternion.identity, container);
                 go.name = location.name;
