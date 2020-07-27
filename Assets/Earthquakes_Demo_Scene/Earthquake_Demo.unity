@@ -793,9 +793,9 @@ MonoBehaviour:
   cam: {fileID: 754787523}
   lookAt: {fileID: 240349445}
   minPanSpeed: 20
-  maxPanSpeed: 180
-  minCameraDistance: 0.1
-  maxCameraDistance: 4
+  maxPanSpeed: 60
+  minCameraDistance: 0.2
+  maxCameraDistance: 0.6
   zoomSpeed: 1
 --- !u!114 &754787526
 MonoBehaviour:
