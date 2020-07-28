@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 1002126197}
   - component: {fileID: 1002126200}
   - component: {fileID: 1002126201}
+  - component: {fileID: 1002126202}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -172,7 +173,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -199,8 +200,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002126196}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0.2272656, y: 0.038294632, z: -0.010175242, w: -0.9730264}
+  m_LocalPosition: {x: 0.026279857, y: 0.44786486, z: -0.89546204}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -246,6 +247,25 @@ Skybox:
   m_GameObject: {fileID: 1002126196}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 2100000, guid: 98a3442454bf9ac49865176db8b8b48d, type: 2}
+--- !u!114 &1002126202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002126196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c328e366deb8cd4dab941fd50e6f251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 1002126198}
+  lookAt: {fileID: 1328060886}
+  minPanSpeed: 20
+  maxPanSpeed: 75
+  minCameraDistance: 0.1
+  maxCameraDistance: 0.8
+  zoomSpeed: 1
 --- !u!1 &1200738639
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,6 +472,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!4 &1328060886 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 981819373897072020, guid: d9e3edd67b2c8874781ac5f99bab2bcc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1328060883}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1479632805
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,3 +524,46 @@ MonoBehaviour:
   flightCooldown: 1
   airplanePrefab: {fileID: 2861921599529755990, guid: ba552a37ee74145438a3145edae6cae5,
     type: 3}
+--- !u!1 &1634363009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1634363011}
+  - component: {fileID: 1634363010}
+  m_Layer: 0
+  m_Name: Quitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1634363010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634363009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3f6580b4443464f8a8759b85a5d9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1634363011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634363009}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

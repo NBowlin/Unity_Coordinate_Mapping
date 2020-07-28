@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Airplanes_Demo_Scene/Airplanes_Demo.unity
+    guid: c4037b1eac5bd824791fcc903492f974
+  - enabled: 1
+    path: Assets/Earthquakes_Demo_Scene/Earthquake_Demo.unity
+    guid: 2474e8d330945674cb62700409fced5e
   m_configObjects: {}
