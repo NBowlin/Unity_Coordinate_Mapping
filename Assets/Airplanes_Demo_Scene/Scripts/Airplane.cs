@@ -14,12 +14,18 @@ public class Airplane : MonoBehaviour
 
     [HideInInspector] public Transform planet;
 
+    [SerializeField] private Transform planeModel;
+
     private float startTime;
     private float maxOffset = 0.1f;
+
+    private bool hasHeading = false;
 
     private void Start() {
         startTime = Time.time;
         planet = GameObject.Find("Earth").transform; //TODO: Don't like this but quick and dirty
+
+        SetInitialHeading();
 
         Invoke("Despawn", flightTime + 1f);
     }
@@ -37,11 +43,16 @@ public class Airplane : MonoBehaviour
             return;
         }
         var pos = Vector3.Lerp(from.position, to.position, fracComplete);
-        var ePoint = PlanetUtility.LineFromOriginToSurface(planet, pos, LayerMask.GetMask("Planet"));
+        var planetHit = PlanetUtility.LineFromOriginToSurface(planet, pos, LayerMask.GetMask("Planet"));
 
-        if (ePoint.HasValue) {
+        if (planetHit.HasValue) {
             var offsetFrac = fracComplete > 0.5f ? ((1f - fracComplete) * 2f) : fracComplete * 2f;
-            transform.position = ePoint.Value.point + pos * (maxOffset * offsetFrac);
+            transform.position = planetHit.Value.point + pos * (maxOffset * offsetFrac);
+            transform.up = planetHit.Value.normal;
         }
+    }
+
+    public void SetInitialHeading() {
+        planeModel.rotation = Quaternion.LookRotation(to.position - planeModel.position);
     }
 }

@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -522,7 +522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flightCooldown: 1
-  airplanePrefab: {fileID: 2861921599529755990, guid: ba552a37ee74145438a3145edae6cae5,
+  airplanePrefab: {fileID: 4354014641520514518, guid: b5d7758a118ba4d4fb7c1ca2e43e7e54,
     type: 3}
 --- !u!1 &1634363009
 GameObject:
