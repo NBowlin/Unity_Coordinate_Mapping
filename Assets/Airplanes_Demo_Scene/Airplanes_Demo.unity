@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 1002126198}
   - component: {fileID: 1002126197}
   - component: {fileID: 1002126200}
+  - component: {fileID: 1002126201}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -236,6 +237,15 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!45 &1002126201
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002126196}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 98a3442454bf9ac49865176db8b8b48d, type: 2}
 --- !u!1 &1200738639
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +408,7 @@ PrefabInstance:
     - target: {fileID: 981819373897072021, guid: d9e3edd67b2c8874781ac5f99bab2bcc,
         type: 3}
       propertyPath: m_Name
-      value: Earth_Unlit
+      value: Earth
       objectReference: {fileID: 0}
     - target: {fileID: 981819373897072021, guid: d9e3edd67b2c8874781ac5f99bab2bcc,
         type: 3}
