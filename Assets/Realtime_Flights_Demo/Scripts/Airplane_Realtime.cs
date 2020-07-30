@@ -59,7 +59,7 @@ public class Airplane_Realtime : MonoBehaviour
             transform.position = planetHit.Value.point + transform.position * altitude;
             transform.up = planetHit.Value.normal;
 
-            Debug.DrawLine(transform.position, planetHit.Value.point, Color.yellow, 100f);
+            Debug.DrawLine(transform.position, planetHit.Value.point, Color.yellow, 2f);
         }
     }
 
