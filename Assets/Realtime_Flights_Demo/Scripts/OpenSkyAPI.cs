@@ -22,7 +22,93 @@ public class OpenSkyAPI : MonoBehaviour {
     [SerializeField] private GameObject prefab;
 
     private void Start() {
-        GetFlights();
+        //GetFlights();
+        GetInitialFlights();
+    }
+
+    private async void GetInitialFlights() {
+        var json = await FlightsApi();
+        var flightInfos = ParseJson(json);
+        CreatePlanes(flightInfos);
+
+        await Task.Delay(TimeSpan.FromSeconds(10f), apiDelayCanceler.Token);
+        UpdateTrackedFlights(flightInfos);
+    }
+
+    private async void UpdateTrackedFlights(List<FlightInfo> flights) {
+        var icaos = flights.Select(f => f.icao24).ToArray();
+        var json = await FlightsApi(icaos);
+        var flightInfos = ParseJson(json);
+
+        //TODO: Update existing planes rather than blowing everything away
+        CreatePlanes(flightInfos);
+        await Task.Delay(TimeSpan.FromSeconds(10f), apiDelayCanceler.Token);
+        UpdateTrackedFlights(flightInfos);
+    }
+
+    private void CreatePlanes(List<FlightInfo> infos) {
+        var planes = GameObject.Find("Planes");
+        if (planes != null) { Destroy(planes); }
+
+        var container = new GameObject("Planes");
+        container.transform.SetParent(transform, false);
+
+        foreach (FlightInfo info in infos) {
+            var plotted = info.Plot(transform, container.transform, 0); //Default layer
+            var planeScript = plotted.GetComponent<Airplane_Realtime>();
+            planeScript.info = info;
+            plotted.name = info.icao24 + "_" + info.callSign + "_" + info.heading.ToString("F2");
+        }
+    }
+
+    private /*async*/ List<FlightInfo> ParseJson(string json) {
+        var parsed = JObject.Parse(json);
+
+        var tokens = parsed["states"];
+        int count = 0;
+
+        List<FlightInfo> infos = new List<FlightInfo>();
+
+        foreach (JToken token in tokens) {
+            var icao24T = token[0];
+            var callsignT = token[1];
+            var lngT = token[5];
+            var latT = token[6];
+            var velT = token[9];
+            var headingT = token[10];
+            var altT = token[7];
+
+            var tokenArr = new JToken[] { icao24T, callsignT, lngT, latT, velT, headingT, altT };
+
+            bool nullVal = false;
+            foreach (JToken temp in tokenArr) {
+                if (temp.Type == JTokenType.Null) {
+                    nullVal = true;
+                    break;
+                }
+            }
+
+            if (nullVal) { continue; }
+
+            var icao24 = (string)icao24T;
+            var callSign = ((string)callsignT).Trim();
+            var lng = (float)lngT;
+            var lat = (float)latT;
+            var vel = (float)velT;
+            var heading = (float)headingT;
+            var alt = (float)altT;
+
+            var info = new FlightInfo(lat, lng, icao24, callSign, vel, heading, alt);
+            info.pointPrefab = prefab;
+            infos.Add(info);
+
+            count++;
+
+            if (count > 200) { break; }
+        }
+
+        Debug.Log("Count: " + count);
+        return infos;
     }
 
     private async Task<string> FlightsApi() {
@@ -31,12 +117,14 @@ public class OpenSkyAPI : MonoBehaviour {
 
     private async Task<string> FlightsApi(string[] icao24s) {
         try {
+            Debug.Log("Hitting Open Sky API");
             var icaos = icao24s.Aggregate("?icao24=", (e, x) => e + "," + x);
             var query = icaos.Length > 0 ? icaos : "";
             var url = "https://opensky-network.org/api/states/all" + query;
 
             var response = await client.GetAsync(url, apiCanceler.Token);
             var json = response.Content.ReadAsStringAsync().Result;
+            Debug.Log("Json: " + json);
             return json;
         }
         catch (Exception e) {
@@ -68,11 +156,12 @@ public class OpenSkyAPI : MonoBehaviour {
     #
     */
 
-    private async void GetFlights() {
+    /*private async void GetFlights() {
         Debug.Log("Calling OpenSky");
         try {
             //4248f5
-            var json = await FlightsApi(/*new string[] { "a65ed4", "a77ec5", "ab6fdd" }*/);
+            //new string[] { "a65ed4", "a77ec5", "ab6fdd" }
+            var json = await FlightsApi();
             Debug.Log("Json: " + json);
 
             var parsed = JObject.Parse(json);
@@ -132,7 +221,7 @@ public class OpenSkyAPI : MonoBehaviour {
 
         await Task.Delay(TimeSpan.FromSeconds(10f), apiDelayCanceler.Token); //OpenSky has limits requests to 1 per 10 seconds - so wait 10 seconds minimum
         GetFlights();
-    }
+    }*/
 
     private void OnDestroy() {
         apiCanceler.Cancel();

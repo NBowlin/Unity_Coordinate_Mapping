@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4354014641520514518}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.42, y: 0.42, z: 0.42}
   m_Children:
   - {fileID: 2770189837393430207}
   m_Father: {fileID: 0}
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planet: {fileID: 0}
+  northPole: {fileID: 0}
   planeModel: {fileID: 2770189837393430207}
   speed: 0.01
 --- !u!1 &5557611321612022837
