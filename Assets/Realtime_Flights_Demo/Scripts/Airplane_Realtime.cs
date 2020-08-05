@@ -49,17 +49,28 @@ public class Airplane_Realtime : MonoBehaviour
         planet = GameObject.Find("Earth").transform; //TODO: Don't like this but quick and dirty
         northPole = GameObject.Find("NorthPole").transform;
 
-        //planeModel.rotation = Quaternion.Euler(0f, info.heading, 0f);
+        UpdateInfo(info);
+    }
+
+    public void UpdateInfo(FlightInfo info) {
+        this.info = info;
+        Debug.DrawLine(transform.position, transform.position + -transform.up * altitude, Color.yellow, 2f);
+
+        transform.rotation = Quaternion.identity;
+        planeModel.rotation = Quaternion.identity;
+
+        //Heading is based on angle from north pole, so look at true north then rotate to heading
         planeModel.rotation = Quaternion.LookRotation(northPole.position - planeModel.position);
         planeModel.rotation = Quaternion.Euler(0f, info.heading + planeModel.rotation.eulerAngles.y, 0f);
 
-        var planetHit = PlanetUtility.LineFromOriginToSurface(planet, transform.position, LayerMask.GetMask("Planet"));
+        var line = PlanetUtility.VectorFromLatLng(info.location.latitude, info.location.longitude, Vector3.right);
+        var planetHit = PlanetUtility.LineFromOriginToSurface(planet, line, LayerMask.GetMask("Planet"));
 
         if (planetHit.HasValue) {
-            transform.position = planetHit.Value.point + transform.position * altitude;
-            transform.up = planetHit.Value.normal;
+            Debug.DrawLine(planetHit.Value.point, planetHit.Value.point + planetHit.Value.point * altitude, Color.red, 2f);
 
-            Debug.DrawLine(transform.position, planetHit.Value.point, Color.yellow, 2f);
+            transform.position = planetHit.Value.point + planetHit.Value.point * altitude;
+            transform.up = planetHit.Value.normal;
         }
     }
 

@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -348,6 +348,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4354014641520514518, guid: 5a0df5a33b1eb074d8c1909bf8f11c53, type: 3}
+  planeLimit: 1
+  apiDelay: 10
 --- !u!4 &1103274815 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 981819373897072020, guid: d9e3edd67b2c8874781ac5f99bab2bcc,

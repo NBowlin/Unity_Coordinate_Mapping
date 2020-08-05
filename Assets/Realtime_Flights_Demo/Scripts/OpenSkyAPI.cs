@@ -20,6 +20,8 @@ public class OpenSkyAPI : MonoBehaviour {
     private CancellationTokenSource apiDelayCanceler = new CancellationTokenSource();
 
     [SerializeField] private GameObject prefab;
+    [SerializeField] private int planeLimit = 10;
+    [SerializeField] private float apiDelay = 200f;
 
     private void Start() {
         //GetFlights();
@@ -29,36 +31,52 @@ public class OpenSkyAPI : MonoBehaviour {
     private async void GetInitialFlights() {
         var json = await FlightsApi();
         var flightInfos = ParseJson(json);
-        CreatePlanes(flightInfos);
+        var planes = CreatePlanes(flightInfos);
 
-        await Task.Delay(TimeSpan.FromSeconds(10f), apiDelayCanceler.Token);
-        UpdateTrackedFlights(flightInfos);
+        await Task.Delay(TimeSpan.FromSeconds(apiDelay), apiDelayCanceler.Token);
+        UpdateTrackedFlights(planes);
     }
 
-    private async void UpdateTrackedFlights(List<FlightInfo> flights) {
-        var icaos = flights.Select(f => f.icao24).ToArray();
+    private async void UpdateTrackedFlights(List<GameObject> flights) {
+        var icaos = flights.Select(f => f.GetComponent<Airplane_Realtime>().info.icao24).ToArray();
         var json = await FlightsApi(icaos);
         var flightInfos = ParseJson(json);
 
         //TODO: Update existing planes rather than blowing everything away
-        CreatePlanes(flightInfos);
-        await Task.Delay(TimeSpan.FromSeconds(10f), apiDelayCanceler.Token);
-        UpdateTrackedFlights(flightInfos);
+        //var planes = CreatePlanes(flightInfos);
+
+        foreach(FlightInfo info in flightInfos) {
+            foreach(GameObject plane in flights) {
+                var planeScript = plane.GetComponent<Airplane_Realtime>();
+                if (planeScript.info.icao24 == info.icao24) {
+                    planeScript.UpdateInfo(info);
+                    break;
+                }
+            }
+        }
+
+        await Task.Delay(TimeSpan.FromSeconds(apiDelay), apiDelayCanceler.Token);
+        UpdateTrackedFlights(flights);
     }
 
-    private void CreatePlanes(List<FlightInfo> infos) {
+    private List<GameObject> CreatePlanes(List<FlightInfo> infos) {
         var planes = GameObject.Find("Planes");
         if (planes != null) { Destroy(planes); }
 
         var container = new GameObject("Planes");
         container.transform.SetParent(transform, false);
 
+        List<GameObject> plottedPlanes = new List<GameObject>();
+
         foreach (FlightInfo info in infos) {
             var plotted = info.Plot(transform, container.transform, 0); //Default layer
             var planeScript = plotted.GetComponent<Airplane_Realtime>();
             planeScript.info = info;
-            plotted.name = info.icao24 + "_" + info.callSign + "_" + info.heading.ToString("F2");
+            plotted.name = "icao24: " + info.icao24 + " - Callsign: " + info.callSign;
+            plottedPlanes.Add(plotted);
         }
+
+        return plottedPlanes;
     }
 
     private /*async*/ List<FlightInfo> ParseJson(string json) {
@@ -104,7 +122,7 @@ public class OpenSkyAPI : MonoBehaviour {
 
             count++;
 
-            if (count > 200) { break; }
+            if (count >= planeLimit) { break; }
         }
 
         Debug.Log("Count: " + count);
