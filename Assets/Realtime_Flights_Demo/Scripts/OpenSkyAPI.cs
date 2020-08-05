@@ -22,6 +22,7 @@ public class OpenSkyAPI : MonoBehaviour {
     [SerializeField] private GameObject prefab;
     [SerializeField] private int planeLimit = 10;
     [SerializeField] private float apiDelay = 200f;
+    [SerializeField] private float planetRadius = 6371000f;
 
     private void Start() {
         //GetFlights();
@@ -69,8 +70,10 @@ public class OpenSkyAPI : MonoBehaviour {
         List<GameObject> plottedPlanes = new List<GameObject>();
 
         foreach (FlightInfo info in infos) {
-            var plotted = info.Plot(transform, container.transform, 0); //Default layer
+            var plotted = info.Plot(transform, container.transform, LayerMask.NameToLayer("Location"));
             var planeScript = plotted.GetComponent<Airplane_Realtime>();
+            planeScript.planetRadius = planetRadius;
+            planeScript.planetScale = transform.localScale.x;
             planeScript.info = info;
             plotted.name = "icao24: " + info.icao24 + " - Callsign: " + info.callSign;
             plottedPlanes.Add(plotted);

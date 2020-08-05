@@ -30,6 +30,11 @@ public class FlightInfo : ICoordinatePoint {
         var plotted = PlanetUtility.PlacePoint(planet, container, location, pointPrefab);
         return plotted;
     }
+
+    public string DisplayInfo() {
+        var display = "icao24: " + icao24 + "\nCallsign: " + callSign + "\nVelocity: " + velocity + " m/s\nAltitude: " + altitude + " m\nHeading: " + heading + "°s off north";
+        return display;
+    }
 }
 
 public class Airplane_Realtime : MonoBehaviour
@@ -40,12 +45,16 @@ public class Airplane_Realtime : MonoBehaviour
     [SerializeField] private Transform planeModel;
     [SerializeField] private float speed;
 
-    private float altitude = 0.1f;
+    //private float altitude = 0.1f;
+    public float planetRadius;
+    public float planetScale;
+    private float meter;
 
     public FlightInfo info;
     // Start is called before the first frame update
     void Start()
     {
+        meter = planetScale / (planetRadius * 2f);
         planet = GameObject.Find("Earth").transform; //TODO: Don't like this but quick and dirty
         northPole = GameObject.Find("NorthPole").transform;
 
@@ -54,6 +63,7 @@ public class Airplane_Realtime : MonoBehaviour
 
     public void UpdateInfo(FlightInfo info) {
         this.info = info;
+        var altitude = info.altitude * meter * 100; //With the scale of the earth, you can't really see the difference in altitude height between planes, so multiply by 100 to exaggerate it.
         Debug.DrawLine(transform.position, transform.position + -transform.up * altitude, Color.yellow, 2f);
 
         transform.rotation = Quaternion.identity;
@@ -77,13 +87,6 @@ public class Airplane_Realtime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.position += planeModel.forward * speed * Time.deltaTime; 
-
-        /*var planetHit = PlanetUtility.LineFromOriginToSurface(planet, transform.position, LayerMask.GetMask("Planet"));
-
-        if (planetHit.HasValue) {
-            transform.position = planetHit.Value.point + transform.position * altitude;
-            transform.up = planetHit.Value.normal;
-        }*/
+        transform.position += planeModel.forward * (info.velocity * meter) * Time.deltaTime;
     }
 }
