@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace CoordinateMapper {
     public class Heatmap : MonoBehaviour {
@@ -18,28 +19,29 @@ namespace CoordinateMapper {
         //TODO: Updated the class to use ICoordinatePoint - check back after rework
         private IEnumerable<ICoordinatePoint> points;
 
-        public void GenerateHeatmapGrid(IEnumerable<ICoordinatePoint> points) {
-
-            /*var p = new CoordinatePoint_Basic();
-            var l = new Location();
-            l.latitude = 90f;
-            l.longitude = 0f;
-            l.name = "North Pole";
-            p.location = l;
-            points = new List<CoordinatePoint>() { p };*/
-
-            //TODO: Don't invoke once done profiling
+        public async void GenerateHeatmapGrid(IEnumerable<ICoordinatePoint> points) {
             this.points = points;
-            Invoke("TestProfile", 0.2f);
-        }
+            //Invoke("TestProfile", 2.0f);
 
-        void TestProfile() {
             int[,] heatmapGrid;
+            heatmapGrid = await Task.Run(() => Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, mPlanetRadius, kmRange, startValue, endValue, colors, points));
+
+            DrawHeatmapGrid(heatmapGrid);
+
+            var colorBytes = await Task.Run(() => Texture2D_Extensions.CreateColorMap(heatmapGrid, colors));
+
+            Texture2D overlay = new Texture2D(heatmapGrid.GetLength(0), heatmapGrid.GetLength(1), TextureFormat.RGBA32, false);
+            overlay.LoadRawTextureData(colorBytes);
+            overlay.Apply();
+
+            hmRenderer.material.SetTexture("_OverlayTex", overlay);
+
+            /*int[,] heatmapGrid;
 
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
             UnityEngine.Profiling.Profiler.BeginSample("HeatmapGenerate");
-            heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, mPlanetRadius, kmRange, startValue, endValue, colors, points);
+            heatmapGrid = await Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, mPlanetRadius, kmRange, startValue, endValue, colors, points);
             UnityEngine.Profiling.Profiler.EndSample();
 
             sw.Stop();
@@ -54,7 +56,7 @@ namespace CoordinateMapper {
             hmRenderer.material.SetTexture("_OverlayTex", overlay);
             UnityEngine.Profiling.Profiler.EndSample();
             //sw.Stop();
-            //Debug.Log("Heatmap draw time: " + sw.ElapsedMilliseconds / 1000f);
+            //Debug.Log("Heatmap draw time: " + sw.ElapsedMilliseconds / 1000f);*/
         }
 
         void DrawHeatmapGrid(int[,] heatmapGrid) {
@@ -251,74 +253,6 @@ namespace CoordinateMapper {
         //Apparently C# % operator is actually just remainder. So negative numbers don't mod properly, below is proper modulo
         public static int Modulo(int a, int b) {
             return a - b * Mathf.FloorToInt((float)a / (float)b);
-        }
-
-        public static int[,] GenerateValuesOld(int w, int h, int range, int startValue, int endValue, Gradient colors, IEnumerable<ICoordinatePoint> points) {
-            int[,] heatmapGrid = new int[w, h];
-
-            foreach (ICoordinatePoint p in points) {
-                float texLat = 90f + p.location.latitude;
-                float texLng = 180f + p.location.longitude;
-
-                float latRatio = texLat / 180f;
-                float lngRatio = texLng / 360f;
-
-                float xStart = Mathf.Round(lngRatio * w);
-                float yStart = Mathf.Round(latRatio * h);
-
-                xStart = Mathf.Clamp(xStart, 0f, w - 1);
-                yStart = Mathf.Clamp(yStart, 0f, h - 1);
-
-                //Debug.Log(p.location.name + " X/Y Value is: " + xStart + "/" + yStart);
-
-                //Square Pattern - Not fully updated
-                /*for (int x = (int)xStart - range; x <= xStart + range; x++) {
-                    if (x < 0 || x >= w) { continue; }
-                    for (int y = (int)yStart - range; y <= yStart + range; y++) {
-                        if (y < 0 || y >= h) { continue; }
-                        heatmapGrid[x, y] += 20;
-                    }
-                }*/
-
-
-                //Diamond Pattern
-                /*for(int x = 0; x < range; x++) {
-                    if (x + xStart >= w) { continue; }
-                    for (int y = 0; y < range - x; y++) {
-                        if (y + yStart >= h) { continue; }
-                        int fallOff = Mathf.Max(x, y);
-                        float fallOffPercent = (float)fallOff / (float)range;
-                        int fallOffRange = startValue - endValue;
-                        int fallOffVal = (int)(startValue - (fallOffRange * fallOffPercent));
-                        heatmapGrid[(int)xStart + x, (int)yStart + y] += fallOffVal;
-
-                        if(x != 0 && xStart - x > 0) { heatmapGrid[(int)xStart - x, (int)yStart + y] += fallOffVal; }
-                        if(y != 0 && yStart - y > 0) {
-                            heatmapGrid[(int)xStart + x, (int)yStart - y] += fallOffVal;
-                            if (x != 0 && xStart - x > 0) { heatmapGrid[(int)xStart - x, (int)yStart - y] += fallOffVal; }
-                        }
-                    }
-                }*/
-
-                //Circle Pattern
-                float rSquared = range * range;
-                for (int x = 0; x < w; x++) {
-                    for (int y = 0; y < h; y++) {
-                        float radVal = (xStart - x) * (xStart - x) + (yStart - y) * (yStart - y);
-                        if (radVal < rSquared) {
-                            int fallOff = Mathf.Max(x, y);
-                            float fallOffPercent = radVal / rSquared;
-                            int fallOffRange = startValue - endValue;
-                            int fallOffVal = (int)(startValue - (fallOffRange * fallOffPercent));
-
-                            heatmapGrid[x, y] += fallOffVal;
-
-                        }
-                    }
-                }
-            }
-
-            return heatmapGrid;
         }
     }
 }

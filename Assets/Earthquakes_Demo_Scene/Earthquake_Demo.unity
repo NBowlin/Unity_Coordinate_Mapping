@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -460,7 +460,7 @@ MonoBehaviour:
   kmRange: 120
   startValue: 5
   endValue: 0
-  heatmapSize: {x: 2048, y: 1024}
+  heatmapSize: {x: 4096, y: 2048}
   colors:
     serializedVersion: 2
     key0: {r: 0.25663006, g: 0.8301887, b: 0.254539, a: 0.39215687}

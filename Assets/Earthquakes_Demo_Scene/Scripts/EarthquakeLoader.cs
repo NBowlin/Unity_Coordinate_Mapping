@@ -20,7 +20,7 @@ public class EarthquakeLoader : MonoBehaviour, IDataLoader {
         ParseFile(dataFile.text);
     }
 
-    public void ParseFile(string fileText) {
+    public async void ParseFile(string fileText) {
         /*var csvParsed = CsvParser.Parse(fileText);
 
         var csvLats = csvParsed["earthquake.latitude"].Cast<float>().ToArray();
@@ -46,7 +46,8 @@ public class EarthquakeLoader : MonoBehaviour, IDataLoader {
             earthquakes.Add(eP);
         }*/
 
-        var jsonParsed = JsonParser.Parse(fileText, new string[] { "mag", "coordinates", "title", "place", "time" });
+        var jsonParsed = await JsonParser.ParseAsync(fileText, new string[] { "mag", "coordinates", "title", "place", "time" });
+        //var jsonParsed = JsonParser.Parse(fileText, new string[] { "mag", "coordinates", "title", "place", "time" });
 
         var mags = jsonParsed["mag"].Select(m => Convert.ToSingle(m)).ToArray();
         var coords = jsonParsed["coordinates"].Cast<object[]>().ToArray();

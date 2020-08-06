@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 using System.Linq;
 using Newtonsoft.Json.Linq;
@@ -29,6 +30,10 @@ namespace CoordinateMapper {
             }
         }
 
+        public async static Task<Dictionary<string, object[]>> ParseAsync(string json, string[] keys) {
+            return Parse(json, keys);
+        }
+
         public static Dictionary<string, object[]> Parse(string json, string[] keys) {
             var properJson = CheckRootObject(json);
             var parsedJson = JObject.Parse(properJson);
@@ -36,7 +41,7 @@ namespace CoordinateMapper {
 
             var parsedInfo = new Dictionary<string, object[]>();
 
-            foreach(string key in keys) {
+            foreach (string key in keys) {
                 var tokens = allTokens.Where(t => t.Type == JTokenType.Property && ((JProperty)t).Name == key).Select(p => ((JProperty)p).Value).ToArray();
                 var values = new object[tokens.Length];
                 for (int i = 0; i < values.Length; i++) {
