@@ -15,10 +15,13 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
     [SerializeField] private GameObject pointPrefab;
 
     private List<(GameObject point, EarthquakePoint data)> earthquakes = new List<(GameObject point, EarthquakePoint data)>();
+    private GameObject earthquakesContainer;
 
     //TODO: Update heatmap as user moves slider
 
     private void Start() {
+        earthquakesContainer = new GameObject("Earthquakes");
+        earthquakesContainer.transform.SetParent(transform, false);
         ParseFile(dataFile.text);
     }
 
@@ -57,9 +60,6 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
         var places = jsonParsed["place"].Cast<string>().ToArray();
         var times = jsonParsed["time"].Cast<long>().ToArray();
 
-        var container = new GameObject("Earthquakes");
-        container.transform.SetParent(transform, false);
-
         for (int i = 0; i < coords.Length; i++) {
             var lng = Convert.ToSingle(coords[i][0]);
             var lat = Convert.ToSingle(coords[i][1]);
@@ -71,7 +71,7 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
             var eP = new EarthquakePoint(lat, lng, mag, depth, place, time);
             
             eP.pointPrefab = pointPrefab;
-            var plotted = eP.Plot(transform, container.transform, LayerMask.NameToLayer("Location"));
+            var plotted = eP.Plot(transform, earthquakesContainer.transform, LayerMask.NameToLayer("Location"));
 
 
             plotted.name = titles[i];
@@ -80,6 +80,10 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
 
         var cps = earthquakes.Select(p => p.data);
         updateHeatmap();
+    }
+
+    public void ToggleEarthquakes(bool on) {
+        earthquakesContainer.SetActive(!on);
     }
 
     public void filter(float minMagnitude, float maxMagnitude) {
