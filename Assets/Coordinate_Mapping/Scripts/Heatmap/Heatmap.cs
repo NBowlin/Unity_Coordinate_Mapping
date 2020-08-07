@@ -19,11 +19,14 @@ namespace CoordinateMapper {
         public async void GenerateHeatmapGrid(IEnumerable<ICoordinatePoint> points) {
             //var overlay = await HeatmapGenerator.GenerateHeatmapAsync(heatmapSize, mPlanetRadius, kmRange, startValue, endValue, colors, points);
             //var overlay = HeatmapGenerator.GenerateHeatmap(heatmapSize, mPlanetRadius, kmRange, startValue, endValue, colors, points);
-
+            Debug.Log("Generate heatmap!");
+            var sw = System.Diagnostics.Stopwatch.StartNew();
             var grid = await Task.Run(() => HeatmapGenerator.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, mPlanetRadius, kmRange, startValue, endValue, points));
             var colorBytes = await Task.Run(() => HeatmapGenerator.CreateColorMap(grid, colors));
             var overlay = HeatmapGenerator.CreateHeatmapTexture((int)heatmapSize.x, (int)heatmapSize.y, colorBytes);
             hmRenderer.material.SetTexture("_OverlayTex", overlay);
+            sw.Stop();
+            Debug.Log("Heatmap generation time: " + sw.ElapsedMilliseconds / 1000f);
 
             DrawHeatmapGrid(grid);
         }

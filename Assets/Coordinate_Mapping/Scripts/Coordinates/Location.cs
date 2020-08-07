@@ -63,7 +63,7 @@ namespace CoordinateMapper {
             /*float φ1 = lat1 * Mathf.Deg2Rad;
             float φ2 = lat2 * Mathf.Deg2Rad;
             float Δλ = (lon2 - lon1) * Mathf.Deg2Rad;
-            float d = (Mathf.Acos(Mathf.Sin(φ1) * Mathf.Sin(φ2) + Mathf.Cos(φ1) * Mathf.Cos(φ2) * Mathf.Cos(Δλ)) * R) / 1000f;*/
+            float d = (Mathf.Acos(Mathf.Sin(φ1) * Mathf.Sin(φ2) + Mathf.Cos(φ1) * Mathf.Cos(φ2) * Mathf.Cos(Δλ)) * radius) / 1000f;*/
 
             float[] sinTable = LookupTable.sinTable;
             float[] cosTable = LookupTable.cosTable;

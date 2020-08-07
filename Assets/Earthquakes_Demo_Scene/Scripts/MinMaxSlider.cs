@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.Events;
 
-[System.Serializable] public class SliderEvent : UnityEvent<float, float> { }
+[System.Serializable] public class SliderDragEvent : UnityEvent<float, float> { }
+[System.Serializable] public class SliderStopEvent : UnityEvent<bool> { }
 
 public class MinMaxSlider : MonoBehaviour
 {
@@ -48,7 +49,8 @@ public class MinMaxSlider : MonoBehaviour
     [SerializeField] private TextMeshProUGUI maxText;
     private Vector2 maxTextOffset;
 
-    public SliderEvent valueChanged;
+    public SliderDragEvent valueChanged;
+    public SliderStopEvent didEndDragging;
 
     private void Start() {
         minX = leftHandle.rect.width / 2;
@@ -103,6 +105,10 @@ public class MinMaxSlider : MonoBehaviour
         fillBar.offsetMax = new Vector2(rightHandle.anchoredPosition.x - maxX, fillBar.offsetMax.y);
         maxText.rectTransform.anchoredPosition = rightHandle.anchoredPosition + maxTextOffset;
         currMaxValue = calculateSliderValue(toX);
+    }
+
+    public void SliderDidEndDragging(BaseEventData data) {
+        if (didEndDragging != null) { didEndDragging.Invoke(true); }
     }
 
     private float calculateSliderValue(float x) {
