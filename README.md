@@ -19,6 +19,8 @@ TODO
 
 ## Extras
 
+TODO: Importing Textures: settings for textures
+
 TODO
 
 ## Demos

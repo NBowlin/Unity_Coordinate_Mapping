@@ -402,6 +402,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1099680528862596780, guid: 986506302133382418d6b89978890fae,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e20337e3ffabf1d4fae27bfb0bc80a1f, type: 2}
     - target: {fileID: 1099680528862596787, guid: 986506302133382418d6b89978890fae,
         type: 3}
       propertyPath: m_Layer
@@ -606,7 +611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb5b278bd8effe4aa194f5606deb93d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dataFile: {fileID: 4900000, guid: c3b4652722025f3429d589ebc2489255, type: 3}
+  _dataFile: {fileID: 4900000, guid: a7280c26fec62e748b0b79710b03502c, type: 3}
   _loadComplete:
     m_PersistentCalls:
       m_Calls:

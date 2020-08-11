@@ -524,7 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4354014641520514518, guid: 5a0df5a33b1eb074d8c1909bf8f11c53, type: 3}
-  planeLimit: 200
+  planeLimit: 500
   apiDelay: 10
   planetRadius: 6371000
 --- !u!4 &1103274815 stripped
