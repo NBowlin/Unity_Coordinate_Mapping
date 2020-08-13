@@ -11,7 +11,7 @@ public class AirportLoader : MonoBehaviour, IDataLoader {
     [SerializeField] private TextAsset _dataFile;
     public TextAsset dataFile { get { return _dataFile; } set { _dataFile = value; } }
 
-    public JsonLoadedEvent loadComplete { get; set; }
+    public DataLoadedEvent loadComplete { get; set; }
 
     [SerializeField] private GameObject airportPrefab;
 

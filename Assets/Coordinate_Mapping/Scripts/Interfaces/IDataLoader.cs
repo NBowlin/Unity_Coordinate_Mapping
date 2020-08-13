@@ -6,11 +6,11 @@ using UnityEngine.Events;
 namespace CoordinateMapper {
     public interface IDataLoader {
         TextAsset dataFile { get; set; }
-        JsonLoadedEvent loadComplete { get; set; }
+        DataLoadedEvent loadComplete { get; set; }
 
         void ParseFile(string fileText);
     }
 
     //TODO: Updated this to ICoordinatePoint - Check back after rework
-    [System.Serializable] public class JsonLoadedEvent : UnityEvent<IEnumerable<ICoordinatePoint>> { }
+    [System.Serializable] public class DataLoadedEvent : UnityEvent<IEnumerable<ICoordinatePoint>> { }
 }

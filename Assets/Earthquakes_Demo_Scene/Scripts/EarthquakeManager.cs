@@ -9,8 +9,8 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
     [SerializeField] private TextAsset _dataFile;
     public TextAsset dataFile { get { return _dataFile; } set { _dataFile = value; } }
 
-    [SerializeField] private JsonLoadedEvent _loadComplete;
-    public JsonLoadedEvent loadComplete { get { return _loadComplete; } set { _loadComplete = value; } }
+    [SerializeField] private DataLoadedEvent _loadComplete;
+    public DataLoadedEvent loadComplete { get { return _loadComplete; } set { _loadComplete = value; } }
 
     [SerializeField] private GameObject pointPrefab;
 
