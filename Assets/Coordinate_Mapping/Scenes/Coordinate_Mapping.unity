@@ -225,13 +225,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68c215f6611aff4f849bcadc0925492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dataFile: {fileID: 4900000, guid: 3283e3d3a9b35664a9fde752571bf1cf, type: 3}
+  _dataFile: {fileID: 4900000, guid: d106dd204e69b2444987539d7a0d11a9, type: 3}
   pointPrefab: {fileID: 5573824793730711578, guid: 371dae709b5be374ea293f56650189dc,
     type: 3}
   keyFormat: 0
   latitudeKey: lat
   longitudeKey: lng
-  magnitudeKey: magnitude
+  magnitudeKey: 
   _loadComplete:
     m_PersistentCalls:
       m_Calls: []

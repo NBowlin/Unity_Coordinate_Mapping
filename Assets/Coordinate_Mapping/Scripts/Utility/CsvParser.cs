@@ -3,12 +3,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace CoordinateMapper {
     public class CsvParser {
         static string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
         static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
         static char[] TRIM_CHARS = { '\"' };
+
+        public async static Task<Dictionary<string, object[]>> ParseAsync(string text) {
+            return await Task.Run(() => Parse(text));
+        }
 
         public static Dictionary<string, object[]> Parse(string text) {
             var info = new Dictionary<string, object[]>();

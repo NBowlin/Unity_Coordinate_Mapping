@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using System.Threading.Tasks;
 
 namespace CoordinateMapper {
     public enum DataKeyFormat {
@@ -31,8 +32,6 @@ namespace CoordinateMapper {
 
         // Start is called before the first frame update
         void Start() {
-            Debug.Log("Lat: " + latitudeKey);
-
             switch(keyFormat) {
                 case DataKeyFormat.JsonSingleLatLngArray:
                     if (latitudeKey == null || latitudeKey.Length == 0) {
@@ -53,19 +52,24 @@ namespace CoordinateMapper {
             ParseFile(dataFile.text);
         }
 
-        public void ParseLatAndLngKeys(Dictionary<string, object[]> jsonParsed, bool useMagnitude) {
+        public async void ParseLatAndLngKeys(Dictionary<string, object[]> data, bool useMagnitude) {
+            var latTask = Task.Run(() => data[latitudeKey].Select(v => Convert.ToSingle(v)).ToArray());
+            var lngTask = Task.Run(() => data[longitudeKey].Select(v => Convert.ToSingle(v)).ToArray());
+            var magTask = Task.Run(() => useMagnitude ? data[magnitudeKey].Select(v => Convert.ToSingle(v)).ToArray() : new float[0]);
 
-            var lats = jsonParsed[latitudeKey].Select(v => Convert.ToSingle(v)).ToArray();
-            var lngs = jsonParsed[longitudeKey].Select(v => Convert.ToSingle(v)).ToArray();
-            var mags = useMagnitude ? jsonParsed[magnitudeKey].Select(v => Convert.ToSingle(v)).ToArray() : new float[0];
+            await Task.WhenAll(latTask, lngTask, magTask);
+
+            var lats = latTask.Result;
+            var lngs = lngTask.Result;
+            var mags = magTask.Result;
 
             CreateCoordinatePoints(lats, lngs, mags, useMagnitude);
         }
 
-        public void ParseLatLngArrays(Dictionary<string, object[]> jsonParsed, bool useMagnitude) {
+        public void ParseLatLngArrays(Dictionary<string, object[]> data, bool useMagnitude) {
 
-            var latsArr = jsonParsed[latitudeKey].Cast<object[]>().ToArray();
-            var lngsArr = jsonParsed[longitudeKey].Cast<object[]>().ToArray();
+            var latsArr = data[latitudeKey].Cast<object[]>().ToArray();
+            var lngsArr = data[longitudeKey].Cast<object[]>().ToArray();
 
             List<float> lats = new List<float>();
             List<float> lngs = new List<float>();
@@ -81,17 +85,17 @@ namespace CoordinateMapper {
                 }
             }
 
-            var mags = useMagnitude ? jsonParsed[magnitudeKey].Select(v => Convert.ToSingle(v)).ToArray() : new float[0];
+            var mags = useMagnitude ? data[magnitudeKey].Select(v => Convert.ToSingle(v)).ToArray() : new float[0];
 
             CreateCoordinatePoints(lats.ToArray(), lngs.ToArray(), mags, useMagnitude);
         }
 
-        public void ParseSingleLatLngArray(Dictionary<string, object[]> jsonParsed, bool useMagnitude) {
-            var coordsArrs = jsonParsed[latitudeKey].Cast<object[]>().ToArray();
+        public void ParseSingleLatLngArray(Dictionary<string, object[]> data, bool useMagnitude) {
+            var coordsArrs = data[latitudeKey].Cast<object[]>().ToArray();
 
             var lats = new List<float>();
             var lngs = new List<float>();
-            var mags = useMagnitude ? jsonParsed[magnitudeKey].Select(v => Convert.ToSingle(v)).ToArray() : new float[0];
+            var mags = useMagnitude ? data[magnitudeKey].Select(v => Convert.ToSingle(v)).ToArray() : new float[0];
 
             foreach(object[] coordArr in coordsArrs) {
                 for(int i = 0; i < coordArr.Length; i++) {
@@ -129,36 +133,33 @@ namespace CoordinateMapper {
             }
         }
 
-        /*private void CreateCoordinatePoint(float lat, float lng, float mag, Transform container) {
-
-        }*/
-
         public async void ParseFile(string fileText) {
             var hasMagnitude = magnitudeKey != null && magnitudeKey.Length > 0;
 
             //Switches are scoped stupidly - so define vars outside
             string[] keys;
-            Dictionary<string, object[]> jsonParsed = null;
+            Dictionary<string, object[]> parsedData = null;
 
             switch (keyFormat) {
                 case DataKeyFormat.JsonSingleLatLngArray:
                     keys = !hasMagnitude ? new string[] { latitudeKey } : new string[] { latitudeKey, magnitudeKey };
-                    jsonParsed = await JsonParser.ParseAsync(fileText, keys);
-                    ParseSingleLatLngArray(jsonParsed, hasMagnitude);
+                    parsedData = await JsonParser.ParseAsync(fileText, keys);
+                    ParseSingleLatLngArray(parsedData, hasMagnitude);
                     break;
                 case DataKeyFormat.JsonLatLngArrays:
                     keys = !hasMagnitude ? new string[] { latitudeKey, longitudeKey } : new string[] { latitudeKey, longitudeKey, magnitudeKey };
-                    jsonParsed = await JsonParser.ParseAsync(fileText, keys);
-                    ParseLatLngArrays(jsonParsed, hasMagnitude);
+                    parsedData = await JsonParser.ParseAsync(fileText, keys);
+                    ParseLatLngArrays(parsedData, hasMagnitude);
                     break;
                 case DataKeyFormat.JsonLatAndLngKeys:
                     keys = !hasMagnitude ? new string[] { latitudeKey, longitudeKey } : new string[] { latitudeKey, longitudeKey, magnitudeKey };
-                    jsonParsed = await JsonParser.ParseAsync(fileText, keys);
-                    ParseLatAndLngKeys(jsonParsed, hasMagnitude);
+                    parsedData = await JsonParser.ParseAsync(fileText, keys);
+                    ParseLatAndLngKeys(parsedData, hasMagnitude);
                     break;
                 case DataKeyFormat.Csv:
                     keys = !hasMagnitude ? new string[] { latitudeKey, longitudeKey } : new string[] { latitudeKey, longitudeKey, magnitudeKey };
-                    //TODO: CSV Parse
+                    parsedData = await CsvParser.ParseAsync(fileText);
+                    ParseLatAndLngKeys(parsedData, hasMagnitude);
                     break;
             }
         }

@@ -31,7 +31,7 @@ namespace CoordinateMapper {
         }
 
         public async static Task<Dictionary<string, object[]>> ParseAsync(string json, string[] keys) {
-            return Parse(json, keys);
+            return await Task.Run(() => Parse(json, keys));
         }
 
         public static Dictionary<string, object[]> Parse(string json, string[] keys) {
