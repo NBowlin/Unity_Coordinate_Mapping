@@ -14,9 +14,9 @@ public class MinMaxSlider : MonoBehaviour
     private float minX = 0f;
     private float maxX = 0f;
 
-    [SerializeField] private RectTransform fillBar;
-    [SerializeField] private RectTransform leftHandle;
-    [SerializeField] private RectTransform rightHandle;
+    [SerializeField] private RectTransform fillBar = null;
+    [SerializeField] private RectTransform leftHandle = null;
+    [SerializeField] private RectTransform rightHandle = null;
     private float handleRange = 0f;
 
     [SerializeField] private float minValue = 0f;
@@ -43,10 +43,10 @@ public class MinMaxSlider : MonoBehaviour
         }
     }
 
-    [SerializeField] private TextMeshProUGUI minText;
+    [SerializeField] private TextMeshProUGUI minText = null;
     private Vector2 minTextOffset;
 
-    [SerializeField] private TextMeshProUGUI maxText;
+    [SerializeField] private TextMeshProUGUI maxText = null;
     private Vector2 maxTextOffset;
 
     public SliderDragEvent valueChanged;

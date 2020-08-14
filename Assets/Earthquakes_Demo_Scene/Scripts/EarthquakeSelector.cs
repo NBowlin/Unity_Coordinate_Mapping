@@ -6,7 +6,7 @@ using TMPro;
 
 public class EarthquakeSelector : MonoBehaviour {
     //[SerializeField] private UnityEvent<string> earthquakeSelected;
-    [SerializeField] private TextMeshProUGUI displayInfo;
+    [SerializeField] private TextMeshProUGUI displayInfo = null;
 
     private GameObject selected;
 

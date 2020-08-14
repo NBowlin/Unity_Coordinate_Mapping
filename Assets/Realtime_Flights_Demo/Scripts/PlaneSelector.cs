@@ -5,7 +5,7 @@ using TMPro;
 
 public class PlaneSelector : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI displayInfo;
+    [SerializeField] private TextMeshProUGUI displayInfo = null;
     private GameObject selected;
 
     private void Start() {

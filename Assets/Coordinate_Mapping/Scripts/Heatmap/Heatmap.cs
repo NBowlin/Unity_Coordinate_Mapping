@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CoordinateMapper {
     public class Heatmap : MonoBehaviour {
-        [SerializeField] private bool drawGrid; //TODO: remove before submission
+        [SerializeField] private bool drawGrid = false; //TODO: remove before submission
 
         [SerializeField] private float mPlanetRadius = 6371000f; //Planet's radius in meters
         [SerializeField] private float kmRange = 200f; //Range of effect for each point in kilometers
@@ -13,8 +13,8 @@ namespace CoordinateMapper {
         [SerializeField] [Range(0, 100)] private int endValue = 0;
         [SerializeField] private Vector2 heatmapSize = new Vector2(2048, 1024);
 
-        [SerializeField] private Gradient colors;
-        [SerializeField] private Renderer hmRenderer;
+        [SerializeField] private Gradient colors = null;
+        [SerializeField] private Renderer hmRenderer = null;
 
         public async void GenerateHeatmapGrid(IEnumerable<ICoordinatePoint> points) {
             //var overlay = await HeatmapGenerator.GenerateHeatmapAsync(heatmapSize, mPlanetRadius, kmRange, startValue, endValue, colors, points);

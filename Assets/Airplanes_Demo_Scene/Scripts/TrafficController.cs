@@ -7,7 +7,7 @@ public class TrafficController : MonoBehaviour
     private List<GameObject> airports;
 
     [SerializeField] private float flightCooldown = 1f;
-    [SerializeField] private GameObject airplanePrefab;
+    [SerializeField] private GameObject airplanePrefab = null;
 
     private System.Random rng = new System.Random();
 

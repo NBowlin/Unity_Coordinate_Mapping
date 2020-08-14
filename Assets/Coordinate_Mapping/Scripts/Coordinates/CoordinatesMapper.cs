@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CoordinateMapper {
     public class CoordinatesMapper : MonoBehaviour {
         //[SerializeField] private List<CoordinatePoint> locations;
-        [SerializeField] private GameObject pointPrefab;
+        [SerializeField] private GameObject pointPrefab = null;
 
         private void Start() {
             /*var locationsContainer = new GameObject("Locations");

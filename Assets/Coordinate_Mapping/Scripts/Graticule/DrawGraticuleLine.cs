@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CoordinateMapper {
     public class DrawGraticuleLine : MonoBehaviour {
-        [SerializeField] private LineRenderer lineRenderer;
+        [SerializeField] private LineRenderer lineRenderer = null;
 
         [HideInInspector] public int segments;
         [HideInInspector] public float angle;

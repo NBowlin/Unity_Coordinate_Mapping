@@ -11,13 +11,13 @@ namespace CoordinateMapper {
             CustomMesh
         };
 
-        [SerializeField] private GameObject graticulePrefab;
-        [SerializeField] private Material lineMat;
+        [SerializeField] private GameObject graticulePrefab = null;
+        [SerializeField] private Material lineMat = null;
 
-        [SerializeField] private int segments;
-        [SerializeField] private int degreesBetweenLines;
+        [SerializeField] private int segments = 0;
+        [SerializeField] private int degreesBetweenLines = 0;
 
-        [SerializeField] private DrawingTechnique drawType;
+        [SerializeField] private DrawingTechnique drawType = DrawingTechnique.MeshTopologyLines;
 
         [SerializeField] private bool drawParallels = true;
         [SerializeField] private bool drawMeridians = true;

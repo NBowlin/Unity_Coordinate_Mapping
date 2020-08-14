@@ -14,12 +14,10 @@ public class Airplane : MonoBehaviour
 
     [HideInInspector] public Transform planet;
 
-    [SerializeField] private Transform planeModel;
+    [SerializeField] private Transform planeModel = null;
 
     private float startTime;
     private float maxOffset = 0.1f;
-
-    private bool hasHeading = false;
 
     private void Start() {
         startTime = Time.time;

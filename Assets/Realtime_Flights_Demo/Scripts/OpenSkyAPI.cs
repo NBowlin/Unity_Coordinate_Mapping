@@ -19,7 +19,7 @@ public class OpenSkyAPI : MonoBehaviour {
     private CancellationTokenSource apiCanceler = new CancellationTokenSource();
     private CancellationTokenSource apiDelayCanceler = new CancellationTokenSource();
 
-    [SerializeField] private GameObject prefab;
+    [SerializeField] private GameObject prefab = null;
     [SerializeField] private int planeLimit = 10;
     [SerializeField] private float apiDelay = 200f;
     [SerializeField] private float planetRadius = 6371000f;

@@ -42,8 +42,7 @@ public class Airplane_Realtime : MonoBehaviour
     [HideInInspector] public Transform planet;
     [HideInInspector] public Transform northPole;
 
-    [SerializeField] private Transform planeModel;
-    [SerializeField] private float speed;
+    [SerializeField] private Transform planeModel = null;
 
     //private float altitude = 0.1f;
     public float planetRadius;

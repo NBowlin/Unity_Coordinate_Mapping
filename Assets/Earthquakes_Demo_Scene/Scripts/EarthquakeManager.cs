@@ -12,7 +12,7 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
     [SerializeField] private DataLoadedEvent _loadComplete;
     public DataLoadedEvent loadComplete { get { return _loadComplete; } set { _loadComplete = value; } }
 
-    [SerializeField] private GameObject pointPrefab;
+    [SerializeField] private GameObject pointPrefab = null;
 
     private List<(GameObject point, EarthquakePoint data)> earthquakes = new List<(GameObject point, EarthquakePoint data)>();
     private GameObject earthquakesContainer;

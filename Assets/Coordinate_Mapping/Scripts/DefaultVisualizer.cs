@@ -19,13 +19,13 @@ namespace CoordinateMapper {
         [SerializeField] private TextAsset _dataFile;
         public TextAsset dataFile { get { return _dataFile; } set { _dataFile = value; } }
 
-        [SerializeField] private GameObject pointPrefab; //TODO: Keep this?
+        [SerializeField] private GameObject pointPrefab = null; //TODO: Keep this?
 
-        [SerializeField] private DataKeyFormat keyFormat;
+        [SerializeField] private DataKeyFormat keyFormat = DataKeyFormat.JsonLatAndLngKeys;
 
-        [SerializeField] private string latitudeKey;
-        [SerializeField] private string longitudeKey;
-        [SerializeField] private string magnitudeKey;
+        [SerializeField] private string latitudeKey = null;
+        [SerializeField] private string longitudeKey = null;
+        [SerializeField] private string magnitudeKey = null;
 
         [SerializeField] private DataLoadedEvent _loadComplete;
         public DataLoadedEvent loadComplete { get { return _loadComplete; } set { _loadComplete = value; } }

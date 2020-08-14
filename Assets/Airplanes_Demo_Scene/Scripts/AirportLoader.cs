@@ -13,9 +13,9 @@ public class AirportLoader : MonoBehaviour, IDataLoader {
 
     public DataLoadedEvent loadComplete { get; set; }
 
-    [SerializeField] private GameObject airportPrefab;
+    [SerializeField] private GameObject airportPrefab = null;
 
-    [SerializeField] private AirportsPlottedEvent airportsPlotted;
+    [SerializeField] private AirportsPlottedEvent airportsPlotted = null;
     private List<GameObject> airports = new List<GameObject>();
 
     void Start() {

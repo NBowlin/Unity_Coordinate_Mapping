@@ -5,8 +5,8 @@ using UnityEngine;
 namespace CoordinateMapper {
 
     public class OrbitingCamera : MonoBehaviour {
-        [SerializeField] private Camera cam;
-        [SerializeField] private Transform lookAt;
+        [SerializeField] private Camera cam = null;
+        [SerializeField] private Transform lookAt = null;
 
         //Pan speed is the degrees we would rotate around the object if we swiped across the entire screen
         [SerializeField] private float minPanSpeed = 20f;
