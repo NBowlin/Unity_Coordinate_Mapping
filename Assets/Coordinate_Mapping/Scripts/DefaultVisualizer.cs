@@ -126,7 +126,7 @@ namespace CoordinateMapper {
                 var lng = lngs[i];
                 var mag = useMagnitude ? mags[i] : 1f;
 
-                var cp = new DefaultCoordinatePoint(lat, lng, mag);
+                var cp = new DefaultCoordinatePointInfo(lat, lng, mag);
                 cp.pointPrefab = pointPrefab;
                 var plotted = cp.Plot(transform, pointsContainer.transform, 0);
                 plotted.name = "Default Point " + i;

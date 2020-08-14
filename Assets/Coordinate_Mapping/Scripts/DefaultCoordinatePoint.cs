@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace CoordinateMapper {
-    public class DefaultCoordinatePoint : MonoBehaviour, ICoordinatePoint {
+    public class DefaultCoordinatePointInfo : ICoordinatePoint {
         public Location location { get; set; }
         public GameObject pointPrefab { get; set; }
 
         public float magnitude;
 
-        public DefaultCoordinatePoint(float latitude, float longitude, float magnitude) {
+        public DefaultCoordinatePointInfo(float latitude, float longitude, float magnitude) {
             this.location = new Location("Default Point", latitude, longitude);
             this.magnitude = magnitude;
         }
@@ -21,8 +21,7 @@ namespace CoordinateMapper {
                 plotted.layer = layer;
                 var cp = plotted.AddComponent<DefaultCoordinatePoint>();
                 //Copy over info from this point to the one on the gameobject
-                cp.location = location;
-                cp.magnitude = magnitude;
+                cp.info = this;
 
                 var point = (plotted.transform.position - planet.transform.position).normalized;
                 plotted.transform.localScale = new Vector3(plotted.transform.localScale.x, plotted.transform.localScale.y, plotted.transform.localScale.z * magnitude);
@@ -31,5 +30,9 @@ namespace CoordinateMapper {
 
             return plotted;
         }
+    }
+
+    public class DefaultCoordinatePoint : MonoBehaviour {
+        public DefaultCoordinatePointInfo info;
     }
 }

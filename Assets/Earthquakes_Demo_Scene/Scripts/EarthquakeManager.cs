@@ -14,7 +14,7 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
 
     [SerializeField] private GameObject pointPrefab = null;
 
-    private List<(GameObject point, EarthquakePoint data)> earthquakes = new List<(GameObject point, EarthquakePoint data)>();
+    private List<(GameObject point, EarthquakeInfo data)> earthquakes = new List<(GameObject point, EarthquakeInfo data)>();
     private GameObject earthquakesContainer;
 
     //TODO: Update heatmap as user moves slider
@@ -68,7 +68,7 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
             var place = places[i];
             var time = times[i];
 
-            var eP = new EarthquakePoint(lat, lng, mag, depth, place, time);
+            var eP = new EarthquakeInfo(lat, lng, mag, depth, place, time);
             
             eP.pointPrefab = pointPrefab;
             var plotted = eP.Plot(transform, earthquakesContainer.transform, LayerMask.NameToLayer("Location"));
@@ -87,7 +87,7 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
     }
 
     public void filter(float minMagnitude, float maxMagnitude) {
-        foreach((GameObject point, EarthquakePoint data) earthquake in earthquakes) {
+        foreach((GameObject point, EarthquakeInfo data) earthquake in earthquakes) {
             earthquake.point.SetActive(earthquake.data.magnitude >= minMagnitude && earthquake.data.magnitude <= maxMagnitude);
         }
     }
@@ -96,8 +96,8 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
         //Linq is moving off the main thread?
         //var cps = earthquakes.Where(p => p.point.activeSelf).Select(d => d.data);
 
-        List<EarthquakePoint> cps = new List<EarthquakePoint>();
-        foreach((GameObject point, EarthquakePoint data) eq in earthquakes) {
+        List<EarthquakeInfo> cps = new List<EarthquakeInfo>();
+        foreach((GameObject point, EarthquakeInfo data) eq in earthquakes) {
             if(eq.point.activeSelf) { cps.Add(eq.data); }
         }
 

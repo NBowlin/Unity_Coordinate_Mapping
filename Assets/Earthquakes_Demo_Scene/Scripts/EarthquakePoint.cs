@@ -4,7 +4,7 @@ using UnityEngine;
 using CoordinateMapper;
 using System;
 
-public class EarthquakePoint : MonoBehaviour, ICoordinatePoint {
+public class EarthquakeInfo: ICoordinatePoint {
     public Location location { get; set; }
     public GameObject pointPrefab { get; set; }
 
@@ -13,7 +13,7 @@ public class EarthquakePoint : MonoBehaviour, ICoordinatePoint {
 
     public DateTime date;
 
-    public EarthquakePoint(float latitude, float longitude, float magnitude, float depth, string place, long time) {
+    public EarthquakeInfo(float latitude, float longitude, float magnitude, float depth, string place, long time) {
         this.location = new Location(place, latitude, longitude);
         this.magnitude = magnitude;
         this.depth = depth;
@@ -23,14 +23,10 @@ public class EarthquakePoint : MonoBehaviour, ICoordinatePoint {
     public GameObject Plot(Transform planet, Transform container, int layer) {
         var plotted = PlanetUtility.PlacePoint(planet, container, location, pointPrefab);
 
-        if(plotted != null) {
+        if (plotted != null) {
             plotted.layer = layer;
             var eqPoint = plotted.AddComponent<EarthquakePoint>();
-            //Copy over info from this point to the one on the gameobject
-            eqPoint.location = location;
-            eqPoint.magnitude = magnitude;
-            eqPoint.depth = depth;
-            eqPoint.date = date;
+            eqPoint.info = this;
 
             var point = (plotted.transform.position - planet.transform.position).normalized;
 
@@ -42,9 +38,12 @@ public class EarthquakePoint : MonoBehaviour, ICoordinatePoint {
 
         return plotted;
     }
+}
 
+public class EarthquakePoint : MonoBehaviour {
+    public EarthquakeInfo info;
     public string DisplayInfo() {
-        var info = "Location: " + location.name + "\nMagnitude: " + magnitude + "\nDepth: " + depth + " km\nDate: " + date.ToString() + "\nCoordinates: " + location.latitude + ", " + location.longitude;
-        return info;
+        var display = "Location: " + info.location.name + "\nMagnitude: " + info.magnitude + "\nDepth: " + info.depth + " km\nDate: " + info.date.ToString() + "\nCoordinates: " + info.location.latitude + ", " + info.location.longitude;
+        return display;
     }
 }
