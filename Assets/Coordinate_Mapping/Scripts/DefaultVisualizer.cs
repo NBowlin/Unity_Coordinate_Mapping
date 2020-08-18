@@ -39,13 +39,14 @@ namespace CoordinateMapper {
             var pointsContainer = new GameObject("Points Container");
             pointsContainer.transform.SetParent(transform, false);
 
-            // (DefaultCoordinatePointInfo info in infos) {
             for(int i = 0; i < infos.Count; i++) {
                 var info = infos[i];
                 info.pointPrefab = pointPrefab;
                 var plotted = info.Plot(transform, pointsContainer.transform, 0);
                 plotted.name = "Default Point " + i;
             }
+
+            if (loadComplete != null) { loadComplete.Invoke(infos); }
         }
     }
 }

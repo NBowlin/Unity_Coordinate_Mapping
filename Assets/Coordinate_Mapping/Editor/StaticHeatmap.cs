@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System;
+using System.Threading.Tasks;
 
 namespace CoordinateMapper {
     public class StaticHeatmap : ScriptableWizard {
@@ -11,7 +12,13 @@ namespace CoordinateMapper {
             DisplayWizard<StaticHeatmap>("Create a heat map");
         }
 
-        [SerializeField] private TextAsset json;
+        [SerializeField] private TextAsset dataFile;
+
+        [SerializeField] private DataKeyFormat keyFormat = DataKeyFormat.JsonLatAndLngKeys;
+
+        [SerializeField] private string latitudeKey = null;
+        [SerializeField] private string longitudeKey = null;
+        [SerializeField] private string magnitudeKey = null;
 
         [SerializeField] private float mPlanetRadius = 6371000f; //Planet's radius in meters
         [SerializeField] private float kmRange = 200f;
@@ -21,16 +28,11 @@ namespace CoordinateMapper {
 
         [SerializeField] private Gradient colors = new Gradient();
 
-        private void OnEnable() {
-            //TODO: Remove this for production
-            json = (TextAsset)Resources.Load("magnitude_point_data", typeof(TextAsset));
-        }
-
-        private void OnWizardCreate() {
+        private async void OnWizardCreate() {
             string path = EditorUtility.SaveFilePanelInProject("Save Heatmap Texture", "Static_Heatmap", "png", "Specify where to save the heatmap.");
             if (path.Length > 0) {
                 DateTime before = DateTime.Now;
-                var hm = GenerateStaticHeatmap();
+                var hm = await GenerateStaticHeatmap();
                 DateTime after = DateTime.Now;
                 TimeSpan duration = after.Subtract(before);
                 Debug.Log("Heatmap generation time in seconds: " + duration.TotalSeconds);
@@ -38,14 +40,15 @@ namespace CoordinateMapper {
             }
         }
 
-        //TODO: Update this to use proper parser when rework is done
-        private Texture2D GenerateStaticHeatmap() {
-            /*Debug.Log(json.text);
-            var points = JsonDataLoader<CoordinatePoint_Basic>.ParseJson(json);
+        private async Task<Texture2D> GenerateStaticHeatmap() {
+            var parser = new DefaultParser(dataFile.text, keyFormat, latitudeKey, longitudeKey, magnitudeKey);
+            var points = await parser.HandleDefaultParsing();
 
-            int[,] heatmapGrid = Heatmap.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, mPlanetRadius, kmRange, startValue, endValue, colors, points);
-            return Texture2D_Extensions.DrawHeatmap(heatmapGrid, colors);*/
-            return null;
+            var grid = await Task.Run(() => HeatmapGenerator.GenerateValues((int)heatmapSize.x, (int)heatmapSize.y, mPlanetRadius, kmRange, startValue, endValue, points));
+            var colorBytes = await Task.Run(() => HeatmapGenerator.CreateColorMap(grid, colors));
+            var overlay = HeatmapGenerator.CreateHeatmapTexture((int)heatmapSize.x, (int)heatmapSize.y, colorBytes);
+
+            return overlay;
         }
     }
 }
