@@ -47,8 +47,10 @@ namespace CoordinateMapper {
                 float latRatio = texLat / 180f;
                 float lngRatio = texLng / 360f;
 
-                float xCenter = Mathf.Round(lngRatio * w);
-                float yCenter = Mathf.Round(latRatio * h);
+                //float xCenter = Mathf.Round(lngRatio * w);
+                //float yCenter = Mathf.Round(latRatio * h);
+                float xCenter = Mathf.Floor(lngRatio * w);
+                float yCenter = Mathf.Floor(latRatio * h);
 
                 xCenter = (int)Mathf.Clamp(xCenter, 0f, w - 1);
                 yCenter = (int)Mathf.Clamp(yCenter, 0f, h - 1);
@@ -70,9 +72,16 @@ namespace CoordinateMapper {
                     for (int y = (int)yCenter - cellRangeY; y <= yCenter + cellRangeY; y++) {
                         if (y < 0 || y >= h) { continue; }
 
+                        float lng1 = CartesianToSphericalLongitude(xCenter, w);
+                        float lat1 = CartesianToSphericalLatitude(yCenter, h);
+
+                        //Location l = new Location(lat1, lng1);
+
                         float lng = CartesianToSphericalLongitude((float)currX, (float)w);
                         float lat = CartesianToSphericalLatitude((float)y, (float)h);
-                        float d = p.location.kmBetweenLocations(lat, lng, radius);
+                        //float d = p.location.kmBetweenLocations(lat, lng, radius);
+                        //float d = l.kmBetweenLocations(lat, lng, radius);
+                        float d = Location.kmBetweenLocations(lat1, lng1, lat, lng, radius);
 
                         if (d < range) {
                             float dRatio = d / range;

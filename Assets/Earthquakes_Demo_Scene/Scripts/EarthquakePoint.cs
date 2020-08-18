@@ -38,6 +38,49 @@ public class EarthquakeInfo: ICoordinatePoint {
 
         return plotted;
     }
+
+    public GameObject PlotFlat(Transform planet, Transform container, int layer) {
+        float w = planet.localScale.x;
+        float h = planet.localScale.y;
+        float texLat = 90f + location.latitude;
+        float texLng = 180f + location.longitude;
+
+        float latRatio = texLat / 180f;
+        float lngRatio = texLng / 360f;
+
+        float xCenter = lngRatio * w;
+        float yCenter = latRatio * h;
+        xCenter = xCenter - w / 2f;
+        yCenter = yCenter - h / 2f;
+
+        /*Debug.Log("X/Y: " + xCenter + "/" + yCenter);
+
+        xCenter = Mathf.Floor(xCenter);
+        yCenter = Mathf.Floor(yCenter);
+
+        Debug.Log("2 X/Y: " + xCenter + "/" + yCenter);*/
+
+        //xCenter = (int)Mathf.Clamp(xCenter, 0f, w - 1);
+        //yCenter = (int)Mathf.Clamp(yCenter, 0f, h - 1);
+
+        /*var go = UnityEngine.Object.Instantiate(pointPrefab, new Vector3(xCenter, yCenter, 0f), Quaternion.identity, container);
+        go.name = location.name;
+        return go;*/
+
+        var go = UnityEngine.Object.Instantiate(pointPrefab, new Vector3(xCenter, 0f, yCenter), Quaternion.identity, container);
+        go.name = location.name;
+
+        go.layer = layer;
+        var eqPoint = go.AddComponent<EarthquakePoint>();
+        //Copy over info from this point to the one on the gameobject
+        eqPoint.info = this;
+
+        //Technically the Richter scale increases by 10^mag (2 is 10x stronger than a 1, and 3 is 100x stronger than a 1) - but that makes the scales get out of control
+        //So to keep a reasonable exponential increase we use the 2^mag
+        go.transform.localScale = new Vector3(go.transform.localScale.x, go.transform.localScale.y * Mathf.Pow(2f, magnitude), go.transform.localScale.z);
+        return go;
+
+    }
 }
 
 public class EarthquakePoint : MonoBehaviour {

@@ -1,22 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace CoordinateMapper {
     public static class LookupTable {
         private const float pi2 = Mathf.PI * 2;
 
-        private const int subdivision = 10000;
+        private const int subdivision = 1000000;
         private const int subdivisionMinusOne = subdivision - 1;
         public static float[] sinTable = new float[subdivision];
         public static float[] cosTable = new float[subdivision];
 
         static LookupTable() {
-            float delta = pi2 / subdivision;
-            float v = 0.0f;
+            //float delta = pi2 / subdivision;
+            double delta = Math.PI * 2 / subdivision;
+            double v = 0.0;
             for (int i = 0; i < subdivision; i++) {
-                sinTable[i] = Mathf.Sin(v);
-                cosTable[i] = Mathf.Cos(v);
+                sinTable[i] = (float)Math.Sin(v);
+                cosTable[i] = (float)Math.Cos(v);
                 v += delta;
             }
         }

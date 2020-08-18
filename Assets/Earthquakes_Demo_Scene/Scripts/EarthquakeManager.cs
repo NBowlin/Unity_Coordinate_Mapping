@@ -17,6 +17,8 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
     private List<(GameObject point, EarthquakeInfo data)> earthquakes = new List<(GameObject point, EarthquakeInfo data)>();
     private GameObject earthquakesContainer;
 
+    public bool plotFlat = false;
+
     //TODO: Update heatmap as user moves slider
 
     private void Start() {
@@ -71,7 +73,8 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
             var eP = new EarthquakeInfo(lat, lng, mag, depth, place, time);
             
             eP.pointPrefab = pointPrefab;
-            var plotted = eP.Plot(transform, earthquakesContainer.transform, LayerMask.NameToLayer("Location"));
+            //var plotted = eP.Plot(transform, earthquakesContainer.transform, LayerMask.NameToLayer("Location"));
+            var plotted = plotFlat ? eP.PlotFlat(transform, earthquakesContainer.transform, LayerMask.NameToLayer("Location")) : eP.Plot(transform, earthquakesContainer.transform, LayerMask.NameToLayer("Location"));
 
 
             plotted.name = titles[i];
