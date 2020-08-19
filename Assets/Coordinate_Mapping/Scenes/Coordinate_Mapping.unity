@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1263628674}
-  lookAt: {fileID: 0}
+  lookAt: {fileID: 2106863820}
   minPanSpeed: 20
   maxPanSpeed: 180
   minCameraDistance: 1.3
@@ -584,3 +584,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!4 &2106863820 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1099680527967622747, guid: 986506302133382418d6b89978890fae,
+    type: 3}
+  m_PrefabInstance: {fileID: 2106863816}
+  m_PrefabAsset: {fileID: 0}

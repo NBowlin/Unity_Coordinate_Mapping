@@ -12,7 +12,7 @@ namespace CoordinateMapper {
             DisplayWizard<StaticHeatmap>("Create a heat map");
         }
 
-        [SerializeField] private TextAsset dataFile;
+        [SerializeField] private TextAsset dataFile = null;
 
         [SerializeField] private DataKeyFormat keyFormat = DataKeyFormat.JsonLatAndLngKeys;
 
@@ -49,6 +49,48 @@ namespace CoordinateMapper {
             var overlay = HeatmapGenerator.CreateHeatmapTexture((int)heatmapSize.x, (int)heatmapSize.y, colorBytes);
 
             return overlay;
+        }
+
+        private void OnGUI() {
+            EditorGUILayout.LabelField(new GUIContent("Data Information"), EditorStyles.boldLabel);
+            dataFile = (TextAsset)EditorGUILayout.ObjectField("Data File", dataFile, typeof(TextAsset), false);
+
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField(new GUIContent("Key Information"), EditorStyles.boldLabel);
+            keyFormat = (DataKeyFormat)EditorGUILayout.EnumPopup(keyFormat);
+
+            switch (keyFormat) {
+                case DataKeyFormat.JsonLatLngArrays:
+                    latitudeKey = EditorGUILayout.TextField("Latitude Array Key", latitudeKey);
+                    longitudeKey = EditorGUILayout.TextField("Longitude Array Key", longitudeKey);
+                    break;
+                case DataKeyFormat.JsonLatAndLngKeys:
+                case DataKeyFormat.Csv:
+                    latitudeKey = EditorGUILayout.TextField("Latitude Key", latitudeKey);
+                    longitudeKey = EditorGUILayout.TextField("Longitude Key", longitudeKey);
+                    break;
+                case DataKeyFormat.JsonSingleLatLngArray:
+                    latitudeKey = EditorGUILayout.TextField("Coordinates Array Key", latitudeKey);
+                    break;
+            }
+
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField(new GUIContent("Heatmap Information"), EditorStyles.boldLabel);
+            mPlanetRadius = EditorGUILayout.FloatField("Planet Radius (meters)", mPlanetRadius);
+            kmRange = EditorGUILayout.FloatField("Range (kilometers)", kmRange);
+            startValue = EditorGUILayout.IntSlider("Start Value", startValue, 0, 100);
+            endValue = EditorGUILayout.IntSlider("End Value", endValue, 0, 100);
+            heatmapSize = EditorGUILayout.Vector2Field("Heatmap Size", heatmapSize);
+
+            EditorGUILayout.Space();
+
+            colors = EditorGUILayout.GradientField("Colors", colors);
+
+            EditorGUILayout.Space(20);
+
+            if (GUILayout.Button("Generate Heatmap")) { OnWizardCreate(); }
         }
     }
 }
