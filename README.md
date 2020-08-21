@@ -103,7 +103,7 @@ ICoordinatePoint ensures your class has the following:
     - *container:* The transform of the GameObject to add as a parent of the plotted point prefab
     - *layer:* The layer from *Tags and Layers* to use for the plotted point prefab
     
-The main point of this protocol is to call the `Plot(Transform planet, Transform container, int layer)` function and handle the placement of the point to the planet. Typically, you will start by calling `public static GameObject PlacePoint(Transform planet, Transform container, Location location, GameObject prefab)` (Outlined below), which returns the plotted GameObject. Once you have the GameObject, you can make any adjustments you need. Here is an example from the Earthquake Demo:
+The main point of this protocol is to call the `Plot(Transform planet, Transform container, int layer)` function and handle the placement of the point to the planet. Typically, you will start by calling `PlanetUtility.PlacePoint()`, which returns the plotted GameObject. Once you have the GameObject, you can make any adjustments you need. Here is an example from the Earthquake Demo:
 
 ```c#
 public GameObject Plot(Transform planet, Transform container, int layer) {
@@ -139,14 +139,14 @@ Can be added to the planet GameObject in order to visualize the data as a heatma
 - *Hm Renderer:* The GameObject containing the Mesh Renderer with the proper *Overlay* material (described above)
 
 There are two steps to generating a heatmap:
-- Ensure you have a material on your planet that accepts can accept and display a secondary texture. There are a number of premade materials for this located at `Coordinate_Mapping > Materials`, they have *Overlay* appended to the name. Also, the Overlay versions of the planets from the *Add a planet* section outlined above come setup to accept a heatmap.
+- Ensure you have a material on your planet that can accept and display a secondary texture. There are a number of premade materials for this located at `Coordinate_Mapping > Materials`, they have *Overlay* appended to the name. Also, the Overlay versions of the planets from the *Add a planet* section outlined above come setup to accept a heatmap.
 - Call ```public async void GenerateHeatmapGrid(IEnumerable<ICoordinatePoint> points)```. This accepts a list of *ICoordinatePoint*s, generates a heatmap texture from them, and supplies it to the material as the overlay texture (using the property reference name *_OverlayTex*.
 
 The typical path for generating a heatmap would be to add the `Heatmap` script to your GameObject, then add the `GenerateHeatmapGrid` function as an event listener for your `IDataLoader`'s `loadComplete` event (Which sends along a list of `ICoordinatePoint`s). Here is an example from the Earthquake demo:
 
 <img align="center" src="meta/heatmap_loadcomplete.png" >
 
-**Note:** The heatmap only takes _frequency_ of points at a location in to account. The more data points in a given area, the "hotter" the location. It doesn't take additional parameters in to account to modify the weight that each plot gives to the heatmap.
+**Note:** The heatmap only takes _frequency_ of points at a location into account. The more data points in a given area, the "hotter" the location. It doesn't take additional parameters in to account to modify the weight that each plot gives to the heatmap.
 
 ## Demos
 
