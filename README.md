@@ -1,3 +1,5 @@
+<img align="center" src="meta/coordinate_mapper_logo.png" >
+
 # Global Coordinate Mapper
 
 The Global Coordinate Mapper is a free, open source project for visualizing data sets across a globe in Unity. It gives you the flexibility to visualize data without having to set up custom models or adhere to specific json schemas, but the power to add any customization you need!
@@ -8,7 +10,7 @@ Global Coordinate Mapper will do the spherical UV mapping for you, so no need fo
 
 Please download and install Global Coordinate Mapper from the Unity Asset Store: {Add link once available}
 
-**Note:** This project uses [JSON.Net for Unity](https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347). So please also import this asset in to your project.
+**Note:** This project uses [JSON.Net for Unity](https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347). So please also import this asset into your project.
 
 ## Initial Setup
 
@@ -146,7 +148,7 @@ The typical path for generating a heatmap would be to add the `Heatmap` script t
 
 <img align="center" src="meta/heatmap_loadcomplete.png" >
 
-**Note:** The heatmap only takes _frequency_ of points at a location into account. The more data points in a given area, the "hotter" the location. It doesn't take additional parameters in to account to modify the weight that each plot gives to the heatmap.
+**Note:** The heatmap only takes _frequency_ of points at a location into account. The more data points in a given area, the "hotter" the location. It doesn't take additional parameters into account to modify the weight that each plot gives to the heatmap.
 
 ## Demos
 
