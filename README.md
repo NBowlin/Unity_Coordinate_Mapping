@@ -1,14 +1,14 @@
 <img align="center" src="meta/coordinate_mapper_logo.png" >
 
-# Global Coordinate Mapper
+# Coordinate Mapper
 
-The Global Coordinate Mapper is a free, open source project for visualizing data sets across a globe in Unity. It gives you the flexibility to visualize data without having to set up custom models or adhere to specific json schemas, but the power to add any customization you need!
+The Coordinate Mapper is a free, open source project for visualizing data sets across a globe in Unity. It gives you the flexibility to visualize data without having to set up custom models or adhere to specific json schemas, but the power to add any customization you need!
 
-Global Coordinate Mapper will do the spherical UV mapping for you, so no need for custom planet models or meshes.
+Coordinate Mapper will do the spherical UV mapping for you, so no need for custom planet models or meshes.
 
 ## Installation
 
-Please download and install Global Coordinate Mapper from the Unity Asset Store: {Add link once available}
+Please download and install Coordinate Mapper from the Unity Asset Store: {Add link once available}
 
 **Note:** This project uses [JSON.Net for Unity](https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347). So please also import this asset into your project.
 
@@ -24,7 +24,7 @@ To add a planet just right click on the scene hierarchy and choose `Planet` or u
 **Include a Planet layer:** 
 In order for the the plotting to work properly, you must add a `Planet` layer to your project, and set the created planet to use that layer. You can add a layer by going to `Edit > Project Settings > Tags and Layers`.
 
-**Note**: In order to use any of the Global Coordinate Mapper scripts in code you must include the namespace by adding `using CoordinateMapper` to the top of your script.
+**Note**: In order to use any of the Coordinate Mapper scripts in code you must include the namespace by adding `using CoordinateMapper` to the top of your script.
 
 ## Visualization Options
 Coordinate Mapper provides two different paths to visualizing data. A default visualizer and a custom visualizer. The default implementation is for users who just want to see their data visualized and don't need to adjust or add anything to the process. In order to use the default visualization all you need is data that contains latitude and longitude keys formatted in accordance with any of the supported formats (Outline in *KeyFormat* below). The custom visualization is for users who have additional needs in terms of properties used to map points or visual adjustments.
