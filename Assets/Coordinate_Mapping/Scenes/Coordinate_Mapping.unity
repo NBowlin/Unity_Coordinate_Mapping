@@ -309,8 +309,8 @@ MonoBehaviour:
   lookAt: {fileID: 2106863820}
   minPanSpeed: 20
   maxPanSpeed: 180
-  minCameraDistance: 1.3
-  maxCameraDistance: 7.5
+  minCameraDistance: 0.15
+  maxCameraDistance: 0.6
   zoomSpeed: 0.7
 --- !u!45 &1263628678
 Skybox:
@@ -490,6 +490,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1099680528862596780, guid: 986506302133382418d6b89978890fae,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d5d9e70285054de8be5141e443940fe, type: 2}
     - target: {fileID: 1099680528862596787, guid: 986506302133382418d6b89978890fae,
         type: 3}
       propertyPath: m_Layer
@@ -573,8 +578,8 @@ MonoBehaviour:
   _loadComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2106863818}
-        m_MethodName: GenerateHeatmapGrid
+      - m_Target: {fileID: 0}
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

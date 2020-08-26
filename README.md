@@ -162,7 +162,7 @@ Here is an example from the Earthquake demo:
 
 There are two demo projects included within the package to demonstrate how certain implementations work:
 
-**Earthquake Demo**
+### Earthquake Demo
 (located under `Coordinate_Mapping > Earthquake_Demo_Scene`)
 
 This demo uses data for all earthquakes that happened around the world from 01/01/2019 to 01/01/2020 with a magnitude of 3.0 or greater. The dataset was obtained from the [U.S. Geological Survey website](https://earthquake.usgs.gov/earthquakes/search/).
@@ -177,7 +177,9 @@ If you wish to just look at the heatmap, there is a `Hide points` check-box that
 
 <p align="center"><img src="meta/eq_demo_800x451.gif" ></p>
 
-**Real-time Flights Demo**
+The space skybox in the background is from the asset store package [SpaceSkies Free](https://assetstore.unity.com/packages/2d/textures-materials/sky/spaceskies-free-80503)
+
+### Real-time Flights Demo
 (located under `Coordinate_Mapping > Realtime_Flights_Demo`)
 
 This demo uses [The OpenSky Network API](https://opensky-network.org/apidoc/index.html) to pull real-time data about current flights around the world and plot them over the globe.
