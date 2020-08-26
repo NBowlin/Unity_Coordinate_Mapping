@@ -2,6 +2,10 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
+
+#Since this is a framework, just ignore anything in my Asset_Store folder (The user will need to get the package themselves)
+/[Aa]ssets/Asset_Store*
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
