@@ -595,3 +595,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2106863816}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2106863821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106863817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25cd287a6b9002a46810aaec4b0242e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graticulePrefab: {fileID: 7361751519301403918, guid: 8f6d5ec14d796ae45bb6a4fbc92b0f69,
+    type: 3}
+  lineMat: {fileID: 2100000, guid: 1d3bf5fc5b7347548ac2bf33c797d491, type: 2}
+  segments: 180
+  degreesBetweenLines: 10
+  drawType: 0
+  drawParallels: 1
+  drawMeridians: 1

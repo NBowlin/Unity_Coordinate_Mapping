@@ -56,7 +56,7 @@ The default visualizer also supports an **optional** magnitude key, which will s
 
 <p align="center"><img src="meta/default_visualizer.png" ></p>
 
-Just fill out the appropriate properties and press play! You should see your data mapped to the planet!
+Just fill out the appropriate properties and press Play! You should see your data mapped to the planet!
 
 ### Custom Visualization
 While the default visualizer is great to get something displaying quickly, it is purposefully limited in its use. If you require any extra keys other than *Latitude*, *Longitude*, and *Magnitude*, or if you want to customize the way GameObjects get mapped on to the planet, etc..., you will need to take the customized approach.
@@ -191,3 +191,15 @@ We then hit the API 10 seconds after each response, and update the information a
 Pressing the spacebar with the cursor hovering over a plane will display a text box with additional information about that flight and pressing it with the cursor off of a plane will hide the box. You can use the mouse to rotate the camera around the Earth, as well as use the `z` and `x` keys to zoom the camera in and out.
 
 <p align="center"><img src="meta/flight_demo_800x451.gif" ></p>
+
+## License
+
+Coordinate Mapper is free software distributed under the terms of the MIT license, reproduced below. Coordinate Mapper may be used for any purpose, including commercial purposes, at absolutely no cost. No paperwork, no royalties, no GNU-like "copyleft" restrictions. Just download and enjoy.
+
+Copyright (c) 2020 Nicholas Bowlin
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

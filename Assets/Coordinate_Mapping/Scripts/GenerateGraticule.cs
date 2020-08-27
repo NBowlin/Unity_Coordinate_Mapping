@@ -5,69 +5,17 @@ using System.Linq;
 
 namespace CoordinateMapper {
     public class GenerateGraticule : MonoBehaviour {
-        private enum DrawingTechnique {
-            LineRenderer,
-            MeshTopologyLines,
-            CustomMesh
-        };
-
-        [SerializeField] private GameObject graticulePrefab = null;
         [SerializeField] private Material lineMat = null;
 
         [SerializeField] private int segments = 0;
         [SerializeField] private int degreesBetweenLines = 0;
-
-        [SerializeField] private DrawingTechnique drawType = DrawingTechnique.MeshTopologyLines;
 
         [SerializeField] private bool drawParallels = true;
         [SerializeField] private bool drawMeridians = true;
 
         // Start is called before the first frame update
         void Start() {
-
-            switch (drawType) {
-                case DrawingTechnique.LineRenderer:
-                    DrawUsingLinesRenderer();
-                    break;
-                case DrawingTechnique.MeshTopologyLines:
-                    DrawUsingMeshTopologyLines();
-                    break;
-                case DrawingTechnique.CustomMesh:
-                    DrawUsingCustomMesh();
-                    break;
-            }
-        }
-
-        void DrawUsingLinesRenderer() {
-
-            var graticuleContainer = new GameObject("Graticule");
-            graticuleContainer.transform.SetParent(transform, false);
-
-            var parallelsContainer = new GameObject("Parallels");
-            parallelsContainer.transform.SetParent(graticuleContainer.transform, false);
-
-            var meridiansContainer = new GameObject("Meridians");
-            meridiansContainer.transform.SetParent(graticuleContainer.transform, false);
-
-            for (int i = -90; i <= 90; i += degreesBetweenLines) {
-                if (drawParallels) {
-                    var latGraticuleGO = Instantiate(graticulePrefab, parallelsContainer.transform);
-                    latGraticuleGO.name = "" + i;
-                    var latGraticule = latGraticuleGO.GetComponent<DrawGraticuleLine>();
-                    latGraticule.segments = segments;
-                    latGraticule.angle = i;
-                    latGraticule.isLatitude = true;
-                }
-
-                if (drawMeridians) {
-                    var lngGraticuleGO = Instantiate(graticulePrefab, meridiansContainer.transform);
-                    lngGraticuleGO.name = "" + i;
-                    var lngGraticule = lngGraticuleGO.GetComponent<DrawGraticuleLine>();
-                    lngGraticule.segments = segments;
-                    lngGraticule.angle = i;
-                    lngGraticule.isLatitude = false;
-                }
-            }
+            DrawUsingMeshTopologyLines();
         }
 
         void DrawUsingMeshTopologyLines() {
@@ -142,10 +90,6 @@ namespace CoordinateMapper {
             linesMesh.SetIndices(lineIndices, MeshTopology.Lines, 0, true);
 
             return container;
-        }
-
-        void DrawUsingCustomMesh() {
-
         }
     }
 }
