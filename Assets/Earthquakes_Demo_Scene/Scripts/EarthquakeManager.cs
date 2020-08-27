@@ -17,10 +17,6 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
     private List<(GameObject point, EarthquakeInfo data)> earthquakes = new List<(GameObject point, EarthquakeInfo data)>();
     private GameObject earthquakesContainer;
 
-    public bool plotFlat = false;
-
-    //TODO: Update heatmap as user moves slider
-
     private void Start() {
         earthquakesContainer = new GameObject("Earthquakes");
         earthquakesContainer.transform.SetParent(transform, false);
@@ -28,33 +24,7 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
     }
 
     public async void ParseFile(string fileText) {
-        /*var csvParsed = CsvParser.Parse(fileText);
-
-        var csvLats = csvParsed["earthquake.latitude"].Cast<float>().ToArray();
-        var csvLngs = csvParsed["earthquake.longitude"].Cast<float>().ToArray();
-        var csvMags = csvParsed["earthquake.mag"].Cast<float>().ToArray();
-
-        if(csvLats.Length != csvLngs.Length || csvLats.Length != csvMags.Length) {
-            Debug.Log("Don't have the same number of values for Latitude, Longitude, and Magnitude -- ABORTING");
-            return;
-        }
-
-        List<EarthquakePoint> earthquakes = new List<EarthquakePoint>();
-
-        for (int i = 0; i < csvLats.Length; i++) {
-            var lat = csvLats[i];
-            var lng = csvLngs[i];
-            var mag = csvMags[i];
-
-            var eP = new EarthquakePoint(lat, lng, mag);
-            eP.pointPrefab = pointPrefab;
-            var plotted = eP.Plot(transform, transform);
-            plotted.name = "" + mag;
-            earthquakes.Add(eP);
-        }*/
-
         var jsonParsed = await JsonParser.ParseAsync(fileText, new string[] { "mag", "coordinates", "title", "place", "time" });
-        //var jsonParsed = JsonParser.Parse(fileText, new string[] { "mag", "coordinates", "title", "place", "time" });
 
         var mags = jsonParsed["mag"].Select(m => Convert.ToSingle(m)).ToArray();
         var coords = jsonParsed["coordinates"].Cast<object[]>().ToArray();
@@ -73,9 +43,7 @@ public class EarthquakeManager : MonoBehaviour, IDataLoader {
             var eP = new EarthquakeInfo(lat, lng, mag, depth, place, time);
             
             eP.pointPrefab = pointPrefab;
-            //var plotted = eP.Plot(transform, earthquakesContainer.transform, LayerMask.NameToLayer("Location"));
-            var plotted = plotFlat ? eP.PlotFlat(transform, earthquakesContainer.transform, LayerMask.NameToLayer("Location")) : eP.Plot(transform, earthquakesContainer.transform, LayerMask.NameToLayer("Location"));
-
+            var plotted = eP.Plot(transform, earthquakesContainer.transform, LayerMask.NameToLayer("Location"));
 
             plotted.name = titles[i];
             earthquakes.Add((plotted, eP));

@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace CoordinateMapper {
     public enum DataKeyFormat {
-        //JsonDefaultModel, //JSON matches format outlined by my models
         JsonLatAndLngKeys, //JSON has seperate Latitude and Longitude keys in objects for each location
         JsonSingleLatLngArray, //JSON has a single array with alternating Latitude and Longitude numbers
         JsonLatLngArrays, //JSON has two arrays, one for Latitude and one for Longitude
@@ -16,7 +15,7 @@ namespace CoordinateMapper {
         [SerializeField] private TextAsset _dataFile;
         public TextAsset dataFile { get { return _dataFile; } set { _dataFile = value; } }
 
-        [SerializeField] private GameObject pointPrefab = null; //TODO: Keep this?
+        [SerializeField] private GameObject pointPrefab = null;
 
         [SerializeField] private DataKeyFormat keyFormat = DataKeyFormat.JsonLatAndLngKeys;
 

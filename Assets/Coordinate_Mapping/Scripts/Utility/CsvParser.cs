@@ -28,7 +28,7 @@ namespace CoordinateMapper {
             }
 
             for (var i = 1; i < lines.Length; i++) {
-                var values = Regex.Split(lines[i], SPLIT_RE); //TODO: This is SUPER slow - It's like 99% of parse time
+                var values = Regex.Split(lines[i], SPLIT_RE); //TODO: This is the bottleneck - It's like 99% of parse time
                 if (values.Length == 0 || values[0] == "") { continue; }
 
                 for (var j = 0; j < headers.Length && j < values.Length; j++) {

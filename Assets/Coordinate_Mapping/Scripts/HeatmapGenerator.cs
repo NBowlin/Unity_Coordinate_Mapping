@@ -29,7 +29,6 @@ namespace CoordinateMapper {
             return heatmap;
         }
 
-        //TODO: Make this more efficient
         public static int[,] GenerateValues(int w, int h, float radius, float range, int startValue, int endValue, IEnumerable<ICoordinatePoint> points) {
             int[,] heatmapGrid = new int[w, h];
 
@@ -47,8 +46,6 @@ namespace CoordinateMapper {
                 float latRatio = texLat / 180f;
                 float lngRatio = texLng / 360f;
 
-                //float xCenter = Mathf.Round(lngRatio * w);
-                //float yCenter = Mathf.Round(latRatio * h);
                 float xCenter = Mathf.Floor(lngRatio * w);
                 float yCenter = Mathf.Floor(latRatio * h);
 
@@ -75,12 +72,8 @@ namespace CoordinateMapper {
                         float lng1 = CartesianToSphericalLongitude(xCenter, w);
                         float lat1 = CartesianToSphericalLatitude(yCenter, h);
 
-                        //Location l = new Location(lat1, lng1);
-
                         float lng = CartesianToSphericalLongitude((float)currX, (float)w);
                         float lat = CartesianToSphericalLatitude((float)y, (float)h);
-                        //float d = p.location.kmBetweenLocations(lat, lng, radius);
-                        //float d = l.kmBetweenLocations(lat, lng, radius);
                         float d = Location.kmBetweenLocations(lat1, lng1, lat, lng, radius);
 
                         if (d < range) {
@@ -103,12 +96,10 @@ namespace CoordinateMapper {
         }
 
         public static float CartesianToSphericalLatitude(float y, float gridHeight) {
-            //var centerY = y + (y >= gridHeight / 2  ? 0.5f :-0.5f); //Test vs the center of the grid point, rather than the origin
             return y / gridHeight * 180f - 90f;
         }
 
         public static float CartesianToSphericalLongitude(float x, float gridWidth) {
-            //var centerX = x + (x >= gridWidth / 2 ? 0.5f : -0.5f); //Test vs the center of the grid point, rather than the origin
             return x / gridWidth * 360f - 180f;
         }
 

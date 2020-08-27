@@ -10,8 +10,6 @@ namespace CoordinateMapper {
         public float latitude;
         public float longitude;
 
-        //public static System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-
         public Location(string place, float lat, float lng) {
             name = place;
             latitude = lat;
@@ -35,7 +33,6 @@ namespace CoordinateMapper {
             return kmBetweenLocations(latitude, longitude, lat2, lon2, radius);
         }
 
-        //TODO: This is actually fairly expensive: https://latkin.org/blog/2014/11/09/a-simple-benchmark-of-various-math-operations/
         public static float kmBetweenLocations(float lat1, float lon1, float lat2, float lon2, float radius) {
             //radius is in meters (Earth's radius is 6371000)
             //φ is latitude, λ is longitude, R is earth’s radius(mean radius = 6,371km);
@@ -56,8 +53,6 @@ namespace CoordinateMapper {
             float d = (R * c) / 1000f; //kilometers
             return d;*/
 
-            UnityEngine.Profiling.Profiler.BeginSample("HeatmapTrig");
-
             //Spherical Law of Cosines - in my testing about 30% faster than the Haversine formula
             //float R = 6371000f; //meters
             /*float φ1 = lat1 * Mathf.Deg2Rad;
@@ -71,24 +66,7 @@ namespace CoordinateMapper {
             int φ2 = LookupTable.Rad2Index(lat2 * Mathf.Deg2Rad);
             int Δλ = LookupTable.Rad2Index((lon2 - lon1) * Mathf.Deg2Rad);
             float d = (Mathf.Acos(sinTable[φ1] * sinTable[φ2] + cosTable[φ1] * cosTable[φ2] * cosTable[Δλ]) * radius) / 1000f;
-            UnityEngine.Profiling.Profiler.EndSample();
             return d;
-
-            /*UnityEngine.Profiling.Profiler.BeginSample("HeatmapTrig");
-
-            float lat1Sin = LookupTable.LookupSinValue(lat1);
-            float lat2Sin = LookupTable.LookupSinValue(lat2);
-
-            float lat1Cos = LookupTable.LookupCosValue(lat1);
-            float lat2Cos = LookupTable.LookupCosValue(lat2);
-
-            float lonDeltaCos = LookupTable.LookupCosValue(lon2 - lon1);
-
-            //sw.Start();
-            float d = (Mathf.Acos(lat1Sin * lat2Sin + lat1Cos * lat2Cos * lonDeltaCos) * R) / 1000f;
-            UnityEngine.Profiling.Profiler.EndSample();
-            //sw.Stop();
-            return d;*/
 
             //Equirectangular approximation - VERY inaccurate, not sure if I have something off in the formula...
             /*float x = Δλ * Mathf.Cos((φ1 + φ2) / 2f);

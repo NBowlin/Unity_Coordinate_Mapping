@@ -44,7 +44,6 @@ public class Airplane_Realtime : MonoBehaviour
 
     [SerializeField] private Transform planeModel = null;
 
-    //private float altitude = 0.1f;
     public float planetRadius;
     public float planetScale;
     private float meter;
@@ -54,7 +53,7 @@ public class Airplane_Realtime : MonoBehaviour
     void Start()
     {
         meter = planetScale / (planetRadius * 2f);
-        planet = GameObject.Find("Earth").transform; //TODO: Don't like this but quick and dirty
+        planet = GameObject.Find("Earth").transform;
         northPole = GameObject.Find("NorthPole").transform;
 
         UpdateInfo(info);

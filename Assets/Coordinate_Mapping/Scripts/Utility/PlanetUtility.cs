@@ -8,7 +8,6 @@ namespace CoordinateMapper {
             return Quaternion.Euler(0.0f, -longitude, latitude) * direction;
         }
 
-        //TODO: Better name
         public static RaycastHit? LineFromOriginToSurface(Transform planet, Vector3 line, LayerMask mask) {
             //Need to reverse the ray direction because collisions don't work from the inside of a collider
             //So take a point some distance along the line as origin, then reverse the direction
@@ -19,13 +18,7 @@ namespace CoordinateMapper {
 
             RaycastHit hit;
             
-            //Physics.Raycast(ray, hit, Dist, mask)
-            if (Physics.Raycast(ray, out hit, 200.0f, mask)) {
-                //TODO: Since we have layermask we don't need collider check anymore?
-                //if (hit.collider.gameObject == planet.gameObject) {
-                    return hit;
-                //}
-            }
+            if (Physics.Raycast(ray, out hit, 200.0f, mask)) { return hit; }
             else {
                 Debug.Log("Raycast missed Planet");
                 Debug.DrawRay(ray.origin, ray.direction * 200.0f, Color.yellow, 1000.0f);
@@ -38,11 +31,7 @@ namespace CoordinateMapper {
             RaycastHit hit;
             var planetDir = (planet.position - orbiter.position).normalized;
 
-            if (Physics.Raycast(orbiter.position, planetDir, out hit, maxDist, mask)) {
-                //if (hit.collider.gameObject == planet.gameObject) {
-                    return hit;
-                //}
-            }
+            if (Physics.Raycast(orbiter.position, planetDir, out hit, maxDist, mask)) { return hit; }
 
             return null;
         }

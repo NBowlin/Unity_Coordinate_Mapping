@@ -23,15 +23,12 @@ namespace CoordinateMapper {
 
         // Start is called before the first frame update
         void Start() {
-            //Jump camera to inital location
-            //cam.transform.position = new Vector3(lookAt.transform.position.x, lookAt.transform.position.y, lookAt.transform.position.z - lookAt.transform.localScale.z / 2 - maxCameraDistance);
             StoreCameraDistance();
             CalculatePanSpeed();
         }
 
         // Update is called once per frame
         void Update() {
-            //TODO: Adjust keys to zoom
             if (Input.GetKey(KeyCode.Z)) { ZoomCamera(true); }
             else if (Input.GetKey(KeyCode.X)) { ZoomCamera(false); }
 

@@ -11,6 +11,5 @@ namespace CoordinateMapper {
         void ParseFile(string fileText);
     }
 
-    //TODO: Updated this to ICoordinatePoint - Check back after rework
     [System.Serializable] public class DataLoadedEvent : UnityEvent<IEnumerable<ICoordinatePoint>> { }
 }

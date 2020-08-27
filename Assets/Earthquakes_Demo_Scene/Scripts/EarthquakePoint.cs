@@ -53,20 +53,6 @@ public class EarthquakeInfo: ICoordinatePoint {
         xCenter = xCenter - w / 2f;
         yCenter = yCenter - h / 2f;
 
-        /*Debug.Log("X/Y: " + xCenter + "/" + yCenter);
-
-        xCenter = Mathf.Floor(xCenter);
-        yCenter = Mathf.Floor(yCenter);
-
-        Debug.Log("2 X/Y: " + xCenter + "/" + yCenter);*/
-
-        //xCenter = (int)Mathf.Clamp(xCenter, 0f, w - 1);
-        //yCenter = (int)Mathf.Clamp(yCenter, 0f, h - 1);
-
-        /*var go = UnityEngine.Object.Instantiate(pointPrefab, new Vector3(xCenter, yCenter, 0f), Quaternion.identity, container);
-        go.name = location.name;
-        return go;*/
-
         var go = UnityEngine.Object.Instantiate(pointPrefab, new Vector3(xCenter, 0f, yCenter), Quaternion.identity, container);
         go.name = location.name;
 

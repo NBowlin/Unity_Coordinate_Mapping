@@ -13,7 +13,6 @@ namespace CoordinateMapper {
         public static float[] cosTable = new float[subdivision];
 
         static LookupTable() {
-            //float delta = pi2 / subdivision;
             double delta = Math.PI * 2 / subdivision;
             double v = 0.0;
             for (int i = 0; i < subdivision; i++) {
