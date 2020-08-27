@@ -8,9 +8,11 @@ Also, Coordinate Mapper will do the spherical UV mapping for you, so no need for
 
 ## Installation
 
-Please download and install Coordinate Mapper from the Unity Asset Store: {Add link once available}
+* Please download and install Coordinate Mapper from the Unity Asset Store: {Add link once available}
+* Import [JSON.Net for Unity](https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347) into your project.
+* Add a `Planet` layer to your project: `Edit > Project Settings > Tags and Layers`.
 
-You'll also need to import [JSON.Net for Unity](https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347) into your project.
+*Alternative*: if you don't wish to use the Asset Store, you can download the `Coordinate_Mapper.unitypackage` located in the `/meta/` folder. Inside of your unity project, right click on the *Assets* folder and choose `Import Package > Custom Package...`, then select the downloaded package to import.
 
 ## Initial Setup
 
@@ -34,7 +36,7 @@ Coordinate Mapper provides two different paths to visualizing data, a default vi
 ### Default Visualization
 
 **Add the visualizer script**:
-Once you have setup your planet, select it in the scene view and add the `Default Visualizer` script. This script will take a dataset, parse it, and plot the points using the default implementations provided with the framework. It supports a number of different data schemas outlined below.
+Once you have setup your planet, select it in the scene view and add the `Default Visualizer` script. This script will take a dataset, parse it, and plot the points using the default implementations provided with the framework. The supported schemas are outlined below:
 
 **Properties:**
 
@@ -163,7 +165,7 @@ Here is an example from the Earthquake demo:
 There are two demo projects included within the package to demonstrate how certain implementations work:
 
 ### Earthquake Demo
-(located under `Coordinate_Mapping > Earthquake_Demo_Scene`)
+(located under `Coordinate_Mapping > Demos > Earthquake_Demo_Scene`)
 
 This demo uses data for all earthquakes that happened around the world from 01/01/2019 to 01/01/2020 with a magnitude of 3.0 or greater. The dataset was obtained from the [U.S. Geological Survey website](https://earthquake.usgs.gov/earthquakes/search/).
 
@@ -180,7 +182,7 @@ If you wish to just look at the heatmap, there is a `Hide points` check-box that
 The space skybox in the background is from the asset store package [SpaceSkies Free](https://assetstore.unity.com/packages/2d/textures-materials/sky/spaceskies-free-80503)
 
 ### Real-time Flights Demo
-(located under `Coordinate_Mapping > Realtime_Flights_Demo`)
+(located under `Coordinate_Mapping > Demos > Realtime_Flights_Demo`)
 
 This demo uses [The OpenSky Network API](https://opensky-network.org/apidoc/index.html) to pull real-time data about current flights around the world and plot them over the globe.
 
