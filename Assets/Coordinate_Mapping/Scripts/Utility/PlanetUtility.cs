@@ -20,7 +20,7 @@ namespace CoordinateMapper {
             
             if (Physics.Raycast(ray, out hit, 200.0f, mask)) { return hit; }
             else {
-                Debug.Log("Raycast missed Planet");
+                Debug.Log("Raycast missed Planet - Please ensure you're object is set to a 'Planet' layer.");
                 Debug.DrawRay(ray.origin, ray.direction * 200.0f, Color.yellow, 1000.0f);
             }
 

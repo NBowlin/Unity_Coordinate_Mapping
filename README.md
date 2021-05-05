@@ -8,11 +8,13 @@ Also, Coordinate Mapper will do the spherical UV mapping for you, so no need for
 
 ## Installation
 
-* Please download and install Coordinate Mapper from the Unity Asset Store: {Add link once available}
+* Please download and install Coordinate Mapper from the Unity Asset Store: [Coordinate Mapper](https://assetstore.unity.com/packages/templates/systems/coordinate-mapper-177904)
 * Import [JSON.Net for Unity](https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347) into your project.
 * Add a `Planet` layer to your project: `Edit > Project Settings > Tags and Layers`.
 
 *Alternative*: if you don't wish to use the Asset Store, you can download the `Coordinate_Mapper.unitypackage` located in the `/meta/` folder. Inside of your unity project, right click on the *Assets* folder and choose `Import Package > Custom Package...`, then select the downloaded package to import.
+
+**Note:** This project uses the new render pipelines, so all the shaders should work on the Universal Render Pipeline and the High Definition Render Pipeline. If you are using the Standard Render Pipeline you will have to update the shader assets to get them to display properly.
 
 ## Initial Setup
 
@@ -163,6 +165,8 @@ Here is an example from the Earthquake demo:
 ## Demos
 
 There are two demo projects included within the package to demonstrate how certain implementations work:
+
+**Note:** In order for either of these demos to work you must have a `Planet` layer on layer 8, and a `Location` layer on layer 9.
 
 ### Earthquake Demo
 (located under `Coordinate_Mapping > Demos > Earthquake_Demo_Scene`)
